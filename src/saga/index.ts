@@ -2,10 +2,16 @@ import { all, takeLatest } from "redux-saga/effects";
 import { EngineHandle } from "../engineHandle";
 import { sayHello } from "../reducer";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { loadWasm } from "../engineHandle/wasmLoader";
+import { Commands } from "../engineHandle/wasmLoader/specs";
 
 export default function* saga() {
-  const handle = new EngineHandle();
-  yield handle.initialize();
+  yield engineSaga();
+}
+
+function* engineSaga() {
+  const commands: Commands = yield loadWasm();
+  const handle = new EngineHandle(commands);
   yield all([takeLatest(sayHello.type, sayHelloSaga(handle))]);
 }
 

@@ -1,14 +1,13 @@
-import { loadWasm } from "./wasmLoader";
 import { Commands } from "./wasmLoader/specs";
 
 export class EngineHandle {
-  private commands?: Commands;
+  private commands: Commands;
 
-  public async initialize() {
-    this.commands = await loadWasm();
+  constructor(commands: Commands) {
+    this.commands = commands;
   }
 
   public sayHello(name: string, repeat: number) {
-    return this.commands!.sayHello(name, repeat);
+    return this.commands.sayHello(name, repeat);
   }
 }
