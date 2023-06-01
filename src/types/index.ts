@@ -1,1 +1,5 @@
-export interface State {}
+export interface TestState {}
+
+export interface State {
+  test: TestState;
+}

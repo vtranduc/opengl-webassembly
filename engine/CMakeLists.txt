@@ -3,14 +3,21 @@ cmake_minimum_required(VERSION 3.26.3)
 # Project name
 project(engine)
 
-# Executable
-add_executable(${PROJECT_NAME} main.cpp)
 
 # Exported functions
 set(
     ENGINE_EXPORTED_FUNCTIONS
     _sayHello
+    _initialize
+    _setClearColor
 )
+
+# Include associated files
+file(GLOB_RECURSE HEADERS headers/*.h)
+file(GLOB_RECURSE SOURCES src/*.cpp)
+
+# Executable
+add_executable(${PROJECT_NAME} main.cpp ${SOURCES} ${HEADERS})
 
 list(JOIN ENGINE_EXPORTED_FUNCTIONS "," COMMA_EXPORTED_FUNCTIONS)
 

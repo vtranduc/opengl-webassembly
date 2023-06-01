@@ -1,17 +1,28 @@
 import "./App.css";
 import { useDispatch } from "react-redux";
-import { sayHello } from "./reducer";
+import { sayHello, setClearColor } from "./reducer";
 
 function App() {
   const dispatch = useDispatch();
   return (
     <div>
-      <button
-        onClick={() => dispatch(sayHello({ name: "Tanjiro", repeat: 7 }))}
-      >
-        Say Hello
-      </button>
-      <canvas id="glCanvas" />
+      <div>
+        <button
+          onClick={() => dispatch(sayHello({ name: "Tanjiro", repeat: 7 }))}
+        >
+          Say Hello
+        </button>
+        <button onClick={() => dispatch(setClearColor(0xff00ff))}>
+          Purple
+        </button>
+        <button onClick={() => dispatch(setClearColor(0xffff00))}>
+          Yellow
+        </button>
+        <button onClick={() => dispatch(setClearColor(0xc5d3eb))}>
+          Soft blue
+        </button>
+      </div>
+      <canvas id="canvas" />
     </div>
   );
 }
