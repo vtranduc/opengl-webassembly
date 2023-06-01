@@ -1,4 +1,9 @@
-import { PayloadAction, Reducer, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  Reducer,
+  createAction,
+  createSlice,
+} from "@reduxjs/toolkit";
 import { State, TestState } from "../types";
 
 // Placeholder slice, to be removed
@@ -16,8 +21,10 @@ const rootReducer: Record<keyof State, Reducer> = {
   test: testSlice.reducer,
 };
 
+const initialize = createAction("initialize");
+
 export default rootReducer;
 
 const { sayHello, setClearColor } = testSlice.actions;
 
-export { sayHello, setClearColor };
+export { sayHello, setClearColor, initialize };

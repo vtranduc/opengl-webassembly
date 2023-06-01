@@ -1,9 +1,17 @@
 import "./App.css";
 import { useDispatch } from "react-redux";
-import { sayHello, setClearColor } from "./reducer";
+import { initialize, sayHello, setClearColor } from "./reducer";
+import { useEffect, useRef } from "react";
 
 function App() {
   const dispatch = useDispatch();
+  const ref = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    dispatch(initialize());
+  }, [ref, dispatch]);
+
   return (
     <div>
       <div>
@@ -22,7 +30,7 @@ function App() {
           Soft blue
         </button>
       </div>
-      <canvas id="canvas" />
+      <canvas ref={ref} id="canvas" />
     </div>
   );
 }
