@@ -14,7 +14,15 @@ extern "C" const char* sayHello(char* name, int repeat) {
 }
 
 extern "C" int initialize(char* canvasId, int clearColor) {
-    return handle.initialize(canvasId, clearColor);
+    // return handle.initialize(canvasId, clearColor);
+
+    return handle.test3(canvasId);
+}
+
+extern "C" int render() {
+    // return handle.render();
+
+    return 0;
 }
 
 extern "C" int setClearColor(int color) {

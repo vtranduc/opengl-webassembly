@@ -15,10 +15,29 @@ function* engineSaga() {
   const handle = new EngineHandle(commands);
   const result = handle.initialize("canvas", 0xc5d3eb);
   if (!result) throw new Error("Failed to initialize the engine!");
+
+  render(handle);
+
   yield all([
     takeLatest(sayHello.type, sayHelloSaga(handle)),
     takeLatest(setClearColor.type, setClearColorSaga(handle)),
   ]);
+}
+
+function render(handle: EngineHandle) {
+  let i = 0;
+
+  handle.render();
+
+  // const loop = () => {
+  //   //
+
+  //   handle.render();
+
+  //   if (i++ < 0) requestAnimationFrame(loop);
+  // };
+
+  // requestAnimationFrame(loop);
 }
 
 function sayHelloSaga(handle: EngineHandle) {

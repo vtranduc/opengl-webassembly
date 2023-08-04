@@ -15,6 +15,10 @@ export class EngineHandle {
     return this.commands.initialize(canvasId, clearColor);
   }
 
+  public render() {
+    return this.commands.render();
+  }
+
   public setClearColor(color: number) {
     return this.commands.setClearColor(color);
   }

@@ -37,6 +37,11 @@ const exportedFunctions: wasmExportedFunctionData[] = [
     ],
   },
   {
+    name: "render",
+    return: WasmCommunicationDataType.Number,
+    params: [],
+  },
+  {
     name: "setClearColor",
     return: WasmCommunicationDataType.Number,
     params: [WasmCommunicationDataType.Number],
@@ -48,5 +53,6 @@ export { id, path, timeoutInSeconds, exportedFunctions };
 export type Commands = {
   sayHello: (name: string, repeat: number) => string;
   initialize: (canvasId: string, clearColor: number) => number;
+  render: () => number;
   setClearColor: (color: number) => number;
 };
