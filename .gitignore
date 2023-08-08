@@ -12,6 +12,7 @@
 /build
 /public/build
 /engine/build
+/engine/headers/shaderSource.h
 
 # misc
 .DS_Store
