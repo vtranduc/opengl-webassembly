@@ -1,43 +1,43 @@
 #include "../headers/webglHandle.h"
 
-GLuint getShader(const GLchar* source, GLenum type) {
-    GLuint shader = glCreateShader(type);
+// GLuint getShader(const GLchar* source, GLenum type) {
+//     GLuint shader = glCreateShader(type);
 
-    glShaderSource(shader, 1, &source, NULL);
+//     glShaderSource(shader, 1, &source, NULL);
 
-    glCompileShader(shader);
+//     glCompileShader(shader);
 
-    GLint  success;
-    GLchar infoLog[512];
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        // return 0;
+//     GLint  success;
+//     GLchar infoLog[512];
+//     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+//     if (!success) {
+//         // return 0;
 
-        glGetShaderInfoLog(shader, 512, NULL, infoLog);
-        cout << "Shader has failed to compiled: " << infoLog << endl;
-    }
+//         glGetShaderInfoLog(shader, 512, NULL, infoLog);
+//         cout << "Shader has failed to compiled: " << infoLog << endl;
+//     }
 
-    return shader;
-};
+//     return shader;
+// };
 
-GLuint getShaderProgram(GLuint vertexShader, GLuint fragmentShader) {
-    GLuint program = glCreateProgram();
+// GLuint getShaderProgram(GLuint vertexShader, GLuint fragmentShader) {
+//     GLuint program = glCreateProgram();
 
-    glAttachShader(program, vertexShader);
-    glAttachShader(program, fragmentShader);
+//     glAttachShader(program, vertexShader);
+//     glAttachShader(program, fragmentShader);
 
-    glLinkProgram(program);
+//     glLinkProgram(program);
 
-    GLint  success;
-    GLchar infoLog[512];
-    glGetProgramiv(program, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(program, 512, NULL, infoLog);
-        cout << "Program has failed to link: " << infoLog << endl;
-    }
+//     GLint  success;
+//     GLchar infoLog[512];
+//     glGetProgramiv(program, GL_LINK_STATUS, &success);
+//     if (!success) {
+//         glGetProgramInfoLog(program, 512, NULL, infoLog);
+//         cout << "Program has failed to link: " << infoLog << endl;
+//     }
 
-    return program;
-};
+//     return program;
+// };
 
 int WebGLHandle::initialize(char* canvasId, int clearColor) {
     setContextAttribute();
@@ -60,43 +60,43 @@ int WebGLHandle::initialize(char* canvasId, int clearColor) {
 
     cout << "=== hello triangle starts ===" << endl;
 
-    const GLchar* vertexShaderSource =
-        "precision highp float;"
-        "\n"
-        // "layout (location = 0) in vec3 aPos;"
-        "attribute vec3 position;"
-        "\n"
-        "void main()\n"
-        "{\n"
-        "   gl_Position = vec4(position, 1.0);\n"
-    "}\n";
+    // const GLchar* vertexShaderSource =
+    //     "precision highp float;"
+    //     "\n"
+    //     // "layout (location = 0) in vec3 aPos;"
+    //     "attribute vec3 position;"
+    //     "\n"
+    //     "void main()\n"
+    //     "{\n"
+    //     "   gl_Position = vec4(position, 1.0);\n"
+    // "}\n";
 
-    const GLchar* fragmentShaderSource =
-        "precision highp float;"
-        "\n"
-        "uniform vec3 uColor;\n"
-        // "uniform vec3 helloWorld;\n"
-        "uniform float r;\n"
-        "uniform float b;\n"
-        "\n"
-        "void main()\n"
-        "{\n"
-        "   gl_FragColor = vec4(uColor, 1.0);\n"
-    "}\n";
+    // const GLchar* fragmentShaderSource =
+    //     "precision highp float;"
+    //     "\n"
+    //     "uniform vec3 uColor;\n"
+    //     // "uniform vec3 helloWorld;\n"
+    //     "uniform float r;\n"
+    //     "uniform float b;\n"
+    //     "\n"
+    //     "void main()\n"
+    //     "{\n"
+    //     "   gl_FragColor = vec4(uColor, 1.0);\n"
+    // "}\n";
 
-    // --------------
+    // // --------------
 
-    std::string content = "hello hello hello aoru: ";
+    // std::string content = "hello hello hello aoru: ";
 
     // cout << build_number << endl;
 
-    ifstream  f("basic.glsl");
+    // ifstream  f("basic.glsl");
 
-    // fileStream.open(("basicdfadsfdss.glsl"));
+    // // fileStream.open(("basicdfadsfdss.glsl"));
 
-    if (f.fail()) {
-        cout << "failed???" << endl;
-    }
+    // if (f.fail()) {
+    //     cout << "failed???" << endl;
+    // }
 
     // // std::ifstream t("file.txt");
     // // std::string buffer;
@@ -136,8 +136,12 @@ int WebGLHandle::initialize(char* canvasId, int clearColor) {
 
     // --------------
 
-    GLuint vertexShader = getShader(vertexShaderSource, GL_VERTEX_SHADER);
-    GLuint fragmentShader = getShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
+    // GLuint vertexShader = getShader(vertexShaderSource, GL_VERTEX_SHADER);
+
+
+    GLuint vertexShader = getShader(Shader::Vertex::Basic);
+
+    GLuint fragmentShader = getShader(Shader::Fragment::Mono);
 
     GLuint program = getShaderProgram(vertexShader, fragmentShader);
 
@@ -147,7 +151,7 @@ int WebGLHandle::initialize(char* canvasId, int clearColor) {
 
     float color[3] = { 1.0, 0.0, 1.0 };
 
-    const vec3 hatsune(1.0, 0.0, 0.0);
+    // const vec3 hatsune(1.0, 0.0, 0.0);
 
     
 

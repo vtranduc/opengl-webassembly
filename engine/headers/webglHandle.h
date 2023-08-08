@@ -9,15 +9,22 @@
 
 #include <fstream>
 
+#include "shader.h"
+
+#include "presets.h"
+
+
+// #include <shaderSource.
+
 
 
 
 // #include <glm/glm.hpp>
-#include "/usr/include/glm/glm.hpp"
+// #include "/usr/include/glm/glm.hpp"
 
 using namespace std;
 
-using namespace glm;
+// using namespace glm;
 
 class WebGLHandle {
     public:

@@ -22,41 +22,41 @@ extern "C" const char* sayHello(char* name, int repeat) {
 }
 
 extern "C" int initialize(char* canvasId, int clearColor) {
-    FILE *fp;
-    long size = 0;
-    char* shaderContent;
+    // FILE *fp;
+    // long size = 0;
+    // char* shaderContent;
 
-    fp = fopen("basic.glsl", "rb");
-    if (fp == NULL) {
-        cout << "NO" << endl;
-    } else {
-        cout << "YES" << endl;
-    }
-
-
-    // std::cout << "Current path is " << fs::current_path() << '\n';
-
-
-    ifstream  f("basic.glsl");
-
-    // fileStream.open(("basicdfadsfdss.glsl"));
-
-    // if (f.fail()) {
-    //     cout << "failed??? 55555555555" << endl;
+    // fp = fopen("basic.glsl", "rb");
+    // if (fp == NULL) {
+    //     cout << "NO" << endl;
+    // } else {
+    //     cout << "YES" << endl;
     // }
 
-    if (f.is_open())
-    {
-        // while ( getline (myfile,line) )
-        // {
-        //     cout << line << '\n';
-        // }
-        // myfile.close();
 
-        cout << "ok w" << endl;
-    }
+    // // std::cout << "Current path is " << fs::current_path() << '\n';
 
-    else cout << "Unable to open file BED\n";
+
+    // ifstream  f("basic.glsl");
+
+    // // fileStream.open(("basicdfadsfdss.glsl"));
+
+    // // if (f.fail()) {
+    // //     cout << "failed??? 55555555555" << endl;
+    // // }
+
+    // if (f.is_open())
+    // {
+    //     // while ( getline (myfile,line) )
+    //     // {
+    //     //     cout << line << '\n';
+    //     // }
+    //     // myfile.close();
+
+    //     cout << "ok w" << endl;
+    // }
+
+    // else cout << "Unable to open file BED\n";
 
 
     return handle.initialize(canvasId, clearColor);

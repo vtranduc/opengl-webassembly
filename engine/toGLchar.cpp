@@ -18,7 +18,7 @@ int main() {
 
     // Vertex shaders
 
-    content += "static string getShaderSource(Shader::Vertex shader) {\n";
+    content += "static const GLchar* getShaderSource(Shader::Vertex shader) {\n";
     content += tab1 + "switch (static_cast<int>(shader)) {\n";
     for (int i = 0; i < Shader::nVertex; i++) {        
         f.open("glsl/vertex/" + Shader::getFileName(Shader::vertexList[i]));
@@ -34,11 +34,11 @@ int main() {
         content += ";\n";
         f.close();
     }
-    content += tab2 + "default: return \"\";\n    };\n};\n\n";
+    content += tab2 + "default: return \"\";\n" + tab1 + "};\n};\n\n";
 
     // Fragment shaders
 
-    content += "static string getShaderSource(Shader::Fragment shader) {\n";
+    content += "static const GLchar* getShaderSource(Shader::Fragment shader) {\n";
     content += tab1 + "switch (static_cast<int>(shader)) {\n";
 
     for (int i = 0; i < Shader::nFragment; i++) {
