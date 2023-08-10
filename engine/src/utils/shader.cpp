@@ -1,4 +1,4 @@
-#include "../../headers/utils/shader.h"
+#include "../../headers/utils.h"
 
 GLuint getShader(Shader::Vertex shader) {
     return getShader(getShaderSource(shader), GL_VERTEX_SHADER);
