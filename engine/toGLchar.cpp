@@ -20,10 +20,11 @@ int main() {
 
     content += "static const GLchar* getShaderSource(Shader::Vertex shader) {\n";
     content += tab1 + "switch (static_cast<int>(shader)) {\n";
-    for (int i = 0; i < Shader::nVertex; i++) {        
-        f.open("glsl/vertex/" + Shader::getFileName(Shader::vertexList[i]));
+    for (int i = 0; i < Shader::nVertex; i++) {
+        Shader::Vertex shader = Shader::vertexList[i];
+        f.open("glsl/vertex/" + Shader::getFileName(shader));
         if (!f.is_open()) throw "Unable to open glsl file";
-        content += tab2 + "case " + to_string(i) + ": return";
+        content += tab2 + "case " + to_string(static_cast<int>(shader)) + ": return";
         while (!f.eof()) {
             content += "\n";
             getline(f, line);
@@ -42,9 +43,10 @@ int main() {
     content += tab1 + "switch (static_cast<int>(shader)) {\n";
 
     for (int i = 0; i < Shader::nFragment; i++) {
-        f.open("glsl/fragment/" + Shader::getFileName(Shader::fragmentList[i]));
+        Shader::Fragment shader = Shader::fragmentList[i];
+        f.open("glsl/fragment/" + Shader::getFileName(shader));
         if (!f.is_open()) throw "Unable to open glsl file";
-        content += tab2 + "case " + to_string(i) + ": return";
+        content += tab2 + "case " + to_string(static_cast<int>(shader)) + ": return";
         while (!f.eof()) {
             content += "\n";
             getline(f, line);
@@ -56,7 +58,7 @@ int main() {
         f.close();
     }
 
-    content += tab2 + "default: return \"\";\n    };\n};\n";
+    content += tab2 + "default: return \"\";\n" + tab1 + "};\n};\n";
 
     // Write source file
 

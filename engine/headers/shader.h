@@ -7,12 +7,12 @@ using namespace std;
 class Shader {
     public:
 
-    enum class Vertex {
-        Basic
+    enum class Vertex : uint32_t {
+        Basic = 0
     };
 
-    enum class Fragment {
-        Mono
+    enum class Fragment : uint32_t {
+        Mono = 0
     };
 
     static const int nVertex = 1;
