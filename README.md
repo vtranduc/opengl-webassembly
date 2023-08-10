@@ -1,3 +1,17 @@
+## Engine set up
+
+Go to engine folder
+`cd engine/`
+First, convert glsl into C++ code by creating headerSource.h
+`sh toGLchar.sh`
+Execute build.sh inside to build the engine
+`sh build.sh`
+Engine is built inside public folder. You want to disable autorefresh for files inside public folder.
+To do this, after installation, locate
+`node_modules\react-scripts\config\webpackDevServer.config.js`
+Then, include public folder. `ignored` specifications should look like
+`ignored: [ignoredFiles(paths.appSrc), paths.appPublic]`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

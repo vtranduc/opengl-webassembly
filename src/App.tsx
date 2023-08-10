@@ -1,6 +1,6 @@
 import "./App.css";
 import { useDispatch } from "react-redux";
-import { initialize, sayHello, setClearColor } from "./reducer";
+import { initialize, sayHello, setClearColor, setUniform } from "./reducer";
 import { useEffect, useRef } from "react";
 
 function App() {
@@ -28,6 +28,16 @@ function App() {
         </button>
         <button onClick={() => dispatch(setClearColor(0xc5d3eb))}>
           Soft blue
+        </button>
+        <button
+          onClick={() => dispatch(setUniform({ type: 0, data: 0x0000ff }))}
+        >
+          Blue Triangle
+        </button>
+        <button
+          onClick={() => dispatch(setUniform({ type: 0, data: 0xffff00 }))}
+        >
+          Yellow triangle
         </button>
       </div>
       <canvas ref={ref} id="canvas" />
