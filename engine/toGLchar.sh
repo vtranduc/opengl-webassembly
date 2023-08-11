@@ -1,1 +1,1 @@
-g++ toGLchar.cpp src/shader.cpp -o toGLchar.out; ./toGLchar.out
+g++ toGLchar.cpp src/shader.cpp -o toGLchar.out -std=c++11; ./toGLchar.out
