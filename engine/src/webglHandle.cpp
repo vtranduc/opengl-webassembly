@@ -17,13 +17,22 @@ int WebGLHandle::initialize(char* canvasId, int clearColor) {
     RGB rgb = hexToRGB(clearColor);
     glClearColor(rgb.r, rgb.g, rgb.b, 1);
     glClear(GL_COLOR_BUFFER_BIT);
+    preset.init();
+    preset.set(0);
+    preset.render();
     return 1;
 };
+
+int WebGLHandle::setUniform(Preset::UniformData data) {
+    preset.setUniform(data);
+    preset.render();
+    return 1;
+}
 
 int WebGLHandle::setClearColor(int hex) {
     RGB rgb = hexToRGB(hex);
     glClearColor(rgb.r, rgb.g, rgb.b, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+    preset.render();
     return 1;
 }
 

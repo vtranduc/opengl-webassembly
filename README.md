@@ -1,3 +1,30 @@
+## Engine set up
+
+Go to engine folder\
+`cd engine/`\
+First, convert glsl into C++ code by creating headerSource.h\
+`sh toGLchar.sh`\
+Execute build.sh inside to build the engine\
+`sh build.sh`\
+Engine is built inside public folder. You want to disable autorefresh for files inside public folder.\
+To do this, after installation, locate\
+`node_modules\react-scripts\config\webpackDevServer.config.js`\
+Then, include public folder. `ignored` specifications should look like\
+`ignored: [ignoredFiles(paths.appSrc), paths.appPublic]`
+
+## Adding glsl
+
+All glsl files should have .glsl extensions.
+
+- Vertex shader should be put inside `engine/glsl/vertex`
+- Fragment shader should be put inside `engine/glsl/fragment`
+  Now, modify content of this 1 file
+  `engine/headers/shader.h`
+- Add enum for shader with unique integer assigned. These integers help to create switch case inside shaderSource.h . The code should work regardless of value assigned.
+- Update the count of nVertex/nFragment
+- Update the array vertexList/fragmentList to they contain all enums
+- Update getFileName(Vertex shader)/getFileName(Fragment shader) functions so the switch case contains newly added enum and corresponding glsl file name.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

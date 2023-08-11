@@ -10,6 +10,7 @@ set(
     _sayHello
     _initialize
     _setClearColor
+    _setUniform
 )
 
 # Include associated files
@@ -22,4 +23,9 @@ add_executable(${PROJECT_NAME} main.cpp ${SOURCES} ${HEADERS})
 list(JOIN ENGINE_EXPORTED_FUNCTIONS "," COMMA_EXPORTED_FUNCTIONS)
 
 # Settings
-set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-sEXPORTED_FUNCTIONS=[${COMMA_EXPORTED_FUNCTIONS}] -sEXPORTED_RUNTIME_METHODS=[ccall,cwrap,addFunction,UTF8ToString]")
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS
+    "-sEXPORTED_FUNCTIONS=[${COMMA_EXPORTED_FUNCTIONS}]\
+    -sEXPORTED_RUNTIME_METHODS=[ccall,cwrap,addFunction,UTF8ToString]\
+    -sMIN_WEBGL_VERSION=2\
+    -sUSE_SDL=2\
+")

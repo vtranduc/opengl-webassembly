@@ -15,6 +15,10 @@ export class EngineHandle {
     return this.commands.initialize(canvasId, clearColor);
   }
 
+  public setUniform(type: number, color: number) {
+    return this.commands.setUniform(type, color);
+  }
+
   public setClearColor(color: number) {
     return this.commands.setClearColor(color);
   }
