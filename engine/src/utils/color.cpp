@@ -13,3 +13,9 @@ GLfloat* asColorArray(RGB rgb, GLfloat* array) {
     array[2] = rgb.b;
     return array;
 }
+
+int asHex(GLfloat* array) {
+    return (((int)(round(array[0] * 255.)) & 0xff) << 16)
+        + (((int)(round(array[1] * 255.f)) & 0xff) << 8)
+        + ((int)(round(array[2] * 255.f)) & 0xff);
+}

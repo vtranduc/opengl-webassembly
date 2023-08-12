@@ -1,11 +1,12 @@
 #pragma once
 
+#include <iostream>
 #include <emscripten/html5.h>
 #include "utils.h"
 #include <GLES3/gl3.h>
 #include "shader.h"
 #include "preset.h"
-#include <iostream>
+#include <functional>
 
 using namespace std;
 
@@ -20,6 +21,10 @@ class WebGLHandle {
 
     int setClearColor(int color);
 
+    struct webCallbacks {
+        function<void(int color)> onClearColorChange;
+    }webCallbacks;
+    
     private:
 
     Preset preset;
@@ -27,4 +32,8 @@ class WebGLHandle {
     EmscriptenWebGLContextAttributes attrs;
 
     void setContextAttribute();
+
+    struct {
+        GLfloat color[3];
+    }tmp;
 };

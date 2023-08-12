@@ -1,12 +1,16 @@
 import {
+  CallbackSetters,
   Commands,
+  ModuleControl,
+  WasmCallbackType,
+  engineCallbacks,
   exportedFunctions,
   id,
   path,
   timeoutInSeconds,
 } from "./specs";
 
-export async function loadWasm(): Promise<Commands> {
+export async function loadWasm(): Promise<ModuleControl> {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       reject("Timeout: Loading WASM has failed!");
@@ -43,7 +47,24 @@ export async function loadWasm(): Promise<Commands> {
             [data.name]: module.cwrap(data.name, data.return, data.params),
           };
         }, {}) as Commands;
-        resolve(commands);
+        const callbackSetters = engineCallbacks.reduce((acc, data) => {
+          switch (data.type) {
+            case WasmCallbackType.vi:
+              return {
+                ...acc,
+                [data.name]: (callback: (param1: number) => void) =>
+                  module.ccall(
+                    data.name,
+                    "number",
+                    ["number"],
+                    [module.addFunction(callback, data.type)]
+                  ),
+              };
+            default:
+              throw new Error("Callback type is not handled");
+          }
+        }, {}) as CallbackSetters;
+        resolve({ commands, callbackSetters });
       },
     };
 

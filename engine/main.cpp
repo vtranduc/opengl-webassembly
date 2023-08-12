@@ -29,6 +29,11 @@ extern "C" int setUniform(int type, int value) {
     return handle.setUniform(data);
 }
 
+extern "C" int onClearColorChange(void(*f)(int color)) {
+    handle.webCallbacks.onClearColorChange = f;
+    return 1;
+}
+
 // int main() {
 //     cout << "Hello World" << endl;
 //     return 1;

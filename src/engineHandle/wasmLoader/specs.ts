@@ -9,6 +9,19 @@ interface wasmExportedFunctionData {
   params: WasmCommunicationDataType[];
 }
 
+export enum WasmCallbackType {
+  vi = "vi",
+}
+
+type WasmCallback<T extends WasmCallbackType> = T extends WasmCallbackType.vi
+  ? (param1: number) => void
+  : never;
+
+interface EngineCallback {
+  name: string;
+  type: WasmCallbackType;
+}
+
 // Modify accordingly to CMakeLists.txt and build.sh
 
 const id = "engine";
@@ -18,6 +31,8 @@ const path = "/build/engine.js";
 const timeoutInSeconds = 5;
 
 // The following are to be modified accordingly to WebAssembly codes manually
+
+// Engine commands
 
 const exportedFunctions: wasmExportedFunctionData[] = [
   {
@@ -59,3 +74,21 @@ export type Commands = {
   setUniform: (type: number, color: number) => number;
   setClearColor: (color: number) => number;
 };
+
+// Callbacks from the engine
+
+export const engineCallbacks: EngineCallback[] = [
+  {
+    name: "onClearColorChange",
+    type: WasmCallbackType.vi,
+  },
+];
+
+export type CallbackSetters = {
+  onClearColorChange: (callback: WasmCallback<WasmCallbackType.vi>) => number;
+};
+
+export interface ModuleControl {
+  commands: Commands;
+  callbackSetters: CallbackSetters;
+}

@@ -1,10 +1,17 @@
-import { Commands } from "./wasmLoader/specs";
+import { CallbackSetters, Commands, ModuleControl } from "./wasmLoader/specs";
 
 export class EngineHandle {
   private commands: Commands;
 
-  constructor(commands: Commands) {
+  constructor({ commands, callbackSetters }: ModuleControl) {
     this.commands = commands;
+    this.setEngineCallbacks(callbackSetters);
+  }
+
+  private setEngineCallbacks(callbackSetters: CallbackSetters) {
+    callbackSetters.onClearColorChange((color: number) =>
+      console.log("Background color: ", color)
+    );
   }
 
   public sayHello(name: string, repeat: number) {

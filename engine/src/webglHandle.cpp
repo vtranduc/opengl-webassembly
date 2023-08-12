@@ -32,6 +32,8 @@ int WebGLHandle::setUniform(Preset::UniformData data) {
 int WebGLHandle::setClearColor(int hex) {
     RGB rgb = hexToRGB(hex);
     glClearColor(rgb.r, rgb.g, rgb.b, 1);
+    glGetFloatv(GL_COLOR_CLEAR_VALUE, tmp.color);
+    webCallbacks.onClearColorChange(asHex(tmp.color));
     preset.render();
     return 1;
 }

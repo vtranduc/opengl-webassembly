@@ -11,6 +11,7 @@ set(
     _initialize
     _setClearColor
     _setUniform
+    _onClearColorChange
 )
 
 # Include associated files
@@ -26,6 +27,7 @@ list(JOIN ENGINE_EXPORTED_FUNCTIONS "," COMMA_EXPORTED_FUNCTIONS)
 set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS
     "-sEXPORTED_FUNCTIONS=[${COMMA_EXPORTED_FUNCTIONS}]\
     -sEXPORTED_RUNTIME_METHODS=[ccall,cwrap,addFunction,UTF8ToString]\
+    -sALLOW_TABLE_GROWTH\
     -sMIN_WEBGL_VERSION=2\
     -sUSE_SDL=2\
 ")

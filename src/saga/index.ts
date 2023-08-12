@@ -3,7 +3,7 @@ import { EngineHandle } from "../engineHandle";
 import { initialize, sayHello, setClearColor, setUniform } from "../reducer";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { loadWasm } from "../engineHandle/wasmLoader";
-import { Commands } from "../engineHandle/wasmLoader/specs";
+import { ModuleControl } from "../engineHandle/wasmLoader/specs";
 import { UniformData } from "../types";
 
 export default function* saga() {
@@ -12,8 +12,8 @@ export default function* saga() {
 }
 
 function* engineSaga() {
-  const commands: Commands = yield loadWasm();
-  const handle = new EngineHandle(commands);
+  const control: ModuleControl = yield loadWasm();
+  const handle = new EngineHandle(control);
   const result = handle.initialize("canvas", 0xc5d3eb);
   if (!result) throw new Error("Failed to initialize the engine!");
   yield all([
