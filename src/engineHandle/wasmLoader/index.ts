@@ -10,7 +10,7 @@ import {
   timeoutInSeconds,
 } from "./specs";
 
-export async function loadWasm(): Promise<ModuleControl> {
+export function loadWasm(): Promise<ModuleControl> {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       reject("Timeout: Loading WASM has failed!");
