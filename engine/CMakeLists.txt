@@ -10,8 +10,9 @@ set(
     _sayHello
     _initialize
     _setClearColor
-    _setUniform
+    _usePreset
     _onClearColorChange
+    _setColorTriangleColor
 )
 
 # Include associated files

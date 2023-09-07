@@ -1,4 +1,6 @@
-export interface TestState {}
+export interface TestState {
+  clearColor: number;
+}
 
 export interface State {
   test: TestState;

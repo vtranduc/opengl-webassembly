@@ -4,13 +4,12 @@
 #include "presetBase.h"
 #include "../utils.h"
 #include "../shader.h"
-#include "uniform.h"
 
 #include <iostream>
 
 using namespace std;
 
-class ColorTriangle : public PresetBase {
+class TriangleAssembly : public PresetBase {
     public:
 
     void init() override;
@@ -24,7 +23,7 @@ class ColorTriangle : public PresetBase {
     private:
 
     const float vertices[9] = {
-        -0.5f, -0.5f, 0.0f,
+        -0.5f, -1.0f, 0.0f,
         0.5f, -0.5f, 0.0f,
         0.0f,  0.5f, 0.0f
     };

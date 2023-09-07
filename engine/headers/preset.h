@@ -1,27 +1,31 @@
 #pragma once
 
+#include <iostream>
 #include "presets/colorTriangle.h"
+#include "presets/triangleAssembly.h"
+
+using namespace std;
 
 class Preset {
-    private:
-
-    enum class Name : uint32_t {
-        ColorTriangle = 0,
-    };
-
-    ColorTriangle preset;
-
     public:
-
-    union UniformData {
-        ColorTriangle::UniformDataIntType colorTriangle;
-    };
 
     void init();
 
     void set(uint32_t code);
 
-    void setUniform(UniformData data);
+    void command(const CommandData& data);
 
-    void render();
+    private:
+
+    struct Presets {
+        ColorTriangle colorTriangle;
+        TriangleAssembly triangleAssembly;
+    }presets;
+
+    enum class Name : uint32_t {
+        ColorTriangle = 0,
+        TriangleAssembly = 1
+    }current;
+
+    PresetBase* getCurrentPreset();
 };

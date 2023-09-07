@@ -1,11 +1,24 @@
 import "./App.css";
-import { useDispatch } from "react-redux";
-import { initialize, sayHello, setClearColor, setUniform } from "./reducer";
-import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  initialize,
+  sayHello,
+  setClearColor,
+  setUniform,
+  setPreset,
+} from "./reducer";
+import { useEffect, useRef, useState } from "react";
+import { SketchPicker } from "react-color";
+import { hexToRgb, rgbToHex } from "./utils";
+import { State } from "./types";
 
 function App() {
   const dispatch = useDispatch();
   const ref = useRef<HTMLCanvasElement>(null);
+
+  const [test, setTest] = useState<number>(0x000000);
+
+  const clearColor = useSelector((state: State) => state.test.clearColor);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -39,8 +52,22 @@ function App() {
         >
           Yellow triangle
         </button>
+        <button onClick={() => dispatch(setPreset(0))}>Preset 0</button>
+        <button onClick={() => dispatch(setPreset(1))}>Preset 1</button>
       </div>
-      <canvas ref={ref} id="canvas" />
+      <div style={{ display: "flex" }}>
+        <canvas ref={ref} id="canvas" />
+        <div>
+          <SketchPicker
+            color={hexToRgb(test)}
+            onChange={(color) => setTest(rgbToHex(color.rgb))}
+          />
+          <SketchPicker
+            color={hexToRgb(clearColor)}
+            onChange={({ rgb }) => dispatch(setClearColor(rgbToHex(rgb)))}
+          />
+        </div>
+      </div>
     </div>
   );
 }

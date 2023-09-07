@@ -1,3 +1,5 @@
+import { onClearColorUpdated } from "../reducer";
+import { store } from "../store";
 import { CallbackSetters, Commands, ModuleControl } from "./wasmLoader/specs";
 
 export class EngineHandle {
@@ -10,7 +12,7 @@ export class EngineHandle {
 
   private setEngineCallbacks(callbackSetters: CallbackSetters) {
     callbackSetters.onClearColorChange((color: number) =>
-      console.log("Background color: ", color)
+      store.dispatch(onClearColorUpdated(color))
     );
   }
 
@@ -23,10 +25,18 @@ export class EngineHandle {
   }
 
   public setUniform(type: number, color: number) {
-    return this.commands.setUniform(type, color);
+    return this.setColorTriangleColor(color);
   }
 
   public setClearColor(color: number) {
     return this.commands.setClearColor(color);
+  }
+
+  public usePreset(presetCode: number) {
+    return this.commands.usePreset(presetCode);
+  }
+
+  public setColorTriangleColor(color: number) {
+    return this.commands.setColorTriangleColor(color);
   }
 }

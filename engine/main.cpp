@@ -2,6 +2,7 @@
 #include <emscripten.h>
 #include "headers/webglHandle.h"
 #include "headers/preset.h"
+#include "headers/presets/uniform.h"
 
 using namespace std;
 
@@ -22,19 +23,21 @@ extern "C" int setClearColor(int color) {
     return handle.setClearColor(color);
 }
 
-extern "C" int setUniform(int type, int value) {
-    Preset::UniformData data;
-    data.colorTriangle.type = type;
-    data.colorTriangle.val.intVal = value;
-    return handle.setUniform(data);
+extern "C" int setColorTriangleColor(int color) {
+    return handle.command(
+        {
+            .colorTriangle =
+                {
+                    .type = ColorTriangleCommand::Color,
+                    .value= { .intVal = color }
+                }
+        }
+    );
 }
+
+extern "C" int usePreset(int presetCode) { return handle.usePreset(presetCode); };
 
 extern "C" int onClearColorChange(void(*f)(int color)) {
     handle.webCallbacks.onClearColorChange = f;
     return 1;
 }
-
-// int main() {
-//     cout << "Hello World" << endl;
-//     return 1;
-// }

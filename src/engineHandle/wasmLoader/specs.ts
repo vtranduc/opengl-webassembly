@@ -64,6 +64,16 @@ const exportedFunctions: wasmExportedFunctionData[] = [
     return: WasmCommunicationDataType.Number,
     params: [WasmCommunicationDataType.Number],
   },
+  {
+    name: "setColorTriangleColor",
+    return: WasmCommunicationDataType.Number,
+    params: [WasmCommunicationDataType.Number],
+  },
+  {
+    name: "usePreset",
+    return: WasmCommunicationDataType.Number,
+    params: [WasmCommunicationDataType.Number],
+  },
 ];
 
 export { id, path, timeoutInSeconds, exportedFunctions };
@@ -73,6 +83,8 @@ export type Commands = {
   initialize: (canvasId: string, clearColor: number) => number;
   setUniform: (type: number, color: number) => number;
   setClearColor: (color: number) => number;
+  usePreset: (presetCode: number) => number;
+  setColorTriangleColor: (color: number) => number;
 };
 
 // Callbacks from the engine

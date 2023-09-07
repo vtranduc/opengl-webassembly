@@ -19,13 +19,16 @@ int WebGLHandle::initialize(char* canvasId, int clearColor) {
     glClear(GL_COLOR_BUFFER_BIT);
     preset.init();
     preset.set(0);
-    preset.render();
     return 1;
 };
 
-int WebGLHandle::setUniform(Preset::UniformData data) {
-    preset.setUniform(data);
-    preset.render();
+int WebGLHandle::usePreset(int presetCode) {
+    preset.set(presetCode);
+    return 1;
+}
+
+int WebGLHandle::command(const CommandData& data) {
+    preset.command(data);
     return 1;
 }
 
@@ -34,7 +37,6 @@ int WebGLHandle::setClearColor(int hex) {
     glClearColor(rgb.r, rgb.g, rgb.b, 1);
     glGetFloatv(GL_COLOR_CLEAR_VALUE, tmp.color);
     webCallbacks.onClearColorChange(asHex(tmp.color));
-    preset.render();
     return 1;
 }
 

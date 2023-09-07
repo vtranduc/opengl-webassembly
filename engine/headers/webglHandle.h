@@ -6,6 +6,7 @@
 #include <GLES3/gl3.h>
 #include "shader.h"
 #include "preset.h"
+#include "presets/uniform.h"
 #include <functional>
 
 using namespace std;
@@ -17,7 +18,9 @@ class WebGLHandle {
 
     int initialize(char* canvasId, int clearColor);
 
-    int setUniform(Preset::UniformData data);
+    int usePreset(int presetCode);
+
+    int command(const CommandData& data);
 
     int setClearColor(int color);
 

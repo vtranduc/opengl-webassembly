@@ -1,23 +1,28 @@
 #include "../headers/preset.h"
 
 void Preset::init() {
-    preset.init();
+    presets.colorTriangle.init();
+    presets.triangleAssembly.init();
 }
 
 void Preset::set(uint32_t code) {
-    Name name = static_cast<Name>(code);
-    switch(name) {
+    current = static_cast<Name>(code);
+    getCurrentPreset()->set();
+    if (getCurrentPreset()->isDirty()) getCurrentPreset()->render();
+}
+
+void Preset::command(const CommandData& data) {
+    getCurrentPreset()->command(data);
+    if (getCurrentPreset()->isDirty())  getCurrentPreset()->render();
+}
+
+PresetBase* Preset::getCurrentPreset() {
+    switch(current) {
         case Name::ColorTriangle:
-            preset.set();
-            break;
-        default: throw "Preset is not defined";
+            return &(presets.colorTriangle);
+        case Name::TriangleAssembly:
+            return &(presets.triangleAssembly);
+        default:
+            throw "Preset name is unhandled in getter";
     }
-}
-
-void Preset::setUniform(UniformData data) {
-    preset.setUniform(data.colorTriangle);
-}
-
-void Preset::render() {
-    preset.render();
 }

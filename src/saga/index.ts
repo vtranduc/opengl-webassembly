@@ -1,6 +1,12 @@
 import { all, take, takeEvery, takeLatest } from "redux-saga/effects";
 import { EngineHandle } from "../engineHandle";
-import { initialize, sayHello, setClearColor, setUniform } from "../reducer";
+import {
+  initialize,
+  sayHello,
+  setClearColor,
+  setPreset,
+  setUniform,
+} from "../reducer";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { loadWasm } from "../engineHandle/wasmLoader";
 import { ModuleControl } from "../engineHandle/wasmLoader/specs";
@@ -20,6 +26,7 @@ function* engineSaga() {
     takeLatest(sayHello.type, sayHelloSaga(handle)),
     takeLatest(setClearColor.type, setClearColorSaga(handle)),
     takeEvery(setUniform.type, setUniformSaga(handle)),
+    takeEvery(setPreset.type, setPresetSaga(handle)),
   ]);
 }
 
@@ -41,5 +48,11 @@ function setClearColorSaga(handle: EngineHandle) {
 function setUniformSaga(handle: EngineHandle) {
   return function ({ payload }: PayloadAction<UniformData>) {
     handle.setUniform(payload.type, payload.data);
+  };
+}
+
+function setPresetSaga(handle: EngineHandle) {
+  return function ({ payload }: PayloadAction<number>) {
+    handle.usePreset(payload);
   };
 }

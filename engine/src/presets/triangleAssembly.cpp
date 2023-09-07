@@ -1,10 +1,10 @@
-#include "../../headers/presets/colorTriangle.h"
+#include "../../headers/presets/triangleAssembly.h"
 
-void ColorTriangle::init() {
+void TriangleAssembly::init() {
     program = getShaderProgram(Shader::Vertex::Basic, Shader::Fragment::Mono);
 }
 
-void ColorTriangle::set() {
+void TriangleAssembly::set() {
     glUseProgram(program);
 
     unsigned int VBO;
@@ -22,23 +22,11 @@ void ColorTriangle::set() {
     setDirty();
 }
 
-void ColorTriangle::command(const CommandData& data) {
-    switch(data.colorTriangle.type) {
-        case ColorTriangleCommand::Type::Color:
-            glUniform3fv(
-                glGetUniformLocation(program, "uColor"),
-                1,
-                asColorArray(hexToRGB(data.colorTriangle.value.intVal), tmp.color)
-            );
-            setDirty();
-            break;
-        default:
-            throw "Unahndled case";
-    }
-};
+void TriangleAssembly::command(const CommandData& data) {};
 
-void ColorTriangle::render() {
+void TriangleAssembly::render() {
     PresetBase::render();
+
     glClear(GL_COLOR_BUFFER_BIT);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
