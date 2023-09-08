@@ -13,7 +13,7 @@ const testSlice = createSlice({
   name: "empty",
   initialState: {
     preset: Preset.ColorTriangle,
-    clearColor: 0x000000,
+    clearColor: 0xc5d3eb,
   } as TestState,
   reducers: {
     sayHello(state, action: PayloadAction<{ name: string; repeat: number }>) {},

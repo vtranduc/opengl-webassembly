@@ -1,10 +1,11 @@
-import { all, take, takeEvery, takeLatest } from "redux-saga/effects";
+import { all, select, take, takeEvery, takeLatest } from "redux-saga/effects";
 import { EngineHandle } from "../engineHandle";
 import { initialize, sayHello, setClearColor, setPreset } from "../reducer";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { loadWasm } from "../engineHandle/wasmLoader";
 import { ModuleControl } from "../engineHandle/wasmLoader/specs";
 import { colorTriangleSaga } from "./colorTriangle";
+import { State } from "../types";
 
 export default function* saga() {
   yield take(initialize.type);
@@ -14,7 +15,10 @@ export default function* saga() {
 function* engineSaga() {
   const control: ModuleControl = yield loadWasm();
   const handle = new EngineHandle(control);
-  const result = handle.initialize("canvas", 0xc5d3eb);
+  const clearColor: number = yield select(
+    (state: State) => state.test.clearColor
+  );
+  const result = handle.initialize("canvas", clearColor);
   if (!result) throw new Error("Failed to initialize the engine!");
   yield all([
     colorTriangleSaga(handle),

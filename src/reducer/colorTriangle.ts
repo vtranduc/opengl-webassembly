@@ -4,7 +4,7 @@ import { ColorTriangleState } from "../types";
 const colorTriangleSlice = createSlice({
   name: "colorTriangle",
   initialState: {
-    color: 0x000000,
+    color: 0xff00ff,
   } as ColorTriangleState,
   reducers: {
     setColor(state, action: PayloadAction<number>) {},
