@@ -4,14 +4,14 @@ import { initialize, sayHello, setClearColor, setPreset } from "./reducer";
 import { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import { hexToRgb, rgbToHex } from "./utils";
-import { State } from "./types";
+import { Preset, State } from "./types";
 import { setColor } from "./reducer/colorTriangle";
 
 function App() {
   const dispatch = useDispatch();
   const ref = useRef<HTMLCanvasElement>(null);
 
-  const color = useSelector((state: State) => state.colorTriangle.color);
+  const preset = useSelector((state: State) => state.test.preset);
 
   const [isClearColorPickerOpen, setIsClearColorPickerOpen] =
     useState<boolean>(false);
@@ -23,6 +23,17 @@ function App() {
     dispatch(initialize());
   }, [ref, dispatch]);
 
+  function getPanel() {
+    switch (preset) {
+      case Preset.ColorTriangle:
+        return <ColorTrianglePanel />;
+      case Preset.TriangleAssembly:
+        return <TriangleAssemblyPanel />;
+      default:
+        return null;
+    }
+  }
+
   return (
     <div>
       <div>
@@ -31,17 +42,12 @@ function App() {
         >
           Say Hello
         </button>
-        <button onClick={() => dispatch(setClearColor(0xff00ff))}>
-          Purple
+        <button onClick={() => dispatch(setPreset(Preset.ColorTriangle))}>
+          Color Triangle
         </button>
-        <button onClick={() => dispatch(setClearColor(0xffff00))}>
-          Yellow
+        <button onClick={() => dispatch(setPreset(Preset.TriangleAssembly))}>
+          Triangle Assembly
         </button>
-        <button onClick={() => dispatch(setClearColor(0xc5d3eb))}>
-          Soft blue
-        </button>
-        <button onClick={() => dispatch(setPreset(0))}>Preset 0</button>
-        <button onClick={() => dispatch(setPreset(1))}>Preset 1</button>
       </div>
       <div style={{ display: "flex" }}>
         <canvas ref={ref} id="canvas" />
@@ -59,10 +65,7 @@ function App() {
               onChange={({ rgb }) => dispatch(setClearColor(rgbToHex(rgb)))}
             />
           )}
-          <SketchPicker
-            color={hexToRgb(color)}
-            onChange={({ rgb }) => dispatch(setColor(rgbToHex(rgb)))}
-          />
+          {getPanel()}
         </div>
       </div>
     </div>
@@ -70,3 +73,22 @@ function App() {
 }
 
 export default App;
+
+function ColorTrianglePanel() {
+  const dispatch = useDispatch();
+  const color = useSelector((state: State) => state.colorTriangle.color);
+
+  return (
+    <>
+      <h3>Color Triangle</h3>
+      <SketchPicker
+        color={hexToRgb(color)}
+        onChange={({ rgb }) => dispatch(setColor(rgbToHex(rgb)))}
+      />
+    </>
+  );
+}
+
+function TriangleAssemblyPanel() {
+  return <h3>Triangle Aseembly</h3>;
+}

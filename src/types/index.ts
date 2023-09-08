@@ -1,4 +1,10 @@
+export enum Preset {
+  ColorTriangle = 0,
+  TriangleAssembly = 1,
+}
+
 export interface TestState {
+  preset: Preset;
   clearColor: number;
 }
 
