@@ -28,10 +28,6 @@ export class EngineHandle {
     return this.commands.initialize(canvasId, clearColor);
   }
 
-  public setUniform(type: number, color: number) {
-    return this.setColorTriangleColor(color);
-  }
-
   public setClearColor(color: number) {
     return this.commands.setClearColor(color);
   }

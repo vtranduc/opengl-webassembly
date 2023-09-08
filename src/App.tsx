@@ -1,12 +1,6 @@
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  initialize,
-  sayHello,
-  setClearColor,
-  setUniform,
-  setPreset,
-} from "./reducer";
+import { initialize, sayHello, setClearColor, setPreset } from "./reducer";
 import { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import { hexToRgb, rgbToHex } from "./utils";
@@ -45,16 +39,6 @@ function App() {
         </button>
         <button onClick={() => dispatch(setClearColor(0xc5d3eb))}>
           Soft blue
-        </button>
-        <button
-          onClick={() => dispatch(setUniform({ type: 0, data: 0x0000ff }))}
-        >
-          Blue Triangle
-        </button>
-        <button
-          onClick={() => dispatch(setUniform({ type: 0, data: 0xffff00 }))}
-        >
-          Yellow triangle
         </button>
         <button onClick={() => dispatch(setPreset(0))}>Preset 0</button>
         <button onClick={() => dispatch(setPreset(1))}>Preset 1</button>

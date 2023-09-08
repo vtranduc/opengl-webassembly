@@ -4,7 +4,7 @@ import {
   createAction,
   createSlice,
 } from "@reduxjs/toolkit";
-import { State, TestState, UniformData } from "../types";
+import { State, TestState } from "../types";
 import colorTriangleReducer from "./colorTriangle";
 
 // Placeholder slice, to be removed
@@ -17,7 +17,6 @@ const testSlice = createSlice({
   reducers: {
     sayHello(state, action: PayloadAction<{ name: string; repeat: number }>) {},
     setClearColor(state, action: PayloadAction<number>) {},
-    setUniform(state, action: PayloadAction<UniformData>) {},
     setPreset(state, action: PayloadAction<number>) {},
     onClearColorUpdated(state, { payload }: PayloadAction<number>) {
       state.clearColor = payload;
@@ -34,10 +33,5 @@ export const initialize = createAction("initialize");
 
 export default rootReducer;
 
-export const {
-  sayHello,
-  setClearColor,
-  setUniform,
-  setPreset,
-  onClearColorUpdated,
-} = testSlice.actions;
+export const { sayHello, setClearColor, setPreset, onClearColorUpdated } =
+  testSlice.actions;
