@@ -22,6 +22,8 @@ class WebGLHandle {
 
     int command(const CommandData& data);
 
+    int setPresetCallbacks(const Preset::CallbackData& data);
+
     int setClearColor(int color);
 
     struct webCallbacks {

@@ -13,6 +13,7 @@ set(
     _usePreset
     _onClearColorChange
     _setColorTriangleColor
+    _onColorTriangleUpdated
 )
 
 # Include associated files

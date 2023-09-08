@@ -32,10 +32,16 @@ int WebGLHandle::command(const CommandData& data) {
     return 1;
 }
 
+int WebGLHandle::setPresetCallbacks(const Preset::CallbackData& data) {
+    preset.setCallbacks(data);
+    return 1;
+};
+
 int WebGLHandle::setClearColor(int hex) {
     RGB rgb = hexToRGB(hex);
     glClearColor(rgb.r, rgb.g, rgb.b, 1);
     glGetFloatv(GL_COLOR_CLEAR_VALUE, tmp.color);
+    preset.render(true);
     webCallbacks.onClearColorChange(asHex(tmp.color));
     return 1;
 }

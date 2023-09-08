@@ -94,10 +94,17 @@ export const engineCallbacks: EngineCallback[] = [
     name: "onClearColorChange",
     type: WasmCallbackType.vi,
   },
+  {
+    name: "onColorTriangleUpdated",
+    type: WasmCallbackType.vi,
+  },
 ];
 
 export type CallbackSetters = {
   onClearColorChange: (callback: WasmCallback<WasmCallbackType.vi>) => number;
+  onColorTriangleUpdated: (
+    callback: WasmCallback<WasmCallbackType.vi>
+  ) => number;
 };
 
 export interface ModuleControl {

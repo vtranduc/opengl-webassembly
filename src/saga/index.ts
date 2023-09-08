@@ -11,6 +11,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { loadWasm } from "../engineHandle/wasmLoader";
 import { ModuleControl } from "../engineHandle/wasmLoader/specs";
 import { UniformData } from "../types";
+import { colorTriangleSaga } from "./colorTriangle";
 
 export default function* saga() {
   yield take(initialize.type);
@@ -23,6 +24,7 @@ function* engineSaga() {
   const result = handle.initialize("canvas", 0xc5d3eb);
   if (!result) throw new Error("Failed to initialize the engine!");
   yield all([
+    colorTriangleSaga(handle),
     takeLatest(sayHello.type, sayHelloSaga(handle)),
     takeLatest(setClearColor.type, setClearColorSaga(handle)),
     takeEvery(setUniform.type, setUniformSaga(handle)),

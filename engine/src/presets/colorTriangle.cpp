@@ -31,9 +31,10 @@ void ColorTriangle::command(const CommandData& data) {
                 asColorArray(hexToRGB(data.colorTriangle.value.intVal), tmp.color)
             );
             setDirty();
+            onColorUpdated();
             break;
         default:
-            throw "Unahndled case";
+            throw "Unhandled case";
     }
 };
 
@@ -41,4 +42,13 @@ void ColorTriangle::render() {
     PresetBase::render();
     glClear(GL_COLOR_BUFFER_BIT);
     glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+void ColorTriangle::setCallbacks(const Callbacks& cbs) {
+    callbacks.onColorUpdated = cbs.onColorUpdated;
+}
+
+void ColorTriangle::onColorUpdated() {
+    glGetUniformfv(program, 1, tmp.color);
+    callbacks.onColorUpdated(asHex(tmp.color));
 }

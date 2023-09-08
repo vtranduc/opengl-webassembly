@@ -5,6 +5,8 @@
 #include "../utils.h"
 #include "../shader.h"
 #include "uniform.h"
+#include <functional>
+#include "../utils/callback.h"
 
 #include <iostream>
 
@@ -12,6 +14,10 @@ using namespace std;
 
 class ColorTriangle : public PresetBase {
     public:
+
+    struct Callbacks {
+        CallbackVI onColorUpdated;
+    };
 
     void init() override;
 
@@ -21,7 +27,11 @@ class ColorTriangle : public PresetBase {
 
     void render() override;
 
+    void setCallbacks(const Callbacks& callbacks);
+
     private:
+
+    Callbacks callbacks;
 
     const float vertices[9] = {
         -0.5f, -0.5f, 0.0f,
@@ -34,4 +44,6 @@ class ColorTriangle : public PresetBase {
     struct {
         GLfloat color[3];
     }tmp;
+
+    void onColorUpdated();
 };

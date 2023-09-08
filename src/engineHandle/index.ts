@@ -1,4 +1,5 @@
 import { onClearColorUpdated } from "../reducer";
+import { onColorUpdate } from "../reducer/colorTriangle";
 import { store } from "../store";
 import { CallbackSetters, Commands, ModuleControl } from "./wasmLoader/specs";
 
@@ -13,6 +14,9 @@ export class EngineHandle {
   private setEngineCallbacks(callbackSetters: CallbackSetters) {
     callbackSetters.onClearColorChange((color: number) =>
       store.dispatch(onClearColorUpdated(color))
+    );
+    callbackSetters.onColorTriangleUpdated((color: number) =>
+      store.dispatch(onColorUpdate(color))
     );
   }
 

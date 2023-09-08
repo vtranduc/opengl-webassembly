@@ -3,6 +3,7 @@
 #include "headers/webglHandle.h"
 #include "headers/preset.h"
 #include "headers/presets/uniform.h"
+#include "headers/utils/callback.h"
 
 using namespace std;
 
@@ -39,5 +40,10 @@ extern "C" int usePreset(int presetCode) { return handle.usePreset(presetCode); 
 
 extern "C" int onClearColorChange(void(*f)(int color)) {
     handle.webCallbacks.onClearColorChange = f;
+    return 1;
+}
+
+extern "C" int onColorTriangleUpdated(CallbackVI onColorUpdated2) {
+    handle.setPresetCallbacks({ Preset::Name::ColorTriangle, { .colorTriangle={onColorUpdated2} } });
     return 1;
 }

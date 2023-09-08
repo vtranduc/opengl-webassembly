@@ -11,12 +11,16 @@ import { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import { hexToRgb, rgbToHex } from "./utils";
 import { State } from "./types";
+import { setColor } from "./reducer/colorTriangle";
 
 function App() {
   const dispatch = useDispatch();
   const ref = useRef<HTMLCanvasElement>(null);
 
-  const [test, setTest] = useState<number>(0x000000);
+  const color = useSelector((state: State) => state.colorTriangle.color);
+
+  const [isClearColorPickerOpen, setIsClearColorPickerOpen] =
+    useState<boolean>(false);
 
   const clearColor = useSelector((state: State) => state.test.clearColor);
 
@@ -58,13 +62,22 @@ function App() {
       <div style={{ display: "flex" }}>
         <canvas ref={ref} id="canvas" />
         <div>
+          <button
+            onClick={() => setIsClearColorPickerOpen(!isClearColorPickerOpen)}
+          >
+            {isClearColorPickerOpen
+              ? "⬆ Hide Clear Color Picker"
+              : "⬇ Show Clear Color Picker"}
+          </button>
+          {isClearColorPickerOpen && (
+            <SketchPicker
+              color={hexToRgb(clearColor)}
+              onChange={({ rgb }) => dispatch(setClearColor(rgbToHex(rgb)))}
+            />
+          )}
           <SketchPicker
-            color={hexToRgb(test)}
-            onChange={(color) => setTest(rgbToHex(color.rgb))}
-          />
-          <SketchPicker
-            color={hexToRgb(clearColor)}
-            onChange={({ rgb }) => dispatch(setClearColor(rgbToHex(rgb)))}
+            color={hexToRgb(color)}
+            onChange={({ rgb }) => dispatch(setColor(rgbToHex(rgb)))}
           />
         </div>
       </div>
