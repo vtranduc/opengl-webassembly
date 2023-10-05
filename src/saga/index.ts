@@ -5,7 +5,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { loadWasm } from "../engineHandle/wasmLoader";
 import { ModuleControl } from "../engineHandle/wasmLoader/specs";
 import { colorTriangleSaga } from "./colorTriangle";
-import { State } from "../types";
+import { Preset, State } from "../types";
 
 export default function* saga() {
   yield take(initialize.type);
@@ -15,10 +15,13 @@ export default function* saga() {
 function* engineSaga() {
   const control: ModuleControl = yield loadWasm();
   const handle = new EngineHandle(control);
+  const currentPreset: Preset = yield select(
+    (state: State) => state.test.preset
+  );
   const clearColor: number = yield select(
     (state: State) => state.test.clearColor
   );
-  const result = handle.initialize("canvas", clearColor);
+  const result = handle.initialize("canvas", clearColor, currentPreset);
   if (!result) throw new Error("Failed to initialize the engine!");
   yield all([
     colorTriangleSaga(handle),

@@ -16,8 +16,8 @@ extern "C" const char* sayHello(char* name, int repeat) {
     return ptr;
 }
 
-extern "C" int initialize(char* canvasId, int clearColor) {
-    return handle.initialize(canvasId, clearColor);
+extern "C" int initialize(char* canvasId, int clearColor, int startingPreset) {
+    return handle.initialize(canvasId, clearColor, startingPreset);
 }
 
 extern "C" int setClearColor(int color) {
@@ -25,13 +25,17 @@ extern "C" int setClearColor(int color) {
 }
 
 extern "C" int setColorTriangleColor(int color) {
-    return handle.command(
+    return handle.command
+    (
         {
-            .colorTriangle =
+            Preset::Name::ColorTriangle,
+            {
+                .colorTriangle =
                 {
                     .type = ColorTriangleCommand::Color,
                     .value= { .intVal = color }
                 }
+            }
         }
     );
 }

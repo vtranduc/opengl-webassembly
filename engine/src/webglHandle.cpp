@@ -1,6 +1,6 @@
 #include "../headers/webglHandle.h"
 
-int WebGLHandle::initialize(char* canvasId, int clearColor) {
+int WebGLHandle::initialize(char* canvasId, int clearColor, int startingPreset) {
     setContextAttribute();
     EMSCRIPTEN_WEBGL_CONTEXT_HANDLE context
         = emscripten_webgl_create_context(canvasId, &attrs);
@@ -19,6 +19,7 @@ int WebGLHandle::initialize(char* canvasId, int clearColor) {
     glClear(GL_COLOR_BUFFER_BIT);
     preset.init();
     preset.set(0);
+    preset.set(startingPreset);
     return 1;
 };
 
@@ -27,8 +28,8 @@ int WebGLHandle::usePreset(int presetCode) {
     return 1;
 }
 
-int WebGLHandle::command(const CommandData& data) {
-    preset.command(data);
+int WebGLHandle::command(const Preset::Command& command) {
+    preset.command(command);
     return 1;
 }
 

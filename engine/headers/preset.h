@@ -7,31 +7,26 @@
 using namespace std;
 
 class Preset {
-    public:
+public:
+    enum class Name : uint32_t {
+        ColorTriangle = 0,
+        TriangleAssembly = 1
+    }current;
+
+    struct Command {
+        Name type;
+        CommandData data;
+    };
 
     void init();
 
     void set(uint32_t code);
 
-    void command(const CommandData& data);
+    void set(const Name name, const bool shouldRender = true);
+
+    void command(const Command& command);
 
     void render(bool force = false);
-
-    private:
-
-    struct Presets {
-        ColorTriangle colorTriangle;
-        TriangleAssembly triangleAssembly;
-    }presets;
-
-    PresetBase* getCurrentPreset();
-
-    public:
-
-    enum class Name : uint32_t {
-        ColorTriangle = 0,
-        TriangleAssembly = 1
-    }current;
 
     struct CallbackData {
         Name type;
@@ -41,4 +36,14 @@ class Preset {
     };
 
     void setCallbacks(const CallbackData& data);
+private:
+
+    struct Presets {
+        ColorTriangle colorTriangle;
+        TriangleAssembly triangleAssembly;
+    }presets;
+
+    PresetBase* getCurrentPreset();
+
+    PresetBase* getPreset(Name name);
 };

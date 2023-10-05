@@ -7,6 +7,11 @@ import { hexToRgb, rgbToHex } from "./utils";
 import { Preset, State } from "./types";
 import { setColor } from "./reducer/colorTriangle";
 
+const presets: { type: Preset; name: string }[] = [
+  { type: Preset.ColorTriangle, name: "Color Triangle" },
+  { type: Preset.TriangleAssembly, name: "Triangle Assembly" },
+];
+
 function App() {
   const dispatch = useDispatch();
   const ref = useRef<HTMLCanvasElement>(null);
@@ -42,12 +47,15 @@ function App() {
         >
           Say Hello
         </button>
-        <button onClick={() => dispatch(setPreset(Preset.ColorTriangle))}>
-          Color Triangle
-        </button>
-        <button onClick={() => dispatch(setPreset(Preset.TriangleAssembly))}>
-          Triangle Assembly
-        </button>
+        {presets.map((data, i) => (
+          <button
+            key={i}
+            onClick={() => dispatch(setPreset(data.type))}
+            disabled={preset === data.type}
+          >
+            {data.name}
+          </button>
+        ))}
       </div>
       <div style={{ display: "flex" }}>
         <canvas ref={ref} id="canvas" />

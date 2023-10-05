@@ -24,8 +24,12 @@ export class EngineHandle {
     return this.commands.sayHello(name, repeat);
   }
 
-  public initialize(canvasId: string, clearColor: number) {
-    return this.commands.initialize(canvasId, clearColor);
+  public initialize(
+    canvasId: string,
+    clearColor: number,
+    startingPreset: number
+  ) {
+    return this.commands.initialize(canvasId, clearColor, startingPreset);
   }
 
   public setClearColor(color: number) {

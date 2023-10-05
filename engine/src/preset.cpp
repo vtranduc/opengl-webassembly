@@ -6,26 +6,35 @@ void Preset::init() {
 }
 
 void Preset::set(uint32_t code) {
-    current = static_cast<Name>(code);
-    getCurrentPreset()->set();
-    render();
+    set(static_cast<Name>(code));
 }
 
-void Preset::command(const CommandData& data) {
-    getCurrentPreset()->command(data);
+void Preset::set(const Name name, const bool shouldRender) {
+    if (name == current) return;
+    current = name;
+    getCurrentPreset()->set();
+    if (shouldRender) render();
+}
+
+void Preset::command(const Command& command) {
+    const Name currentPreset = current;
+    set(command.type, false);
+    getPreset(command.type)->command(command.data);
+    set(currentPreset, false);
     render();
 }
 
 void Preset::render(bool force) { if (force || getCurrentPreset()->isDirty())  getCurrentPreset()->render(); }
 
 PresetBase* Preset::getCurrentPreset() {
-    switch(current) {
-        case Name::ColorTriangle:
-            return &(presets.colorTriangle);
-        case Name::TriangleAssembly:
-            return &(presets.triangleAssembly);
-        default:
-            throw "Preset name is unhandled in getter";
+    return getPreset(current);
+}
+
+PresetBase* Preset::getPreset(Name name) {
+    switch(name) {
+    case Name::ColorTriangle: return &(presets.colorTriangle);
+    case Name::TriangleAssembly: return &(presets.triangleAssembly);
+    default: throw "Preset name is unhandled in getter";
     }
 }
 

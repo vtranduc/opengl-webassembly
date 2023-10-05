@@ -12,7 +12,7 @@ import colorTriangleReducer from "./colorTriangle";
 const testSlice = createSlice({
   name: "empty",
   initialState: {
-    preset: Preset.ColorTriangle,
+    preset: Preset.TriangleAssembly,
     clearColor: 0xc5d3eb,
   } as TestState,
   reducers: {

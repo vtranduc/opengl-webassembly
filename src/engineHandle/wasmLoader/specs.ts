@@ -49,6 +49,7 @@ const exportedFunctions: wasmExportedFunctionData[] = [
     params: [
       WasmCommunicationDataType.String,
       WasmCommunicationDataType.Number,
+      WasmCommunicationDataType.Number,
     ],
   },
   {
@@ -72,7 +73,11 @@ export { id, path, timeoutInSeconds, exportedFunctions };
 
 export type Commands = {
   sayHello: (name: string, repeat: number) => string;
-  initialize: (canvasId: string, clearColor: number) => number;
+  initialize: (
+    canvasId: string,
+    clearColor: number,
+    startingPreset: number
+  ) => number;
   setClearColor: (color: number) => number;
   usePreset: (presetCode: number) => number;
   setColorTriangleColor: (color: number) => number;

@@ -16,11 +16,11 @@ class WebGLHandle {
 
     WebGLHandle() = default;
 
-    int initialize(char* canvasId, int clearColor);
+    int initialize(char* canvasId, int clearColor, int startingPreset);
 
     int usePreset(int presetCode);
 
-    int command(const CommandData& data);
+    int command(const Preset::Command& command);
 
     int setPresetCallbacks(const Preset::CallbackData& data);
 
