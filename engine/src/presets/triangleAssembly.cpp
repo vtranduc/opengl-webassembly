@@ -28,5 +28,5 @@ void TriangleAssembly::render() {
     PresetBase::render();
 
     glClear(GL_COLOR_BUFFER_BIT);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, nTriangles * 3);
 }
