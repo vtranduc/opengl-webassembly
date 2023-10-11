@@ -1,10 +1,10 @@
 #pragma once
 
-#include "matrix.h"
+#include "matrix4.h"
 
-class World : public Matrix {
+class World : public Matrix4 {
 
 public:
 
-    World() : Matrix(4) {};
+    World();
 };

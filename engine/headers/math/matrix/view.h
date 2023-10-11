@@ -1,10 +1,10 @@
 #pragma once
 
-#include "matrix.h"
+#include "matrix4.h"
 
-class View : public Matrix {
+class View : public Matrix4 {
 
 public:
 
-    View() : Matrix(4) {};
+    View();
 };
