@@ -42,6 +42,8 @@ protected:
 
     Matrix& multiplyOut(const Matrix& mx1, const Matrix& mx2, Matrix* out);
 
+    Matrix& copy(const float* arr);
+
 private:
 
     int nCols, nRows;
@@ -51,8 +53,6 @@ private:
     void allocateElements(const int numCols, const int numRows);
 
     void freeElements();
-
-    Matrix& copy(const float* arr);
 
     void doElements(const function<void(float*, int, int)> callback);
 };
