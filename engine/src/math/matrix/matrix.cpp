@@ -51,6 +51,12 @@ Matrix& Matrix::multiply(const Matrix& multiplier) {
     return *this;
 };
 
+Matrix& Matrix::copy(const float* arr) {
+    int iArr = 0;
+    doElements([&](float* e, int i, int j)->void { *e = arr[iArr++]; });
+    return *this;
+}
+
 float* Matrix::multiplyOut(const Matrix& mx1, const Matrix& mx2, float* out) {
     int iArr = 0;
     for (int i = 0; i < mx2.sizeCols(); i++) {
@@ -80,12 +86,6 @@ void Matrix::allocateElements(const int numCols, const int numRows) {
 void Matrix::freeElements() {
     for (int i = 0; i < nCols; i++) delete[] elements[i];
     delete[] elements;
-}
-
-Matrix& Matrix::copy(const float* arr) {
-    int iArr = 0;
-    doElements([&](float* e, int i, int j)->void { *e = arr[iArr++]; });
-    return *this;
 }
 
 void Matrix::doElements(const function<void(float*, int, int)> callback) {

@@ -36,19 +36,19 @@ public:
 
     Matrix& multiply(const Matrix& multiplier);
 
+    Matrix& copy(const float* arr);
+
 protected:
+
+    float** elements;
 
     float* multiplyOut(const Matrix& mx1, const Matrix& mx2, float* out);
 
     Matrix& multiplyOut(const Matrix& mx1, const Matrix& mx2, Matrix* out);
 
-    Matrix& copy(const float* arr);
-
 private:
 
     int nCols, nRows;
-
-    float** elements;
 
     void allocateElements(const int numCols, const int numRows);
 
