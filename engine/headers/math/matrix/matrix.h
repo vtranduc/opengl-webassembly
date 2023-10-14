@@ -36,7 +36,15 @@ public:
 
     Matrix& multiply(const Matrix& multiplier);
 
+    Matrix& multiply(float scalar);
+
+    Matrix& transpose();
+
     Matrix& copy(const float* arr);
+
+    Matrix& copy(float** elements);
+
+    Matrix& copy(const Matrix& mx);
 
 protected:
 
@@ -46,6 +54,10 @@ protected:
 
     Matrix& multiplyOut(const Matrix& mx1, const Matrix& mx2, Matrix* out);
 
+    void doElements(const function<void(float*, int, int)> callback);
+
+    void doElements(const function<void(float*, int, int)> callback) const;
+
 private:
 
     int nCols, nRows;
@@ -53,8 +65,6 @@ private:
     void allocateElements(const int numCols, const int numRows);
 
     void freeElements();
-
-    void doElements(const function<void(float*, int, int)> callback);
 };
 
 ostream& operator<<(ostream& leftOperand, const Matrix& rightOperand);

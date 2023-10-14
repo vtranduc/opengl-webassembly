@@ -51,11 +51,39 @@ Matrix& Matrix::multiply(const Matrix& multiplier) {
     return *this;
 };
 
+Matrix& Matrix::multiply(float scalar) {
+    doElements([&](float* e, int i, int j)->void { *e = *e * scalar; });
+    return *this;
+};
+
+Matrix& Matrix::transpose() {
+    float** tmpElements;
+    tmpElements = new float*[nRows];
+    for (int i = 0; i < nRows; i++) tmpElements[i] = new float[nCols];
+    doElements([&](float* e, int i, int j)->void { tmpElements[j][i] = *e; });
+    freeElements();
+    allocateElements(nRows, nCols);
+    copy(tmpElements);
+    for (int i = 0; i < nCols; i++) delete[] tmpElements[i]; delete[] tmpElements;
+    return *this;
+}
+
 Matrix& Matrix::copy(const float* arr) {
     int iArr = 0;
     doElements([&](float* e, int i, int j)->void { *e = arr[iArr++]; });
     return *this;
 }
+
+Matrix& Matrix::copy(float** elements) {
+    doElements([&](float* e, int i, int j)->void { *e = elements[i][j]; });
+    return *this;
+};
+
+Matrix& Matrix::copy(const Matrix& mx) {
+    assert(sizeCols() == mx.sizeCols() && sizeRows() == mx.sizeRows());
+    doElements([&](float* e, int i, int j)->void { *e = mx[i][j]; });
+    return *this;
+};
 
 float* Matrix::multiplyOut(const Matrix& mx1, const Matrix& mx2, float* out) {
     int iArr = 0;
@@ -77,6 +105,14 @@ Matrix& Matrix::multiplyOut(const Matrix& mx1, const Matrix& mx2, Matrix* out) {
     return *out;
 };
 
+void Matrix::doElements(const function<void(float*, int, int)> callback) {
+    for (int i = 0; i < nCols; i++) for (int j = 0; j < nRows; j++) callback(&((*this)[i][j]), i, j);
+};
+
+void Matrix::doElements(const function<void(float*, int, int)> callback) const {
+    for (int i = 0; i < nCols; i++) for (int j = 0; j < nRows; j++) callback(&((*this)[i][j]), i, j);
+};
+
 void Matrix::allocateElements(const int numCols, const int numRows) {
     nCols = numCols; nRows = numRows;
     elements = new float*[nCols];
@@ -87,9 +123,5 @@ void Matrix::freeElements() {
     for (int i = 0; i < nCols; i++) delete[] elements[i];
     delete[] elements;
 }
-
-void Matrix::doElements(const function<void(float*, int, int)> callback) {
-    for (int i = 0; i < nCols; i++) for (int j = 0; j < nRows; j++) callback(&((*this)[i][j]), i, j);
-};
 
 ostream& operator<<(ostream& os, const Matrix& matrix) { matrix.display(os); return os; };

@@ -17,6 +17,8 @@ public:
 
     SquareMatrix& multiply(const SquareMatrix& multiplier);
 
+    SquareMatrix& invert();
+
     float determinant() const;
 
 private:
@@ -28,6 +30,8 @@ private:
     static float determinantOut(float** elements, unsigned int size);
 
     static float determinantOut(float** elements, unsigned int size, float* out);
+
+    float** cofactorOut(float** out) const;
 
     static float** minorOut(float** elements, unsigned int size, unsigned int col, unsigned int row, float** out);
 
