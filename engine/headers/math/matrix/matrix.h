@@ -28,9 +28,11 @@ public:
 
     int sizeElements() const;
 
+    float* value() const;
+
     void display(ostream& os) const;
 
-    float* operator[](int iCol) const;
+    float** operator[](int iCol) const;
 
     Matrix operator*(const Matrix& multiplier);
 
@@ -48,7 +50,9 @@ public:
 
 protected:
 
-    float** elements;
+    float* elementArr;
+
+    float*** elements;
 
     float* multiplyOut(const Matrix& mx1, const Matrix& mx2, float* out);
 
@@ -60,7 +64,7 @@ protected:
 
 private:
 
-    int nCols, nRows;
+    int nCols, nRows, nElements;
 
     void allocateElements(const int numCols, const int numRows);
 

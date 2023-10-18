@@ -9,8 +9,6 @@ public:
 
     SquareMatrix(int dimension);
 
-    ~SquareMatrix();
-
     int size() const;
 
     SquareMatrix operator*(const SquareMatrix& multiplier);
@@ -25,17 +23,15 @@ private:
 
     int dim;
 
-    float* elementArr;
+    float tmpElementArr[16];
 
-    static float determinantOut(float** elements, unsigned int size);
+    static float determinantOut(float* elements, unsigned int size);
 
-    static float determinantOut(float** elements, unsigned int size, float* out);
+    static float determinantOut(float* elements, unsigned int size, float* out);
 
-    float** cofactorOut(float** out) const;
+    float* cofactorOut(float* out) const;
 
-    static float** minorOut(float** elements, unsigned int size, unsigned int col, unsigned int row, float** out);
-
-    // Now inaccessible methods from base class
+    static float* minorOut(float* elements, unsigned int size, unsigned int col, unsigned int row, float* out);
 
     using Matrix::operator*;
 
