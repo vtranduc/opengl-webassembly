@@ -1,8 +1,8 @@
 #pragma once
 
-#include "matrix4.h"
+#include "transformation.h"
 
-class World : public Matrix4 {
+class World : public TransformationMatrix {
 
 public:
 

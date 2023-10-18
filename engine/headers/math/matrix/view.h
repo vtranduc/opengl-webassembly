@@ -1,8 +1,8 @@
 #pragma once
 
-#include "matrix4.h"
+#include "transformation.h"
 
-class View : public Matrix4 {
+class View : public TransformationMatrix {
 
 public:
 

@@ -14,7 +14,9 @@ SquareMatrix::~SquareMatrix() {
 int SquareMatrix::size() const { return dim; };
 
 SquareMatrix SquareMatrix::operator*(const SquareMatrix& multiplier) {
+    #if ASSERT_VALID_ARGUMENTS
     assert(size() == multiplier.size());
+    #endif
     multiplyOut(*this, multiplier, tmpElementArr);
     SquareMatrix out(size());
     out.copy(tmpElementArr);
@@ -22,7 +24,9 @@ SquareMatrix SquareMatrix::operator*(const SquareMatrix& multiplier) {
 };
 
 SquareMatrix& SquareMatrix::multiply(const SquareMatrix& multiplier) {
+    #if ASSERT_VALID_ARGUMENTS
     assert(size() == multiplier.size());
+    #endif
     multiplyOut(*this, multiplier, tmpElementArr);
     this->copy(tmpElementArr);
     return *this;

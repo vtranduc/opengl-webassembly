@@ -5,7 +5,9 @@ Matrix::Matrix() : Matrix(4) {};
 Matrix::Matrix(int squareDim) : Matrix(squareDim, squareDim) {};
 
 Matrix::Matrix(const int numCols, const int numRows) {
+    #if ASSERT_VALID_ARGUMENTS
     assert(numCols > 0 && numRows > 0 && numCols <= 512 && numRows <= 512);
+    #endif
     allocateElements(numCols, numRows);
 };
 
@@ -36,14 +38,18 @@ void Matrix::display(ostream& os) const {
 float** Matrix::operator[](int iCol) const { return elements[iCol]; };
 
 Matrix Matrix::operator*(const Matrix& multiplier) {
+    #if ASSERT_VALID_ARGUMENTS
     assert(sizeCols() == multiplier.sizeRows());
+    #endif
     Matrix result(multiplier.sizeCols(), sizeRows());
     multiplyOut(*this, multiplier, &result);
     return result;
 };
 
 Matrix& Matrix::multiply(const Matrix& multiplier) {
+    #if ASSERT_VALID_ARGUMENTS
     assert(sizeCols() == multiplier.sizeRows());
+    #endif
     float* elementArr = new float[multiplier.sizeCols() * sizeRows()];
     multiplyOut(*this, multiplier, elementArr);
     freeElements();
@@ -82,7 +88,9 @@ Matrix& Matrix::copy(float** elements) {
 };
 
 Matrix& Matrix::copy(const Matrix& mx) {
+    #if ASSERT_VALID_ARGUMENTS
     assert(sizeCols() == mx.sizeCols() && sizeRows() == mx.sizeRows());
+    #endif
     doElements([&](float* e, int i, int j)->void { *e = *mx[i][j]; });
     return *this;
 };

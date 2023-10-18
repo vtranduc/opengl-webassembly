@@ -1,0 +1,3 @@
+#ifndef ASSERT_VALID_ARGUMENTS
+#define ASSERT_VALID_ARGUMENTS 0
+#endif

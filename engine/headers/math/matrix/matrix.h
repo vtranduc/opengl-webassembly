@@ -3,6 +3,7 @@
 #include <iostream>
 #include <functional>
 #include <cassert>
+#include "../../compileSettings.h"
 
 using namespace std;
 
