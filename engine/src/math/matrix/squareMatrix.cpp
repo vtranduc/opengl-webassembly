@@ -1,6 +1,15 @@
 #include "../../../headers/math/matrix/squareMatrix.h"
 
-SquareMatrix::SquareMatrix(int dimension) : Matrix(dimension) { dim = dimension; };
+SquareMatrix::SquareMatrix(int dimension) : Matrix(dimension) {
+    dim = dimension;
+    tmpElementArr = new float[sizeElements()];
+    tmpMinorElementArr = new float[pow(dim - 1, 2)];
+};
+
+SquareMatrix::~SquareMatrix() {
+    delete[] tmpElementArr;
+    delete[] tmpMinorElementArr;
+};
 
 int SquareMatrix::size() const { return dim; };
 
@@ -65,13 +74,9 @@ float SquareMatrix::determinantOut(float* elements, unsigned int size, float* ou
 };
 
 float* SquareMatrix::cofactorOut(float* out) const {
-    unsigned int minorSize = size() - 1;
-    float* tmpElements;
-    tmpElements = new float[minorSize * minorSize];
     int iArr = 0;
     doElements([&](float* e, int i, int j)->void
-        { out[iArr++] = pow(-1.0f, i + j) * determinantOut(minorOut(elementArr, this->size(), i, j, tmpElements), minorSize); });
-    delete[] tmpElements;
+        { out[iArr++] = pow(-1.0f, i + j) * determinantOut(minorOut(elementArr, this->size(), i, j, tmpMinorElementArr), size() - 1); });
     return out;
 };
 

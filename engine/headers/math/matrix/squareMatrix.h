@@ -9,6 +9,8 @@ public:
 
     SquareMatrix(int dimension);
 
+    ~SquareMatrix();
+
     int size() const;
 
     SquareMatrix operator*(const SquareMatrix& multiplier);
@@ -23,7 +25,7 @@ private:
 
     int dim;
 
-    float tmpElementArr[16];
+    float *tmpElementArr, *tmpMinorElementArr;
 
     static float determinantOut(float* elements, unsigned int size);
 
