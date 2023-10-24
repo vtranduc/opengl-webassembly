@@ -10,7 +10,7 @@ Vector3::Vector3(float x_, float y_, float z_) {
     x = x_; y = y_; z = z_;
 };
 
-float Vector3::operator[](int index) const {
+float& Vector3::operator[](int index) {
     switch (index) {
     case 0: return x;
     case 1: return y;
@@ -37,6 +37,19 @@ Vector3& Vector3::subtract(float x_, float y_, float z_) {
     return *this;
 };
 
+Vector3& Vector3::multiply(float scalar) {
+    return multiply(scalar, scalar, scalar);
+};
+
+Vector3& Vector3::multiply(Vector3& vector) {
+    return multiply(vector[0], vector[1], vector[2]);
+};
+
+Vector3& Vector3::multiply(float x_, float y_, float z_) {
+    x *= x_; y *= y_; z *= z_;
+    return *this;
+};
+
 Vector3& Vector3::copy(const Vector3& vector) {
     return set(vector.x, vector.y, vector.z);
 };
@@ -45,3 +58,13 @@ Vector3& Vector3::set(float x_, float y_, float z_) {
     x = x_; y = y_; z = z_;
     return *this;
 };
+
+Vector3& Vector3::normalize() {
+    float l = length();
+    x /= l; y /= l; z /=l;
+    return *this;
+}
+
+float Vector3::length() const { return length(x, y, z); };
+
+float Vector3::length(float x, float y, float z) { return sqrt(x * x + y * y + z * z); };

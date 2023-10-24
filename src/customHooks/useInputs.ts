@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Preset, State } from "../types";
 import { useEffect } from "react";
-import { translate } from "../reducer/triangleAssembly";
+import { scale, translate } from "../reducer/triangleAssembly";
 
 export function useInputs() {
   const preset = useSelector((state: State) => state.test.preset);
@@ -35,6 +35,18 @@ export function useInputs() {
             break;
           case "a":
             dispatch(translate([-0.1, 0.0, 0.0]));
+            break;
+          case "ArrowRight":
+            dispatch(scale([1.1, 1.0, 1.0]));
+            break;
+          case "ArrowLeft":
+            dispatch(scale([0.9, 1.0, 1.0]));
+            break;
+          case "ArrowUp":
+            dispatch(scale([1.0, 1.1, 1.0]));
+            break;
+          case "ArrowDown":
+            dispatch(scale([1.0, 0.9, 1.0]));
             break;
           default:
             break;

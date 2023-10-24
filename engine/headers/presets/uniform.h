@@ -21,6 +21,7 @@ struct TriangleAssemblyCommand {
     enum Type : uint32_t {
         Color = 0,
         Translate = 1,
+        Scale = 2,
     };
 
     union Value {

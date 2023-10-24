@@ -15,6 +15,7 @@ set(
     _setColorTriangleColor
     _onColorTriangleUpdated
     _translateTriangleAssembly
+    _scaleTriangleAssembly
 )
 
 # Include associated files

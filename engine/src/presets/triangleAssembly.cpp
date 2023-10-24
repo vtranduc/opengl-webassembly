@@ -30,6 +30,10 @@ void TriangleAssembly::command(const CommandData& data) {
         world.translateInPlace(data.triangleAssembly.value.float3);
         setDirty();
         break;
+    case TriangleAssemblyCommand::Type::Scale:
+        world.scaleInPlace(data.triangleAssembly.value.float3);
+        setDirty();
+        break;
     default:
         throw "Unhandled case";
     }

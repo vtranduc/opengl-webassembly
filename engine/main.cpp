@@ -69,3 +69,21 @@ extern "C" int translateTriangleAssembly(float x, float y, float z) {
         }
     );
 };
+
+extern "C" int scaleTriangleAssembly(float x, float y, float z) {
+    return handle.command
+    (
+        {
+            Preset::Name::TriangleAssembly,
+            {
+                .triangleAssembly = {
+                    .type = TriangleAssemblyCommand::Type::Scale,
+                    .value =
+                    {
+                        .float3 = { x, y, z }
+                    }
+                }
+            }
+        }
+    );
+};

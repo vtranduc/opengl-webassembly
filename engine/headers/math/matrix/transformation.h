@@ -19,6 +19,10 @@ public:
 
     void translateInPlace(float x, float y, float z);
 
+    void scaleInPlace(const float* xyz);
+
+    void scaleInPlace(float x, float y, float z);
+
 private:
 
     bool isDirty = false;

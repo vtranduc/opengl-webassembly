@@ -52,4 +52,8 @@ export class EngineHandle {
       displacement[2]
     );
   }
+
+  public scaleTriangleAssembly(scale: Vector3) {
+    return this.commands.scaleTriangleAssembly(scale[0], scale[1], scale[2]);
+  }
 }

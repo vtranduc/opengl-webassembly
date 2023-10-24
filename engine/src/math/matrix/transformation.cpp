@@ -26,6 +26,13 @@ void Transformation::translateInPlace(float x, float y, float z) {
     isDirty = true;
 };
 
+void Transformation::scaleInPlace(const float* xyz) { scaleInPlace(xyz[0], xyz[1], xyz[2]); };
+
+void Transformation::scaleInPlace(float x, float y, float z) {
+    scale.multiply(x, y, z);
+    isDirty = true;
+};
+
 Transformation::RotationMatrix::RotationMatrix() {
     // Allocate elements
     elements = new float*[3];

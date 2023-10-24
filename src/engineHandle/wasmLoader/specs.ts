@@ -76,6 +76,15 @@ const exportedFunctions: wasmExportedFunctionData[] = [
       WasmCommunicationDataType.Number,
     ],
   },
+  {
+    name: "scaleTriangleAssembly",
+    return: WasmCommunicationDataType.Number,
+    params: [
+      WasmCommunicationDataType.Number,
+      WasmCommunicationDataType.Number,
+      WasmCommunicationDataType.Number,
+    ],
+  },
 ];
 
 export { id, path, timeoutInSeconds, exportedFunctions };
@@ -91,6 +100,7 @@ export type Commands = {
   usePreset: (presetCode: number) => number;
   setColorTriangleColor: (color: number) => number;
   translateTriangleAssembly: (x: number, y: number, z: number) => number;
+  scaleTriangleAssembly: (x: number, y: number, z: number) => number;
 };
 
 // Callbacks from the engine

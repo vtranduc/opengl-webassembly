@@ -6,9 +6,11 @@ const triangleAssembly = createSlice({
   initialState: {},
   reducers: {
     translate(state, action: PayloadAction<Vector3>) {},
+
+    scale(state, action: PayloadAction<Vector3>) {},
   },
 });
 
 export default triangleAssembly.reducer;
 
-export const { translate } = triangleAssembly.actions;
+export const { translate, scale } = triangleAssembly.actions;

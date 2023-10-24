@@ -1,5 +1,7 @@
 #pragma once
 
+#include <math.h>
+
 class Vector3 {
 
 public:
@@ -12,7 +14,7 @@ public:
 
     Vector3(float x, float y, float z);
 
-    float operator[] (int) const;
+    float& operator[] (int);
 
     Vector3& add(const Vector3& vector);
 
@@ -22,9 +24,21 @@ public:
 
     Vector3& subtract(float x, float y, float z);
 
+    Vector3& multiply(float scalar);
+
+    Vector3& multiply(Vector3& vector);
+
+    Vector3& multiply(float x, float y, float z);
+
     Vector3& copy(const Vector3& vector);
 
     Vector3& set(float x, float y, float z);
+
+    Vector3& normalize();
+
+    float length() const;
+
+    static float length(float x, float y, float z);
 
     float x, y, z;
 };
