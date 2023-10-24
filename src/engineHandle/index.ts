@@ -1,6 +1,7 @@
 import { onClearColorUpdated } from "../reducer";
 import { onColorUpdate } from "../reducer/colorTriangle";
 import { store } from "../store";
+import { Vector3 } from "../types";
 import { CallbackSetters, Commands, ModuleControl } from "./wasmLoader/specs";
 
 export class EngineHandle {
@@ -42,5 +43,13 @@ export class EngineHandle {
 
   public setColorTriangleColor(color: number) {
     return this.commands.setColorTriangleColor(color);
+  }
+
+  public translateTriangleAssembly(displacement: Vector3) {
+    return this.commands.translateTriangleAssembly(
+      displacement[0],
+      displacement[1],
+      displacement[2]
+    );
   }
 }

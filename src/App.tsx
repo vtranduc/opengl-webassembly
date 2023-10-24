@@ -6,6 +6,7 @@ import { SketchPicker } from "react-color";
 import { hexToRgb, rgbToHex } from "./utils";
 import { Preset, State } from "./types";
 import { setColor } from "./reducer/colorTriangle";
+import { useInputs } from "./customHooks";
 
 const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
@@ -22,6 +23,8 @@ function App() {
     useState<boolean>(false);
 
   const clearColor = useSelector((state: State) => state.test.clearColor);
+
+  useInputs();
 
   useEffect(() => {
     if (!ref.current) return;

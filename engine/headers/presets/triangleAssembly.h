@@ -23,6 +23,10 @@ class TriangleAssembly : public PresetBase {
 
     private:
 
+    World world;
+
+    View view;
+
     static constexpr int nTriangles = 12;
 
     const GLfloat vertices[nTriangles * 9] = {

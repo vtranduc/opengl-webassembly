@@ -12,6 +12,13 @@ export interface ColorTriangleState {
   color: number;
 }
 
+export type Vector3 = [number, number, number];
+
+export interface TriangleAssemblyState {
+  position: Vector3;
+  scale: Vector3;
+}
+
 export interface State {
   test: TestState;
   colorTriangle: ColorTriangleState;

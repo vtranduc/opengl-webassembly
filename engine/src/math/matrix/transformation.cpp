@@ -1,25 +1,50 @@
 #include "../../../headers/math/matrix/transformation.h"
 
-TransformationMatrix::TransformationMatrix() : Matrix4() { identity(); };
-
-TransformationMatrix& TransformationMatrix::translate(float x, float y, float z) {
-    float coord[3] = {x, y, z};
-    return translate(coord);
+Transformation::Transformation() {
+    // Allocate elements
+    elements = new float**[4];
+    int iArr = 0;
+    for (int i = 0; i < 4; i++) {
+        elements[i] = new float*[4];
+        for (int j = 0; j < 4; j++) elements[i][j] = &elementArr[iArr++];
+    }
+    // Set identity
+    for (int i = 0; i < 4; i++) for (int j = 0; j < 4; j++) *elements[i][j] = static_cast<float>(i == j);
 };
 
-TransformationMatrix& TransformationMatrix::translate(float *coord) {
-    for (int i = 0; i < 4; i++) for (int j = 0; j < 3; j++)  *(*this)[i][j] += coord[j] * *(*this)[i][3];
-    return *this;
+Transformation::~Transformation() {
+    for (int i = 0; i < 4; i++) delete[] elements[i];
+    delete[] elements;
 };
 
-TransformationMatrix& TransformationMatrix::scale(float scalar) { return scale(scalar, scalar, scalar); };
+const float* Transformation::value() const { return elementArr; };
 
-TransformationMatrix& TransformationMatrix::scale(float x, float y, float z) {
-    float scaleXYZ[3] = {x, y, z};
-    return scale(scaleXYZ);
+void Transformation::translateInPlace(const float* xyz) { translateInPlace(xyz[0], xyz[1], xyz[2]); };
+
+void Transformation::translateInPlace(float x, float y, float z) {
+    position.add(x, y, z);
+    isDirty = true;
 };
 
-TransformationMatrix& TransformationMatrix::scale(float* scaleXYZ) {
-    for (int i = 0; i < 4; i++) for (int j = 0; j < 3; j++) *(*this)[i][j] *= scaleXYZ[j];
-    return *this;
+Transformation::RotationMatrix::RotationMatrix() {
+    // Allocate elements
+    elements = new float*[3];
+    for (int i = 0; i < 3; i++) elements[i] = new float[3];
+    // Identity
+    for (int i = 0; i < 3; i++) for (int j = 0; j < 3; j++) elements[i][j] = static_cast<float>(i == j);
+};
+
+Transformation::RotationMatrix::~RotationMatrix() {
+    for (int i = 0; i < 3; i++) delete[] elements[i];
+    delete[] elements;
+};
+
+float* Transformation::RotationMatrix::operator[](int i) const { return elements[i]; };
+
+const float* Transformation::updateMatrix() {
+    if (!isDirty) return value();
+    for (int i = 0; i < 3; i++) *elements[3][i] = position[i];
+    for (int i = 0; i < 3; i++) for (int j = 0; j < 3; j++) *elements[i][j] = scale[j] * rotationMx[i][j];
+    isDirty = false;
+    return value();
 };

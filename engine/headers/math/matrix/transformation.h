@@ -1,20 +1,47 @@
 #pragma once
 
 #include "matrix4.h"
+#include "../vector/vector3.h"
 
-class TransformationMatrix : public Matrix4 {
+class Transformation {
 
 public:
 
-    TransformationMatrix();
+    Transformation();
 
-    TransformationMatrix& translate(float x, float y, float z);
+    ~Transformation();
 
-    TransformationMatrix& translate(float* coord);
+    const float* value() const;
 
-    TransformationMatrix& scale(float scalar);
+    const float* updateMatrix();
 
-    TransformationMatrix& scale(float x, float y, float z);
+    void translateInPlace(const float* xyz);
 
-    TransformationMatrix& scale(float* scaleXYZ);
+    void translateInPlace(float x, float y, float z);
+
+private:
+
+    bool isDirty = false;
+
+    float elementArr[16];
+    
+    float*** elements;
+
+    Vector3 position{ 0.0f }, scale{ 1.0f };
+
+    class RotationMatrix {
+
+    public:
+
+        RotationMatrix();
+
+        ~RotationMatrix();
+
+        float* operator[](int i) const;
+
+    private:
+
+        float** elements;
+
+    }rotationMx;
 };

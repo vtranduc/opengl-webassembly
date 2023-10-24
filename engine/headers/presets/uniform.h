@@ -19,11 +19,14 @@ struct ColorTriangleCommand {
 
 struct TriangleAssemblyCommand {
     enum Type : uint32_t {
-        Color = 0
+        Color = 0,
+        Translate = 1,
     };
 
     union Value {
         int intVal;
+
+        float float3[3];
     };
 
     struct Data {

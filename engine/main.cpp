@@ -24,6 +24,13 @@ extern "C" int setClearColor(int color) {
     return handle.setClearColor(color);
 }
 
+extern "C" int usePreset(int presetCode) { return handle.usePreset(presetCode); };
+
+extern "C" int onClearColorChange(void(*f)(int color)) {
+    handle.webCallbacks.onClearColorChange = f;
+    return 1;
+}
+
 extern "C" int setColorTriangleColor(int color) {
     return handle.command
     (
@@ -40,14 +47,25 @@ extern "C" int setColorTriangleColor(int color) {
     );
 }
 
-extern "C" int usePreset(int presetCode) { return handle.usePreset(presetCode); };
-
-extern "C" int onClearColorChange(void(*f)(int color)) {
-    handle.webCallbacks.onClearColorChange = f;
-    return 1;
-}
-
 extern "C" int onColorTriangleUpdated(CallbackVI onColorUpdated2) {
     handle.setPresetCallbacks({ Preset::Name::ColorTriangle, { .colorTriangle={onColorUpdated2} } });
     return 1;
 }
+
+extern "C" int translateTriangleAssembly(float x, float y, float z) {
+    return handle.command
+    (
+        {
+            Preset::Name::TriangleAssembly,
+            {
+                .triangleAssembly = {
+                    .type = TriangleAssemblyCommand::Type::Translate,
+                    .value =
+                    {
+                        .float3 = { x, y, z }
+                    }
+                }
+            }
+        }
+    );
+};

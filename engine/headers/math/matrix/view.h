@@ -2,7 +2,7 @@
 
 #include "transformation.h"
 
-class View : public TransformationMatrix {
+class View : public Transformation {
 
 public:
 

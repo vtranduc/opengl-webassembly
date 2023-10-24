@@ -6,6 +6,7 @@ import { loadWasm } from "../engineHandle/wasmLoader";
 import { ModuleControl } from "../engineHandle/wasmLoader/specs";
 import { colorTriangleSaga } from "./colorTriangle";
 import { Preset, State } from "../types";
+import { triangleAssemblySaga } from "./triangleAssembly";
 
 export default function* saga() {
   yield take(initialize.type);
@@ -25,6 +26,7 @@ function* engineSaga() {
   if (!result) throw new Error("Failed to initialize the engine!");
   yield all([
     colorTriangleSaga(handle),
+    triangleAssemblySaga(handle),
     takeLatest(sayHello.type, sayHelloSaga(handle)),
     takeLatest(setClearColor.type, setClearColorSaga(handle)),
     takeEvery(setPreset.type, setPresetSaga(handle)),

@@ -1,3 +1,3 @@
 #include "../../../headers/math/matrix/view.h"
 
-View::View() : TransformationMatrix() {};
+View::View() : Transformation() {};

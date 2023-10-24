@@ -53,6 +53,11 @@ const exportedFunctions: wasmExportedFunctionData[] = [
     ],
   },
   {
+    name: "usePreset",
+    return: WasmCommunicationDataType.Number,
+    params: [WasmCommunicationDataType.Number],
+  },
+  {
     name: "setClearColor",
     return: WasmCommunicationDataType.Number,
     params: [WasmCommunicationDataType.Number],
@@ -63,9 +68,13 @@ const exportedFunctions: wasmExportedFunctionData[] = [
     params: [WasmCommunicationDataType.Number],
   },
   {
-    name: "usePreset",
+    name: "translateTriangleAssembly",
     return: WasmCommunicationDataType.Number,
-    params: [WasmCommunicationDataType.Number],
+    params: [
+      WasmCommunicationDataType.Number,
+      WasmCommunicationDataType.Number,
+      WasmCommunicationDataType.Number,
+    ],
   },
 ];
 
@@ -81,6 +90,7 @@ export type Commands = {
   setClearColor: (color: number) => number;
   usePreset: (presetCode: number) => number;
   setColorTriangleColor: (color: number) => number;
+  translateTriangleAssembly: (x: number, y: number, z: number) => number;
 };
 
 // Callbacks from the engine
