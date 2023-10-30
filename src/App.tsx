@@ -6,7 +6,7 @@ import { SketchPicker } from "react-color";
 import { hexToRgb, rgbToHex } from "./utils";
 import { Preset, State } from "./types";
 import { setColor } from "./reducer/colorTriangle";
-import { useInputs } from "./customHooks";
+import { positionCamera, scale, translate } from "./reducer/triangleAssembly";
 
 const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
@@ -23,8 +23,6 @@ function App() {
     useState<boolean>(false);
 
   const clearColor = useSelector((state: State) => state.test.clearColor);
-
-  useInputs();
 
   useEffect(() => {
     if (!ref.current) return;
@@ -101,5 +99,71 @@ function ColorTrianglePanel() {
 }
 
 function TriangleAssemblyPanel() {
+  const dispatch = useDispatch();
+  const [phi, setPhi] = useState<number>(0);
+  const [theta, setTheta] = useState<number>(Math.PI / 2);
+
+  useEffect(() => {
+    const r = 0.3;
+    const sz = Math.sin(theta);
+    const x = r * sz * Math.sin(phi);
+    const y = r * Math.cos(theta);
+    const z = r * sz * Math.cos(phi);
+    dispatch(positionCamera([x, y, z]));
+  }, [phi, theta, dispatch]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+
+    function onKeyDown(e: KeyboardEvent) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      switch (e.key) {
+        case "w":
+          dispatch(translate([0.0, 0.1, 0.0]));
+          break;
+        case "s":
+          dispatch(translate([0.0, -0.1, 0.0]));
+          break;
+        case "d":
+          dispatch(translate([0.1, 0.0, 0.0]));
+          break;
+        case "a":
+          dispatch(translate([-0.1, 0.0, 0.0]));
+          break;
+        case "ArrowRight":
+          dispatch(scale([1.1, 1.0, 1.0]));
+          break;
+        case "ArrowLeft":
+          dispatch(scale([0.9, 1.0, 1.0]));
+          break;
+        case "ArrowUp":
+          dispatch(scale([1.0, 1.1, 1.0]));
+          break;
+        case "ArrowDown":
+          dispatch(scale([1.0, 0.9, 1.0]));
+          break;
+        case "4":
+          setPhi((oldPhi) => (oldPhi - 0.05) % (2 * Math.PI));
+          break;
+        case "6":
+          setPhi((oldPhi) => (oldPhi + 0.05) % (2 * Math.PI));
+          break;
+        case "8":
+          setTheta((oldTheta) => Math.max(0, oldTheta - 0.05));
+          break;
+        case "2":
+          setTheta((oldTheta) => Math.min(Math.PI, oldTheta + 0.05));
+          break;
+        default:
+          break;
+      }
+    }
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [dispatch]);
+
   return <h3>Triangle Aseembly</h3>;
 }

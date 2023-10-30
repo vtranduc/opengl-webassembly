@@ -22,6 +22,8 @@ struct TriangleAssemblyCommand {
         Color = 0,
         Translate = 1,
         Scale = 2,
+        PositionCamera = 3,
+        LookAt = 4
     };
 
     union Value {

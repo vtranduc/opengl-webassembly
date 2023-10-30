@@ -16,6 +16,8 @@ set(
     _onColorTriangleUpdated
     _translateTriangleAssembly
     _scaleTriangleAssembly
+    _positionCameraTriangleAssembly
+    _lookAtTriangleAssembly
 )
 
 # Include associated files

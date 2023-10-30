@@ -16,6 +16,8 @@ public:
 
     float& operator[] (int);
 
+    float operator[] (int) const;
+
     Vector3& add(const Vector3& vector);
 
     Vector3& add(float x, float y, float z);
@@ -39,6 +41,20 @@ public:
     float length() const;
 
     static float length(float x, float y, float z);
+
+    float distanceTo(const Vector3& v);
+
+    float dot(const Vector3& v);
+
+    static float dot(const Vector3& v1, const Vector3& v2);
+
+    Vector3& cross(const Vector3& v);
+
+    static Vector3& cross(const Vector3& v1, const Vector3& v2, Vector3* out = new Vector3());
+
+    Vector3& crossY();
+
+    Vector3& crossedByY();
 
     float x, y, z;
 };

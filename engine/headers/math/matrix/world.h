@@ -1,10 +1,39 @@
 #pragma once
 
-#include "transformation.h"
+#include "gl.h"
+#include "../vector/vector3.h"
 
-class World : public Transformation {
+class World : public GLMatrix {
 
 public:
 
-    World();
+    void translateInPlace(const float* xyz);
+
+    void translateInPlace(float x, float y, float z);
+
+    void scaleInPlace(const float* xyz);
+
+    void scaleInPlace(float x, float y, float z);
+
+private:
+
+    Vector3 position{ 0.0f }, scale{ 1.0f };
+
+    void updateMatrix() override;
+
+    class RotationMatrix {
+
+    public:
+
+        RotationMatrix();
+
+        ~RotationMatrix();
+
+        float* operator[](int i) const;
+
+    private:
+
+        float** elements;
+
+    }rotationMx;
 };

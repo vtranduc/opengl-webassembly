@@ -56,4 +56,20 @@ export class EngineHandle {
   public scaleTriangleAssembly(scale: Vector3) {
     return this.commands.scaleTriangleAssembly(scale[0], scale[1], scale[2]);
   }
+
+  public positionCameraTriangleAssembly(position: Vector3) {
+    return this.commands.positionCameraTriangleAssembly(
+      position[0],
+      position[1],
+      position[2]
+    );
+  }
+
+  public lookAtTriangleAssembly(target: Vector3) {
+    return this.commands.lookAtTriangleAssembly(
+      target[0],
+      target[1],
+      target[2]
+    );
+  }
 }

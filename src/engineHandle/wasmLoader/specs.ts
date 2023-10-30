@@ -85,6 +85,24 @@ const exportedFunctions: wasmExportedFunctionData[] = [
       WasmCommunicationDataType.Number,
     ],
   },
+  {
+    name: "positionCameraTriangleAssembly",
+    return: WasmCommunicationDataType.Number,
+    params: [
+      WasmCommunicationDataType.Number,
+      WasmCommunicationDataType.Number,
+      WasmCommunicationDataType.Number,
+    ],
+  },
+  {
+    name: "lookAtTriangleAssembly",
+    return: WasmCommunicationDataType.Number,
+    params: [
+      WasmCommunicationDataType.Number,
+      WasmCommunicationDataType.Number,
+      WasmCommunicationDataType.Number,
+    ],
+  },
 ];
 
 export { id, path, timeoutInSeconds, exportedFunctions };
@@ -101,6 +119,8 @@ export type Commands = {
   setColorTriangleColor: (color: number) => number;
   translateTriangleAssembly: (x: number, y: number, z: number) => number;
   scaleTriangleAssembly: (x: number, y: number, z: number) => number;
+  positionCameraTriangleAssembly: (x: number, y: number, z: number) => number;
+  lookAtTriangleAssembly: (x: number, y: number, z: number) => number;
 };
 
 // Callbacks from the engine

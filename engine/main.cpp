@@ -87,3 +87,39 @@ extern "C" int scaleTriangleAssembly(float x, float y, float z) {
         }
     );
 };
+
+extern "C" int positionCameraTriangleAssembly(float x, float y, float z) {
+    return handle.command
+    (
+        {
+            Preset::Name::TriangleAssembly,
+            {
+                .triangleAssembly = {
+                    .type = TriangleAssemblyCommand::Type::PositionCamera,
+                    .value =
+                    {
+                        .float3 = { x, y, z }
+                    }
+                }
+            }
+        }
+    );
+};
+
+extern "C" int lookAtTriangleAssembly(float x, float y, float z) {
+    return handle.command
+    (
+        {
+            Preset::Name::TriangleAssembly,
+            {
+                .triangleAssembly = {
+                    .type = TriangleAssemblyCommand::Type::LookAt,
+                    .value =
+                    {
+                        .float3 = { x, y, z }
+                    }
+                }
+            }
+        }
+    );
+};

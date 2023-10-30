@@ -20,6 +20,7 @@ void TriangleAssembly::set() {
     glEnableVertexAttribArray(0);
 
     glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, world.value());
+    glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, view.value());
     setDirty();
 };
 
@@ -34,6 +35,14 @@ void TriangleAssembly::command(const CommandData& data) {
         world.scaleInPlace(data.triangleAssembly.value.float3);
         setDirty();
         break;
+    case TriangleAssemblyCommand::Type::PositionCamera:
+        view.setPosition(data.triangleAssembly.value.float3);
+        setDirty();
+        break;
+    case TriangleAssemblyCommand::Type::LookAt:
+        view.lookAt(data.triangleAssembly.value.float3);
+        setDirty();
+        break;
     default:
         throw "Unhandled case";
     }
@@ -41,7 +50,8 @@ void TriangleAssembly::command(const CommandData& data) {
 
 void TriangleAssembly::render() {
     PresetBase::render();
-    glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, world.updateMatrix());
+    glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, world.value());
+    glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, view.value());
     glClear(GL_COLOR_BUFFER_BIT);
     glDrawArrays(GL_TRIANGLES, 0, nTriangles * 3);
-}
+};
