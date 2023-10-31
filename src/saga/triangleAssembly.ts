@@ -20,7 +20,7 @@ export function* triangleAssemblySaga(handle: EngineHandle) {
 }
 
 function initialSetUp(handle: EngineHandle) {
-  handle.positionCameraTriangleAssembly([0, 0, 0.3]);
+  handle.positionCameraTriangleAssembly([0, 0, 1.8]);
   handle.lookAtTriangleAssembly([0, 0, 0]);
 }
 

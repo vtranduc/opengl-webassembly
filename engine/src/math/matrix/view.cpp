@@ -13,11 +13,11 @@ void View::updateMatrix() {
     for (int i = 0; i < 3; i++) {
         e(i, 0) = right[i];
         e(i, 1) = up[i];
-        e(i, 2) = front[i];
+        e(i, 2) = -front[i];
     };
     e(3, 0) = -Vector3::dot(right, position);
     e(3, 1) = -Vector3::dot(up, position);
-    e(3, 2) = -Vector3::dot(front, position);
+    e(3, 2) = Vector3::dot(front, position);
 };
 
 void View::lookAt(const float* target) { lookAt(target[0], target[1], target[2]); };

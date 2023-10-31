@@ -104,7 +104,7 @@ function TriangleAssemblyPanel() {
   const [theta, setTheta] = useState<number>(Math.PI / 2);
 
   useEffect(() => {
-    const r = 0.3;
+    const r = 1.8;
     const sz = Math.sin(theta);
     const x = r * sz * Math.sin(phi);
     const y = r * Math.cos(theta);
@@ -121,9 +121,15 @@ function TriangleAssemblyPanel() {
 
       switch (e.key) {
         case "w":
-          dispatch(translate([0.0, 0.1, 0.0]));
+          dispatch(translate([0.0, 0.0, -0.1]));
           break;
         case "s":
+          dispatch(translate([0.0, 0.0, 0.1]));
+          break;
+        case "e":
+          dispatch(translate([0.0, 0.1, 0.0]));
+          break;
+        case "q":
           dispatch(translate([0.0, -0.1, 0.0]));
           break;
         case "d":
@@ -145,16 +151,16 @@ function TriangleAssemblyPanel() {
           dispatch(scale([1.0, 0.9, 1.0]));
           break;
         case "4":
-          setPhi((oldPhi) => (oldPhi + 0.05) % (2 * Math.PI));
-          break;
-        case "6":
           setPhi((oldPhi) => (oldPhi - 0.05) % (2 * Math.PI));
           break;
+        case "6":
+          setPhi((oldPhi) => (oldPhi + 0.05) % (2 * Math.PI));
+          break;
         case "8":
-          setTheta((oldTheta) => Math.min(Math.PI, oldTheta + 0.05));
+          setTheta((oldTheta) => Math.max(0, oldTheta - 0.05));
           break;
         case "2":
-          setTheta((oldTheta) => Math.max(0, oldTheta - 0.05));
+          setTheta((oldTheta) => Math.min(Math.PI, oldTheta + 0.05));
           break;
         default:
           break;

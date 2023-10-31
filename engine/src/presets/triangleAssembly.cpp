@@ -36,6 +36,8 @@ void TriangleAssembly::set() {
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
+    projection.setMode(Projection::Mode::Perspective);
+
     glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, world.value());
     glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, view.value());
     glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, projection.value());
