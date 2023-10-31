@@ -1,15 +1,12 @@
 #include "../../../headers/math/matrix/gl.h"
 
 GLMatrix::GLMatrix() {
-    // Allocate elements
     elements = new float**[4];
     int iArr = 0;
     for (int i = 0; i < 4; i++) {
         elements[i] = new float*[4];
         for (int j = 0; j < 4; j++) elements[i][j] = &elementArr[iArr++];
     }
-    // Set identity
-    for (int i = 0; i < 4; i++) for (int j = 0; j < 4; j++) *elements[i][j] = static_cast<float>(i == j);
 };
 
 GLMatrix::~GLMatrix() {
