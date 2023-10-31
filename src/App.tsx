@@ -145,16 +145,16 @@ function TriangleAssemblyPanel() {
           dispatch(scale([1.0, 0.9, 1.0]));
           break;
         case "4":
-          setPhi((oldPhi) => (oldPhi - 0.05) % (2 * Math.PI));
-          break;
-        case "6":
           setPhi((oldPhi) => (oldPhi + 0.05) % (2 * Math.PI));
           break;
+        case "6":
+          setPhi((oldPhi) => (oldPhi - 0.05) % (2 * Math.PI));
+          break;
         case "8":
-          setTheta((oldTheta) => Math.max(0, oldTheta - 0.05));
+          setTheta((oldTheta) => Math.min(Math.PI, oldTheta + 0.05));
           break;
         case "2":
-          setTheta((oldTheta) => Math.min(Math.PI, oldTheta + 0.05));
+          setTheta((oldTheta) => Math.max(0, oldTheta - 0.05));
           break;
         default:
           break;

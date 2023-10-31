@@ -7,9 +7,9 @@ constexpr struct {
 }tolerance;
 
 void View::updateMatrix() {
-    front.copy(position).subtract(target).normalize();
-    right.copy(front).crossedByY().normalize();
-    Vector3::cross(front, right, &up);
+    front.copy(target).subtract(position).normalize();
+    right.copy(front).crossY().normalize();
+    Vector3::cross(right, front, &up);
     for (int i = 0; i < 3; i++) {
         e(i, 0) = right[i];
         e(i, 1) = up[i];
