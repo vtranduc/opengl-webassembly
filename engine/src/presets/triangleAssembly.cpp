@@ -36,8 +36,6 @@ void TriangleAssembly::set() {
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
-    projection.setMode(Projection::Mode::Perspective);
-
     glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, world.value());
     glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, view.value());
     glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, projection.value());
@@ -63,8 +61,12 @@ void TriangleAssembly::command(const CommandData& data) {
         view.lookAt(data.triangleAssembly.value.float3);
         setDirty();
         break;
-    default:
-        throw "Unhandled case";
+    case TriangleAssemblyCommand::Type::Projection:
+        projection.setMode(data.triangleAssembly.value.intVal
+            ? Projection::Mode::Perspective : Projection::Mode::Orthographic);
+        setDirty();
+        break;
+    default: throw "Unhandled case";
     }
 };
 

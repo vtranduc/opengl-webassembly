@@ -1,5 +1,9 @@
 #pragma once
 
+#include <iostream>
+
+using namespace std;
+
 class GLMatrix {
 
 public:
@@ -25,4 +29,6 @@ protected:
     float& e(int col, int row);
 
     void setDirty();
+
+    void display();
 };

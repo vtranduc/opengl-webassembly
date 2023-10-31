@@ -1,7 +1,7 @@
 import { onClearColorUpdated } from "../reducer";
 import { onColorUpdate } from "../reducer/colorTriangle";
 import { store } from "../store";
-import { Vector3 } from "../types";
+import { Projection, Vector3 } from "../types";
 import { CallbackSetters, Commands, ModuleControl } from "./wasmLoader/specs";
 
 export class EngineHandle {
@@ -71,5 +71,9 @@ export class EngineHandle {
       target[1],
       target[2]
     );
+  }
+
+  public setProjectionTypeTriangleAssembly(type: Projection) {
+    return this.commands.setProjectionTypeTriangleAssembly(type);
   }
 }

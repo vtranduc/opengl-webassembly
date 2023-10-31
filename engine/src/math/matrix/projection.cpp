@@ -1,5 +1,7 @@
 #include "../../../headers/math/matrix/projection.h"
 
+Projection::Projection() : GLMatrix() { setDirty(); };
+
 void Projection::setMode(Mode mode_) {
     if (mode == mode_) return;
     mode = mode_;

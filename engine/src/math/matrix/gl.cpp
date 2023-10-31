@@ -27,3 +27,10 @@ const float* GLMatrix::value() {
 float& GLMatrix::e(int col, int row) { return *elements[col][row]; };
 
 void GLMatrix::setDirty() { isDirty = true; };
+
+void GLMatrix::display() {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) cout << e(j, i) << ", ";
+        cout << endl;
+    }
+}

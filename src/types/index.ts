@@ -23,3 +23,8 @@ export interface State {
   test: TestState;
   colorTriangle: ColorTriangleState;
 }
+
+export enum Projection {
+  Orthographic = 0,
+  Perspective = 1,
+}

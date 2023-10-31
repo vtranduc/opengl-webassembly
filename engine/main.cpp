@@ -123,3 +123,18 @@ extern "C" int lookAtTriangleAssembly(float x, float y, float z) {
         }
     );
 };
+
+extern "C" int setProjectionTypeTriangleAssembly(int type) {
+    return handle.command
+    (
+        {
+            Preset::Name::TriangleAssembly,
+            {
+                .triangleAssembly = {
+                    .type = TriangleAssemblyCommand::Type::Projection,
+                    .value = { .intVal = type }
+                }
+            }
+        }
+    );
+};

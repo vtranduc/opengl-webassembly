@@ -8,7 +8,9 @@ class Projection : public GLMatrix {
 
 public:
 
-    enum Mode {
+    Projection();
+
+    enum class Mode {
         Orthographic,
         Perspective
     };
@@ -21,7 +23,7 @@ public:
 
 private:
 
-    Mode mode = Mode::Orthographic;
+    Mode mode = Mode::Perspective;
 
     void updateMatrix() override;
 
@@ -32,7 +34,7 @@ private:
     struct {
         float fovY = M_PI / 2.0f;
         float aspect = 1.0f;
-        float near = 0.01f;
+        float near = 0.02f;
         float far = 100.0f;
     }perspectiveSpecs;
 
@@ -41,7 +43,7 @@ private:
         float left = -1.0f;
         float top = 1.0f;
         float bottom = -1.0f;
-        float near = 1.0f;
-        float far = -1.0f;
+        float near = 0.0f;
+        float far = 100.0f;
     }orthographicSpecs;
 };

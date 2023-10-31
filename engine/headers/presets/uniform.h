@@ -23,7 +23,8 @@ struct TriangleAssemblyCommand {
         Translate = 1,
         Scale = 2,
         PositionCamera = 3,
-        LookAt = 4
+        LookAt = 4,
+        Projection = 5
     };
 
     union Value {

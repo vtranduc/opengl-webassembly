@@ -103,6 +103,11 @@ const exportedFunctions: wasmExportedFunctionData[] = [
       WasmCommunicationDataType.Number,
     ],
   },
+  {
+    name: "setProjectionTypeTriangleAssembly",
+    return: WasmCommunicationDataType.Number,
+    params: [WasmCommunicationDataType.Number],
+  },
 ];
 
 export { id, path, timeoutInSeconds, exportedFunctions };
@@ -121,6 +126,7 @@ export type Commands = {
   scaleTriangleAssembly: (x: number, y: number, z: number) => number;
   positionCameraTriangleAssembly: (x: number, y: number, z: number) => number;
   lookAtTriangleAssembly: (x: number, y: number, z: number) => number;
+  setProjectionTypeTriangleAssembly: (type: number) => number;
 };
 
 // Callbacks from the engine

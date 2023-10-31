@@ -4,9 +4,14 @@ import { initialize, sayHello, setClearColor, setPreset } from "./reducer";
 import { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import { hexToRgb, rgbToHex } from "./utils";
-import { Preset, State } from "./types";
+import { Preset, Projection, State } from "./types";
 import { setColor } from "./reducer/colorTriangle";
-import { positionCamera, scale, translate } from "./reducer/triangleAssembly";
+import {
+  positionCamera,
+  scale,
+  setProjectionType,
+  translate,
+} from "./reducer/triangleAssembly";
 
 const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
@@ -100,17 +105,17 @@ function ColorTrianglePanel() {
 
 function TriangleAssemblyPanel() {
   const dispatch = useDispatch();
+  const [radius, setRadius] = useState<number>(1.8);
   const [phi, setPhi] = useState<number>(0);
   const [theta, setTheta] = useState<number>(Math.PI / 2);
 
   useEffect(() => {
-    const r = 1.8;
     const sz = Math.sin(theta);
-    const x = r * sz * Math.sin(phi);
-    const y = r * Math.cos(theta);
-    const z = r * sz * Math.cos(phi);
+    const x = radius * sz * Math.sin(phi);
+    const y = radius * Math.cos(theta);
+    const z = radius * sz * Math.cos(phi);
     dispatch(positionCamera([x, y, z]));
-  }, [phi, theta, dispatch]);
+  }, [radius, phi, theta, dispatch]);
 
   useEffect(() => {
     document.addEventListener("keydown", onKeyDown);
@@ -161,6 +166,18 @@ function TriangleAssemblyPanel() {
           break;
         case "2":
           setTheta((oldTheta) => Math.min(Math.PI, oldTheta + 0.05));
+          break;
+        case "o":
+          dispatch(setProjectionType(Projection.Orthographic));
+          break;
+        case "p":
+          dispatch(setProjectionType(Projection.Perspective));
+          break;
+        case "+":
+          setRadius((oldRadius) => Math.max(0, oldRadius - 0.05));
+          break;
+        case "-":
+          setRadius((oldRadius) => oldRadius + 0.05);
           break;
         default:
           break;

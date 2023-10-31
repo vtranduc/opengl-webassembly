@@ -18,6 +18,7 @@ set(
     _scaleTriangleAssembly
     _positionCameraTriangleAssembly
     _lookAtTriangleAssembly
+    _setProjectionTypeTriangleAssembly
 )
 
 # Include associated files

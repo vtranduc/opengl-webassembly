@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Vector3 } from "../types";
+import { Projection, Vector3 } from "../types";
 
 const triangleAssembly = createSlice({
   name: "triangleAssembly",
@@ -12,10 +12,12 @@ const triangleAssembly = createSlice({
     positionCamera(state, action: PayloadAction<Vector3>) {},
 
     lookAt(state, action: PayloadAction<Vector3>) {},
+
+    setProjectionType(state, action: PayloadAction<Projection>) {},
   },
 });
 
 export default triangleAssembly.reducer;
 
-export const { translate, scale, positionCamera, lookAt } =
+export const { translate, scale, positionCamera, lookAt, setProjectionType } =
   triangleAssembly.actions;

@@ -4,10 +4,11 @@ import {
   lookAt,
   positionCamera,
   scale,
+  setProjectionType,
   translate,
 } from "../reducer/triangleAssembly";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Vector3 } from "../types";
+import { Projection, Vector3 } from "../types";
 
 export function* triangleAssemblySaga(handle: EngineHandle) {
   initialSetUp(handle);
@@ -16,6 +17,7 @@ export function* triangleAssemblySaga(handle: EngineHandle) {
     takeEvery(scale.type, scaleSaga(handle)),
     takeLatest(positionCamera.type, positionCameraSaga(handle)),
     takeLatest(lookAt.type, lookAtSaga(handle)),
+    takeLatest(setProjectionType.type, setProjectionTypeSaga(handle)),
   ]);
 }
 
@@ -45,5 +47,11 @@ function positionCameraSaga(handle: EngineHandle) {
 function lookAtSaga(handle: EngineHandle) {
   return function ({ payload }: PayloadAction<Vector3>) {
     handle.lookAtTriangleAssembly(payload);
+  };
+}
+
+function setProjectionTypeSaga(handle: EngineHandle) {
+  return function ({ payload }: PayloadAction<Projection>) {
+    handle.setProjectionTypeTriangleAssembly(payload);
   };
 }
