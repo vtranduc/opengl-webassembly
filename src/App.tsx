@@ -30,7 +30,10 @@ function App() {
   const clearColor = useSelector((state: State) => state.test.clearColor);
 
   useEffect(() => {
-    if (!ref.current) return;
+    const canvas = ref.current;
+    if (!canvas) return;
+    canvas.width = 800;
+    canvas.height = 800;
     dispatch(initialize());
   }, [ref, dispatch]);
 
