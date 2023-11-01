@@ -12,6 +12,14 @@ export interface ColorTriangleState {
   color: number;
 }
 
+export interface TriangleAssemblyState {
+  projection: Projection;
+  position: Vector3;
+  scale: Vector3;
+  camera: Vector3;
+  target: Vector3;
+}
+
 export type Vector3 = [number, number, number];
 
 export interface TriangleAssemblyState {
@@ -22,6 +30,7 @@ export interface TriangleAssemblyState {
 export interface State {
   test: TestState;
   colorTriangle: ColorTriangleState;
+  triangleAssembly: TriangleAssemblyState;
 }
 
 export enum Projection {

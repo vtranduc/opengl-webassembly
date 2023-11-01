@@ -11,15 +11,19 @@ interface wasmExportedFunctionData {
 
 export enum WasmCallbackType {
   vi = "vi",
+  vfff = "vfff",
 }
 
-type WasmCallback<T extends WasmCallbackType> = T extends WasmCallbackType.vi
-  ? (param1: number) => void
-  : never;
+export type WasmCallback<T extends WasmCallbackType> =
+  T extends WasmCallbackType.vi
+    ? (param0: number) => void
+    : T extends WasmCallbackType.vfff
+    ? (param0: number, param1: number, param2: number) => void
+    : never;
 
 interface EngineCallback {
   name: string;
-  type: WasmCallbackType;
+  types: WasmCallbackType[];
 }
 
 // Modify accordingly to CMakeLists.txt and build.sh
@@ -134,18 +138,39 @@ export type Commands = {
 export const engineCallbacks: EngineCallback[] = [
   {
     name: "onClearColorChange",
-    type: WasmCallbackType.vi,
+    types: [WasmCallbackType.vi],
   },
   {
     name: "onColorTriangleUpdated",
-    type: WasmCallbackType.vi,
+    types: [WasmCallbackType.vi],
+  },
+  {
+    name: "onTriangleAssemblyUpdated",
+    types: [
+      WasmCallbackType.vi,
+      WasmCallbackType.vfff,
+      WasmCallbackType.vfff,
+      WasmCallbackType.vfff,
+      WasmCallbackType.vfff,
+    ],
   },
 ];
 
 export type CallbackSetters = {
-  onClearColorChange: (callback: WasmCallback<WasmCallbackType.vi>) => number;
+  onClearColorChange: (
+    callbacks: [WasmCallback<WasmCallbackType.vi>]
+  ) => number;
   onColorTriangleUpdated: (
-    callback: WasmCallback<WasmCallbackType.vi>
+    callbacks: [WasmCallback<WasmCallbackType.vi>]
+  ) => number;
+  onTriangleAssemblyUpdated: (
+    callbacks: [
+      WasmCallback<WasmCallbackType.vi>,
+      WasmCallback<WasmCallbackType.vfff>,
+      WasmCallback<WasmCallbackType.vfff>,
+      WasmCallback<WasmCallbackType.vfff>,
+      WasmCallback<WasmCallbackType.vfff>
+    ]
   ) => number;
 };
 

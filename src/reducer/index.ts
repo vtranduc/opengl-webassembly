@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { Preset, State, TestState } from "../types";
 import colorTriangleReducer from "./colorTriangle";
+import triangleAssemblyReducer from "./triangleAssembly";
 
 // Placeholder slice, to be removed
 
@@ -30,6 +31,7 @@ const testSlice = createSlice({
 const rootReducer: Record<keyof State, Reducer> = {
   test: testSlice.reducer,
   colorTriangle: colorTriangleReducer,
+  triangleAssembly: triangleAssemblyReducer,
 };
 
 export const initialize = createAction("initialize");

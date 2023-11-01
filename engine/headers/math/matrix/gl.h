@@ -16,7 +16,7 @@ public:
 
 private:
 
-    float elementArr[16] = {
+    float elementArr[16] {
         1.0f, 0.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,

@@ -42,3 +42,7 @@ bool View::validatePositionTarget(const Vector3& position, const Vector3& target
     if (abs(tmp.normalize().y) > tolerance.maxFrontDotY) return false;
     return true;
 };
+
+Vector3& View::getPosition(Vector3* out) const { out->copy(position); return *out; };
+
+Vector3& View::getTarget(Vector3* out) const { out->copy(target); return *out; };

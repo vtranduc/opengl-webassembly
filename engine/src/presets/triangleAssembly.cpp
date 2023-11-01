@@ -48,18 +48,26 @@ void TriangleAssembly::command(const CommandData& data) {
     case TriangleAssemblyCommand::Type::Translate:
         world.translateInPlace(data.triangleAssembly.value.float3);
         setDirty();
+        world.getPosition(&tmpVector3);
+        callbacks.onPositionChanged(tmpVector3.x, tmpVector3.y, tmpVector3.z);
         break;
     case TriangleAssemblyCommand::Type::Scale:
         world.scaleInPlace(data.triangleAssembly.value.float3);
         setDirty();
+        world.getScale(&tmpVector3);
+        callbacks.onScaleChanged(tmpVector3.x, tmpVector3.y, tmpVector3.z);
         break;
     case TriangleAssemblyCommand::Type::PositionCamera:
         view.setPosition(data.triangleAssembly.value.float3);
         setDirty();
+        view.getPosition(&tmpVector3);
+        callbacks.onCameraPositionChanged(tmpVector3.x, tmpVector3.y, tmpVector3.z);
         break;
     case TriangleAssemblyCommand::Type::LookAt:
         view.lookAt(data.triangleAssembly.value.float3);
         setDirty();
+        view.getTarget(&tmpVector3);
+        callbacks.onTargetChanged(tmpVector3.x, tmpVector3.y, tmpVector3.z);
         break;
     case TriangleAssemblyCommand::Type::Projection:
         projection.setMode(data.triangleAssembly.value.intVal
@@ -77,4 +85,22 @@ void TriangleAssembly::render() {
     glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, projection.value());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDrawArrays(GL_TRIANGLES, 0, nTriangles * 3);
+};
+
+void TriangleAssembly::setCallbacks(const Callbacks& cbs) {
+    callbacks.onProjectionTypeUpdated = cbs.onProjectionTypeUpdated;
+    callbacks.onPositionChanged = cbs.onPositionChanged;
+    callbacks.onScaleChanged = cbs.onScaleChanged;
+    callbacks.onCameraPositionChanged = cbs.onCameraPositionChanged;
+    callbacks.onTargetChanged = cbs.onTargetChanged;
+
+    callbacks.onProjectionTypeUpdated(projection.getMode() == Projection::Mode::Orthographic ? 0 : 1);
+    world.getPosition(&tmpVector3);
+    callbacks.onPositionChanged(tmpVector3.x, tmpVector3.y, tmpVector3.z);
+    world.getScale(&tmpVector3);
+    callbacks.onScaleChanged(tmpVector3.x, tmpVector3.y, tmpVector3.z);
+    view.getPosition(&tmpVector3);
+    callbacks.onCameraPositionChanged(tmpVector3.x, tmpVector3.y, tmpVector3.z);
+    view.getTarget(&tmpVector3);
+    callbacks.onTargetChanged(tmpVector3.x, tmpVector3.y, tmpVector3.z);
 };

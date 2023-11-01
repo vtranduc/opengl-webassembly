@@ -2,6 +2,8 @@
 
 Projection::Projection() : GLMatrix() { setDirty(); };
 
+Projection::Mode Projection::getMode() const { return mode; };
+
 void Projection::setMode(Mode mode_) {
     if (mode == mode_) return;
     mode = mode_;

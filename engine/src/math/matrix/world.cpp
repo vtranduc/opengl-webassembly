@@ -19,6 +19,11 @@ void World::scaleInPlace(float x, float y, float z) {
     setDirty();
 };
 
+Vector3& World::getPosition(Vector3* out) const { out->copy(position); return *out; };
+
+Vector3& World::getScale(Vector3* out) const { out->copy(scale); return *out; };
+
+
 World::RotationMatrix::RotationMatrix() {
     // Allocate elements
     elements = new float*[3];

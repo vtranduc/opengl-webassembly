@@ -32,6 +32,8 @@ public:
         Name type;
         union Callbacks {
             ColorTriangle::Callbacks colorTriangle;
+
+            TriangleAssembly::Callbacks triangleAssembly;
         }callbacks;
     };
 

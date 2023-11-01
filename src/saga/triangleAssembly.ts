@@ -1,14 +1,16 @@
-import { all, takeEvery, takeLatest } from "redux-saga/effects";
+import { all, select, takeEvery, takeLatest } from "redux-saga/effects";
 import { EngineHandle } from "../engineHandle";
 import {
   lookAt,
   positionCamera,
+  rotateCamera,
   scale,
   setProjectionType,
   translate,
 } from "../reducer/triangleAssembly";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Projection, Vector3 } from "../types";
+import { Projection, State, Vector3 } from "../types";
+import { rotatePoint } from "../utils";
 
 export function* triangleAssemblySaga(handle: EngineHandle) {
   initialSetUp(handle);
@@ -16,6 +18,7 @@ export function* triangleAssemblySaga(handle: EngineHandle) {
     takeEvery(translate.type, translateSaga(handle)),
     takeEvery(scale.type, scaleSaga(handle)),
     takeLatest(positionCamera.type, positionCameraSaga(handle)),
+    takeLatest(rotateCamera.type, rotateCameraSaga(handle)),
     takeLatest(lookAt.type, lookAtSaga(handle)),
     takeLatest(setProjectionType.type, setProjectionTypeSaga(handle)),
   ]);
@@ -41,6 +44,20 @@ function scaleSaga(handle: EngineHandle) {
 function positionCameraSaga(handle: EngineHandle) {
   return function ({ payload }: PayloadAction<Vector3>) {
     handle.positionCameraTriangleAssembly(payload);
+  };
+}
+
+function rotateCameraSaga(handle: EngineHandle) {
+  return function* ({ payload }: PayloadAction<Vector3>) {
+    const position: Vector3 = yield select(
+      (state: State) => state.triangleAssembly.camera
+    );
+    const pivot: Vector3 = yield select(
+      (state: State) => state.triangleAssembly.target
+    );
+    handle.positionCameraTriangleAssembly(
+      rotatePoint(position, pivot, payload)
+    );
   };
 }
 

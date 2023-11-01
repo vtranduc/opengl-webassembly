@@ -44,6 +44,7 @@ void Preset::setCallbacks(const CallbackData& data) {
             presets.colorTriangle.setCallbacks(data.callbacks.colorTriangle);
             break;
         case Name::TriangleAssembly:
+            presets.triangleAssembly.setCallbacks(data.callbacks.triangleAssembly);
             break;
         default:
             throw "Callback type not handled";

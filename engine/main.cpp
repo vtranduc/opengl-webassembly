@@ -138,3 +138,18 @@ extern "C" int setProjectionTypeTriangleAssembly(int type) {
         }
     );
 };
+
+extern "C" int onTriangleAssemblyUpdated(
+    CallbackVI onProjectionTypeUpdated,
+    CallbackVFFF onPositionChanged,
+    CallbackVFFF onScaleChanged,
+    CallbackVFFF onCameraPositionChanged,
+    CallbackVFFF onTargetChanged
+) {
+    handle.setPresetCallbacks({ Preset::Name::TriangleAssembly,
+    {
+        .triangleAssembly = { onProjectionTypeUpdated, onPositionChanged,
+            onScaleChanged, onCameraPositionChanged, onTargetChanged }
+    }});
+    return 1;
+};

@@ -5,6 +5,7 @@
 #include "../utils.h"
 #include "../shader.h"
 #include "../math.h"
+#include "../utils/callback.h"
 
 #include <iostream>
 
@@ -21,6 +22,20 @@ class TriangleAssembly : public PresetBase {
 
     void render() override;
 
+    struct Callbacks {
+        CallbackVI onProjectionTypeUpdated;
+
+        CallbackVFFF onPositionChanged;
+
+        CallbackVFFF onScaleChanged;
+
+        CallbackVFFF onCameraPositionChanged;
+
+        CallbackVFFF onTargetChanged;
+    };
+
+    void setCallbacks(const Callbacks& callbacks);
+
     private:
 
     World world;
@@ -28,6 +43,10 @@ class TriangleAssembly : public PresetBase {
     View view;
 
     Projection projection;
+
+    Callbacks callbacks;
+
+    Vector3 tmpVector3;
 
     static constexpr int nTriangles = 12;
 

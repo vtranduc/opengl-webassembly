@@ -15,6 +15,10 @@ public:
 
     void setPosition(float x, float y, float z);
 
+    Vector3& getPosition(Vector3* out) const;
+
+    Vector3& getTarget(Vector3* out) const;
+
 private:
 
     Vector3

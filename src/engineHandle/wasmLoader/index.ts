@@ -2,6 +2,7 @@ import {
   CallbackSetters,
   Commands,
   ModuleControl,
+  WasmCallback,
   WasmCallbackType,
   engineCallbacks,
   exportedFunctions,
@@ -48,21 +49,16 @@ export function loadWasm(): Promise<ModuleControl> {
           };
         }, {}) as Commands;
         const callbackSetters = engineCallbacks.reduce((acc, data) => {
-          switch (data.type) {
-            case WasmCallbackType.vi:
-              return {
-                ...acc,
-                [data.name]: (callback: (param1: number) => void) =>
-                  module.ccall(
-                    data.name,
-                    "number",
-                    ["number"],
-                    [module.addFunction(callback, data.type)]
-                  ),
-              };
-            default:
-              throw new Error("Callback type is not handled");
-          }
+          return {
+            ...acc,
+            [data.name]: (callbacks: WasmCallback<WasmCallbackType>[]) =>
+              module.ccall(
+                data.name,
+                "number",
+                new Array(callbacks.length).fill("number"),
+                callbacks.map((cb, i) => module.addFunction(cb, data.types[i]))
+              ),
+          };
         }, {}) as CallbackSetters;
         resolve({ commands, callbackSetters });
       },

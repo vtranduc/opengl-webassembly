@@ -15,6 +15,8 @@ public:
         Perspective
     };
 
+    Mode getMode() const;
+
     void setMode(Mode mode);
 
     void setPerspectiveSpecs(float fovY, float aspect, float near, float far);

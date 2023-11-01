@@ -15,6 +15,10 @@ public:
 
     void scaleInPlace(float x, float y, float z);
 
+    Vector3& getPosition(Vector3* out) const;
+
+    Vector3& getScale(Vector3* out) const;
+
 private:
 
     Vector3 position{ 0.0f }, scale{ 1.0f };

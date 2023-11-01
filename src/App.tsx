@@ -7,7 +7,7 @@ import { hexToRgb, rgbToHex } from "./utils";
 import { Preset, Projection, State } from "./types";
 import { setColor } from "./reducer/colorTriangle";
 import {
-  positionCamera,
+  rotateCamera,
   scale,
   setProjectionType,
   translate,
@@ -108,17 +108,6 @@ function ColorTrianglePanel() {
 
 function TriangleAssemblyPanel() {
   const dispatch = useDispatch();
-  const [radius, setRadius] = useState<number>(1.8);
-  const [phi, setPhi] = useState<number>(0);
-  const [theta, setTheta] = useState<number>(Math.PI / 2);
-
-  useEffect(() => {
-    const sz = Math.sin(theta);
-    const x = radius * sz * Math.sin(phi);
-    const y = radius * Math.cos(theta);
-    const z = radius * sz * Math.cos(phi);
-    dispatch(positionCamera([x, y, z]));
-  }, [radius, phi, theta, dispatch]);
 
   useEffect(() => {
     document.addEventListener("keydown", onKeyDown);
@@ -159,16 +148,18 @@ function TriangleAssemblyPanel() {
           dispatch(scale([1.0, 0.9, 1.0]));
           break;
         case "4":
-          setPhi((oldPhi) => (oldPhi - 0.05) % (2 * Math.PI));
+          dispatch(rotateCamera([0, -0.05, 0]));
           break;
         case "6":
-          setPhi((oldPhi) => (oldPhi + 0.05) % (2 * Math.PI));
+          dispatch(rotateCamera([0, 0.05, 0]));
+
           break;
         case "8":
-          setTheta((oldTheta) => Math.max(0, oldTheta - 0.05));
+          dispatch(rotateCamera([0, 0, -0.05]));
+
           break;
         case "2":
-          setTheta((oldTheta) => Math.min(Math.PI, oldTheta + 0.05));
+          dispatch(rotateCamera([0, 0, 0.05]));
           break;
         case "o":
           dispatch(setProjectionType(Projection.Orthographic));
@@ -177,10 +168,10 @@ function TriangleAssemblyPanel() {
           dispatch(setProjectionType(Projection.Perspective));
           break;
         case "+":
-          setRadius((oldRadius) => Math.max(0, oldRadius - 0.05));
+          dispatch(rotateCamera([-0.05, 0, 0]));
           break;
         case "-":
-          setRadius((oldRadius) => oldRadius + 0.05);
+          dispatch(rotateCamera([0.05, 0, 0]));
           break;
         default:
           break;
