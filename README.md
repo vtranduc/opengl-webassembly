@@ -12,6 +12,10 @@ To do this, after installation, locate\
 Then, include public folder. `ignored` specifications should look like\
 `ignored: [ignoredFiles(paths.appSrc), paths.appPublic]`
 
+## External Libraries
+
+This engine uses tinygltf. Please modify externalLibs.h specify the paths of external libraries.
+
 ## Adding glsl
 
 All glsl files should have .glsl extensions.
