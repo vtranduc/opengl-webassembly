@@ -14,10 +14,7 @@ void Projection::setPerspectiveSpecs(float fovY, float aspect, float near, float
     #if ASSERT_VALID_ARGUMENTS
     assert(fovY < M_PI && aspect > 0.0 && far > near);
     #endif
-    perspectiveSpecs.fovY = fovY;
-    perspectiveSpecs.aspect = aspect;
-    perspectiveSpecs.near = near;
-    perspectiveSpecs.far = far;
+    perspectiveSpecs = { fovY, aspect, near, far };
     if (mode == Mode::Perspective) setDirty();
 };
 
@@ -25,12 +22,7 @@ void Projection::setOrthographicSpecs(float right, float left, float top, float 
     #if ASSERT_VALID_ARGUMENTS
     assert(right > left && top > bottom && near > far);
     #endif
-    orthographicSpecs.right = right;
-    orthographicSpecs.left = left;
-    orthographicSpecs.top = top;
-    orthographicSpecs.bottom = bottom;
-    orthographicSpecs.near = near;
-    orthographicSpecs.far = far;
+    orthographicSpecs = { right, left, top, bottom, near, far };
     if (mode == Mode::Orthographic) setDirty();
 };
 
