@@ -3,6 +3,22 @@ cmake_minimum_required(VERSION 3.26.3)
 # Project name
 project(engine)
 
+#External libraries
+
+# Please update this path to local single_include folder, cloned from https://github.com/nlohmann/json
+set (jsonLibPath "../../../../libs/json/single_include")
+
+# Validate external library paths then set them
+if(NOT EXISTS ${jsonLibPath})
+	message(
+        FATAL_ERROR "Please update nlohmann's json library path to local single_include folder.\
+        It can be cloned from https://github.com/nlohmann/json."
+    )
+	return()
+else()
+	set(JSON_INCLUDE_DIR ${jsonLibPath})
+endif()
+
 
 # Exported functions
 set(
@@ -29,6 +45,10 @@ file(GLOB_RECURSE SOURCES src/*.cpp)
 # Executable
 add_executable(${PROJECT_NAME} main.cpp ${SOURCES} ${HEADERS})
 
+# Include third party libraries
+target_include_directories(${PROJECT_NAME} PUBLIC ${JSON_INCLUDE_DIR})
+
+# Prepare for setting target properties
 list(JOIN ENGINE_EXPORTED_FUNCTIONS "," COMMA_EXPORTED_FUNCTIONS)
 
 # Settings
