@@ -39,10 +39,10 @@ void View::setPosition(float x, float y, float z) {
 bool View::validatePositionTarget(const Vector3& position, const Vector3& target) {
     tmp.copy(position).subtract(target);
     if (tmp.length() < tolerance.lookAtMinDistance) return false;
-    if (abs(tmp.normalize().y) > tolerance.maxFrontDotY) return false;
-    return true;
+    else if (abs(tmp.normalize().y) > tolerance.maxFrontDotY) return false;
+    else return true;
 };
 
-Vector3& View::getPosition(Vector3* out) const { out->copy(position); return *out; };
+Vector3& View::getPosition(Vector3* out) const { return out->copy(position); };
 
-Vector3& View::getTarget(Vector3* out) const { out->copy(target); return *out; };
+Vector3& View::getTarget(Vector3* out) const { return out->copy(target); };

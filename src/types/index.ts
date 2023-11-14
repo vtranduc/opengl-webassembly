@@ -1,6 +1,7 @@
 export enum Preset {
   ColorTriangle = 0,
   TriangleAssembly = 1,
+  StaticGLTF = 2,
 }
 
 export interface TestState {

@@ -3,6 +3,7 @@
 void Preset::init() {
     presets.colorTriangle.init();
     presets.triangleAssembly.init();
+    presets.staticGLTF.init();
 }
 
 void Preset::set(uint32_t code) {
@@ -34,6 +35,7 @@ PresetBase* Preset::getPreset(Name name) {
     switch(name) {
     case Name::ColorTriangle: return &(presets.colorTriangle);
     case Name::TriangleAssembly: return &(presets.triangleAssembly);
+    case Name::StaticGLTF: return &(presets.staticGLTF);
     default: throw "Preset name is unhandled in getter";
     }
 }
@@ -45,6 +47,9 @@ void Preset::setCallbacks(const CallbackData& data) {
             break;
         case Name::TriangleAssembly:
             presets.triangleAssembly.setCallbacks(data.callbacks.triangleAssembly);
+            break;
+        case Name::StaticGLTF:
+            presets.staticGLTF.setCallbacks(data.callbacks.staticGLTF);
             break;
         default:
             throw "Callback type not handled";

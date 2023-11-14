@@ -29,15 +29,15 @@ private:
 
     public:
 
-        RotationMatrix();
-
-        ~RotationMatrix();
-
-        float* operator[](int i) const;
+        float operator()(int i, int j) const;
 
     private:
 
-        float** elements;
-
+        float elements[3][3] {
+            1.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 1.0f,
+        };
+        
     }rotationMx;
 };

@@ -39,8 +39,15 @@ struct TriangleAssemblyCommand {
     };
 };
 
+struct StaticGLTFCommand {
+
+    struct Data {};
+};
+
 union CommandData {
     ColorTriangleCommand::Data colorTriangle;
 
     TriangleAssemblyCommand::Data triangleAssembly;
+
+    StaticGLTFCommand::Data StaticGLTFCommand;
 };

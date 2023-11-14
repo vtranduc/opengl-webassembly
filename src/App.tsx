@@ -16,6 +16,7 @@ import {
 const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
   { type: Preset.TriangleAssembly, name: "Triangle Assembly" },
+  { type: Preset.StaticGLTF, name: "Static GLTF" },
 ];
 
 function App() {
@@ -43,6 +44,8 @@ function App() {
         return <ColorTrianglePanel />;
       case Preset.TriangleAssembly:
         return <TriangleAssemblyPanel />;
+      case Preset.StaticGLTF:
+        return <StaticGLTF />;
       default:
         return null;
     }
@@ -183,4 +186,8 @@ function TriangleAssemblyPanel() {
   }, [dispatch]);
 
   return <h3>Triangle Aseembly</h3>;
+}
+
+function StaticGLTF() {
+  return null;
 }
