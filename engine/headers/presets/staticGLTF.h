@@ -1,9 +1,13 @@
 #pragma once
 
 #include <iostream>
+#include <nlohmann/json.hpp>
+#include <string>
+#include <fstream>
 #include <GLES3/gl3.h>
 #include "presetBase.h"
 
+using json = nlohmann::json;
 using namespace std;
 
 class StaticGLTF : public PresetBase {

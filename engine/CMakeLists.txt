@@ -42,6 +42,9 @@ set(
 file(GLOB_RECURSE HEADERS headers/*.h)
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
+# Bring assets
+file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 # Executable
 add_executable(${PROJECT_NAME} main.cpp ${SOURCES} ${HEADERS})
 
@@ -58,4 +61,5 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS
     -sALLOW_TABLE_GROWTH\
     -sMIN_WEBGL_VERSION=2\
     -sUSE_SDL=2\
+    --embed-file assets\
 ")
