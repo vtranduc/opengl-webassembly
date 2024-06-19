@@ -5,7 +5,7 @@ int WebGLHandle::initialize(char* canvasId, int clearColor, int startingPreset) 
     EMSCRIPTEN_WEBGL_CONTEXT_HANDLE context
         = emscripten_webgl_create_context(canvasId, &attrs);
     if (context < 0) {
-        printf("failed to create webgl context %d\n", context);
+        printf("failed to create webgl context %lu\n", context);
         return 0;
     };
     EMSCRIPTEN_RESULT r = emscripten_webgl_make_context_current(context);
