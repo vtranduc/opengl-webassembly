@@ -7,6 +7,7 @@ import {
 import { Preset, State, TestState } from "../types";
 import colorTriangleReducer from "./colorTriangle";
 import triangleAssemblyReducer from "./triangleAssembly";
+import spheresAndLightsReducer from "./spheresAndLights";
 
 // Placeholder slice, to be removed
 
@@ -32,6 +33,7 @@ const rootReducer: Record<keyof State, Reducer> = {
   test: testSlice.reducer,
   colorTriangle: colorTriangleReducer,
   triangleAssembly: triangleAssemblyReducer,
+  spheresAndLights: spheresAndLightsReducer,
 };
 
 export const initialize = createAction("initialize");
