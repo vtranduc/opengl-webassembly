@@ -3,7 +3,7 @@
 SpheresAndLights::SpheresAndLights() {}
 
 void SpheresAndLights::init() {
-    program = getShaderProgram(Shader::Vertex::VertexColor, Shader::Fragment::VertexColor);
+    program = getShaderProgram(Shader::Vertex::SpheresAndLights, Shader::Fragment::SpheresAndLights);
     float position[3] = { 1.0f, 1.0f, 1.0f };
     float target[3] = { 0.0f, 0.0f, 0.0f };
     view.setPosition(position);
@@ -23,6 +23,22 @@ void SpheresAndLights::set() {
     glBindVertexArray(VAO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    GLuint normalBuffer;
+    glGenBuffers(1, &normalBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sphere0.getSize(), sphere0.getNormals(), GL_STATIC_DRAW);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(
+        1,            // attribute. No particular reason for 1, but must match the layout in the shader.
+        3,            // size
+        GL_FLOAT,     // type
+        GL_TRUE,     // normalized?
+        0,            // stride
+        (void*)0      // array buffer offset
+    );
+
+    glEnable(GL_CULL_FACE);
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);

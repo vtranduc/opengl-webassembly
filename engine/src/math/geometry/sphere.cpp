@@ -2,24 +2,29 @@
 
 Sphere::Sphere() { generateVertices(); };
 
-Sphere::~Sphere() { delete[] mesh.vertices; }
+Sphere::~Sphere() { delete[] mesh.vertices; delete[] mesh.normals; }
 
 GLfloat* Sphere::getVertices() const { return mesh.vertices; }
 
- GLsizeiptr Sphere::getSize() const { return mesh.size; }
+GLfloat* Sphere::getNormals() const { return mesh.normals; }
+
+GLsizeiptr Sphere::getSize() const { return mesh.size; }
 
 GLsizei Sphere::getCount() const { return mesh.count; }
 
 void Sphere::generateVertices(int nTheta, int nPhi) {
     #if ASSERT_VALID_ARGUMENTS
-    assert(nTheta >= 8 && nTheta <= 128 && nPhi >= 8 && nPhi <= 128);
+    assert(nTheta >= 8 && nTheta <= 256 && nPhi >= 8 && nPhi <= 256);
     #endif
 
-    delete[] mesh.vertices;
+    delete[] mesh.vertices; delete[] mesh.normals;
 
     Vector3 v0, v1, v2, v3;
 
     int nTriangles = (nTheta + (nPhi - 2) * nTheta) * 2;
+
+    mesh.size = nTriangles * 9 * sizeof(GLfloat);
+    mesh.count = nTriangles * 3;
 
     mesh.vertices = new GLfloat[nTriangles * 9];
 
@@ -44,8 +49,6 @@ void Sphere::generateVertices(int nTheta, int nPhi) {
     for (int j = 0; j < 3; j++) mesh.vertices[i++] = v1[j];
     for (int j = 0; j < 3; j++) mesh.vertices[i++] = v0[j];
 
-    for (int j = 0; j < nTheta * 9; j++) mesh.vertices[i++] = j % 3 == 2 ? -mesh.vertices[j] : mesh.vertices[j];
-
     for (int iPhi = 1; iPhi < nPhi - 1; iPhi++) {
         for (int iTheta = 0; iTheta < nTheta; iTheta++) {
             Vector3::sphericalToCartesian(r, float(iTheta) * deltaTheta, float(iPhi) * deltaPhi, &v0);
@@ -54,8 +57,8 @@ void Sphere::generateVertices(int nTheta, int nPhi) {
             Vector3::sphericalToCartesian(r, float(iTheta + 1) * deltaTheta, float(iPhi + 1) * deltaPhi, &v3);
 
             for (int j = 0; j < 3; j++) mesh.vertices[i++] = v0[j];
-            for (int j = 0; j < 3; j++) mesh.vertices[i++] = v1[j];
             for (int j = 0; j < 3; j++) mesh.vertices[i++] = v2[j];
+            for (int j = 0; j < 3; j++) mesh.vertices[i++] = v1[j];
 
             for (int j = 0; j < 3; j++) mesh.vertices[i++] = v1[j];
             for (int j = 0; j < 3; j++) mesh.vertices[i++] = v2[j];
@@ -63,6 +66,26 @@ void Sphere::generateVertices(int nTheta, int nPhi) {
         }
     }
 
-    mesh.size = nTriangles * 9 * sizeof(GLfloat);
-    mesh.count = nTriangles * 3;
+    for (int j = 0; j < nTheta; j++) {
+        int k = j * 9;
+
+        mesh.vertices[i++] = mesh.vertices[i++] = 0.0f;
+        mesh.vertices[i++] = -r;
+
+        mesh.vertices[i++] = mesh.vertices[k + 6];
+        mesh.vertices[i++] = mesh.vertices[k + 7];
+        mesh.vertices[i++] = -mesh.vertices[k + 8];
+
+        mesh.vertices[i++] = mesh.vertices[k + 3];
+        mesh.vertices[i++] = mesh.vertices[k + 4];
+        mesh.vertices[i++] = -mesh.vertices[k + 5];
+    }
+
+    mesh.normals = new GLfloat[nTriangles * 9];
+
+    for (int iVertex = 0; iVertex < nTriangles * 3; iVertex++) {
+        int index = iVertex * 3;
+        v0.set(mesh.vertices[index], mesh.vertices[index + 1], mesh.vertices[index + 2]).normalize();
+        for (int j = 0; j < 3; j++) mesh.normals[index + j] = v0[j];
+    }
 }

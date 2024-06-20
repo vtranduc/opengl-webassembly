@@ -10,9 +10,11 @@ public:
 
     ~Sphere();
 
-    void generateVertices(int nTheta = 50, int nPhi = 50);
+    void generateVertices(int nTheta = 64, int nPhi = 64);
 
     GLfloat* getVertices() const;
+
+    GLfloat* getNormals() const;
 
     GLsizeiptr getSize() const;
 
@@ -23,6 +25,8 @@ private:
 
     struct {
         GLfloat *vertices = nullptr;
+
+        GLfloat *normals = nullptr;
 
         GLsizeiptr size = 0;
 
