@@ -56,5 +56,7 @@ public:
 
     Vector3& crossedByY();
 
+    static Vector3& sphericalToCartesian(float r, float theta, float phi, Vector3* out = new Vector3());
+
     float x, y, z;
 };

@@ -16,6 +16,7 @@ import {
 const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
   { type: Preset.TriangleAssembly, name: "Triangle Assembly" },
+  { type: Preset.SpheresAndLights, name: "Spheres and Lights" },
 ];
 
 function App() {
@@ -43,6 +44,8 @@ function App() {
         return <ColorTrianglePanel />;
       case Preset.TriangleAssembly:
         return <TriangleAssemblyPanel />;
+      case Preset.SpheresAndLights:
+        return null;
       default:
         return null;
     }

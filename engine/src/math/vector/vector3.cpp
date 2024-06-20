@@ -99,3 +99,9 @@ Vector3& Vector3::cross(const Vector3& v1, const Vector3& v2, Vector3* out) {
 Vector3& Vector3::crossY() { y = x; x = -z; z = y; y = 0.0f; return *this; };
 
 Vector3& Vector3::crossedByY() { y = x; x = z; z = -y; y = 0.0f; return *this; };
+
+Vector3& Vector3::sphericalToCartesian(float r, float theta, float phi, Vector3* out) {
+    float sz = r * sin(phi);
+    out->set(sz * cos(theta), sz * sin(theta), r * cos(phi));
+    return *out;
+};
