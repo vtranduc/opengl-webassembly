@@ -6,7 +6,7 @@
 
 class Sphere {
 public:
-    Sphere();
+    Sphere(float radius = 1.0f);
 
     ~Sphere();
 
@@ -20,6 +20,10 @@ public:
 
     GLsizei getCount() const;
 
+    const float* getWorldValue();
+
+    void setPosition(float x, float y, float z);
+
 private:
     float r = 0.5f;
 
@@ -32,4 +36,6 @@ private:
 
         GLsizei count = 0;
     }mesh;
+
+    World world;
 };

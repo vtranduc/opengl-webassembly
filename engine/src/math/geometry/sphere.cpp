@@ -1,6 +1,6 @@
 #include "../../../headers/math/geometry/sphere.h"
 
-Sphere::Sphere() { generateVertices(); };
+Sphere::Sphere(float radius) : r(radius) { generateVertices(); };
 
 Sphere::~Sphere() { delete[] mesh.vertices; delete[] mesh.normals; }
 
@@ -89,3 +89,7 @@ void Sphere::generateVertices(int nTheta, int nPhi) {
         for (int j = 0; j < 3; j++) mesh.normals[index + j] = v0[j];
     }
 }
+
+const float* Sphere::getWorldValue() { return world.value(); }
+
+void Sphere::setPosition(float x, float y, float z) { world.setPosition(x, y, z); };

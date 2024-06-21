@@ -5,6 +5,11 @@ void World::updateMatrix() {
     for (int i = 0; i < 3; i++) for (int j = 0; j < 3; j++) e(i, j) = scale[j] * rotationMx[i][j];
 };
 
+void World::setPosition(float x, float y, float z) {
+    position.set(x, y, z);
+    setDirty();
+};
+
 void World::translateInPlace(const float* xyz) { translateInPlace(xyz[0], xyz[1], xyz[2]); };
 
 void World::translateInPlace(float x, float y, float z) {

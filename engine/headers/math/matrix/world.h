@@ -7,6 +7,8 @@ class World : public GLMatrix {
 
 public:
 
+    void setPosition(float x, float y, float z);
+
     void translateInPlace(const float* xyz);
 
     void translateInPlace(float x, float y, float z);

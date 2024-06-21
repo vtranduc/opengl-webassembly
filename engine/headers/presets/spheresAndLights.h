@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GLES3/gl3.h>
+#include <vector>
 #include "../shader.h"
 #include "../utils.h"
 #include "../math.h"
@@ -31,11 +32,9 @@ public:
 private:
     GLuint program;
 
-    World world;
-
     View view;
 
     Projection projection;
 
-    Sphere sphere0;
+    vector<Sphere*> spheres;
 };
