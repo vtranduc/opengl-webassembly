@@ -153,3 +153,17 @@ extern "C" int onTriangleAssemblyUpdated(
     }});
     return 1;
 };
+
+extern "C" int rotateCameraSpheresAndLights(int direction) {
+    switch (direction) {
+    case 0: return handle.command({ Preset::Name::SpheresAndLights,
+        { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::CameraRight } } });
+    case 1: return handle.command({ Preset::Name::SpheresAndLights,
+        { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::CameraLeft } } });
+    case 2: return handle.command({ Preset::Name::SpheresAndLights,
+        { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::CameraUp } } });
+    case 3: return handle.command({ Preset::Name::SpheresAndLights,
+        { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::CameraDown } } });
+    default: return 0;
+    }
+}

@@ -4,6 +4,8 @@ constexpr struct {
     float lookAtMinDistance = 0.01;
 
     float maxFrontDotY = 0.99;
+
+    float minPhiInYUpConvention = 0.01;
 }tolerance;
 
 void View::updateMatrix() {
@@ -46,3 +48,16 @@ bool View::validatePositionTarget(const Vector3& position, const Vector3& target
 Vector3& View::getPosition(Vector3* out) const { out->copy(position); return *out; };
 
 Vector3& View::getTarget(Vector3* out) const { out->copy(target); return *out; };
+
+void View::rotateThetaInYUpConvention(float theta) {
+    position.subtract(target).cartesianToSphericalYUpConvention().addY(theta)
+        .sphericalToCartesianYUpConvention().add(target);
+    setDirty();
+}
+
+void View::rotatePhiInYUpConvention(float phi) {
+    tmp.copy(position).subtract(target).cartesianToSphericalYUpConvention().addZ(phi);
+    if (tmp.z < tolerance.minPhiInYUpConvention || tmp.z > M_PI - tolerance.minPhiInYUpConvention) return;
+    position.copy(tmp).sphericalToCartesianYUpConvention().add(target);
+    setDirty();
+}

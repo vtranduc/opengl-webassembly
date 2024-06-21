@@ -50,7 +50,28 @@ void SpheresAndLights::set() {
     setDirty();
 }
 
-void SpheresAndLights::command(const CommandData& data) {}
+void SpheresAndLights::command(const CommandData& data) {
+    switch (data.spheresAndLights.type) {
+    case SpheresAndLightsCommand::Type::CameraRight:
+        view.rotateThetaInYUpConvention(0.1);
+        setDirty();
+        break;
+    case SpheresAndLightsCommand::Type::CameraLeft:
+        view.rotateThetaInYUpConvention(-0.1);
+        setDirty();
+        break;
+    case SpheresAndLightsCommand::Type::CameraUp:
+        view.rotatePhiInYUpConvention(-0.1);
+        setDirty();
+        break;
+    case SpheresAndLightsCommand::Type::CameraDown:
+        view.rotatePhiInYUpConvention(0.1);
+        setDirty();
+        break;
+    default:
+        break;
+    }
+}
 
 void SpheresAndLights::render() {
     PresetBase::render();

@@ -28,7 +28,7 @@ void Sphere::generateVertices(int nTheta, int nPhi) {
 
     mesh.vertices = new GLfloat[nTriangles * 9];
 
-    float deltaTheta = 2.0f * M_PI / float(nTheta);
+    float deltaTheta = M_2PI / float(nTheta);
     float deltaPhi = M_PI / float(nPhi);
 
     v1.copy(Vector3::sphericalToCartesian(r, 0.0f, deltaPhi, &v0));

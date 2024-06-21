@@ -8,7 +8,7 @@ import {
   onTargetChanged,
 } from "../reducer/triangleAssembly";
 import { store } from "../store";
-import { Projection, Vector3 } from "../types";
+import { CameraRotation, Projection, Vector3 } from "../types";
 import { CallbackSetters, Commands, ModuleControl } from "./wasmLoader/specs";
 
 export class EngineHandle {
@@ -98,5 +98,9 @@ export class EngineHandle {
 
   public setProjectionTypeTriangleAssembly(type: Projection) {
     return this.commands.setProjectionTypeTriangleAssembly(type);
+  }
+
+  public rotateCameraSpheresAndLights(type: CameraRotation) {
+    return this.commands.rotateCameraSpheresAndLights(type);
   }
 }

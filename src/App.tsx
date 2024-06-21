@@ -4,7 +4,7 @@ import { initialize, sayHello, setClearColor, setPreset } from "./reducer";
 import { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import { hexToRgb, rgbToHex } from "./utils";
-import { Preset, Projection, State } from "./types";
+import { CameraRotation, Preset, Projection, State } from "./types";
 import { setColor } from "./reducer/colorTriangle";
 import {
   rotateCamera,
@@ -12,6 +12,7 @@ import {
   setProjectionType,
   translate,
 } from "./reducer/triangleAssembly";
+import { rotateCamera as rotateCameraSpheresAndLights } from "./reducer/spheresAndLights";
 
 const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
@@ -45,7 +46,7 @@ function App() {
       case Preset.TriangleAssembly:
         return <TriangleAssemblyPanel />;
       case Preset.SpheresAndLights:
-        return null;
+        return <SpheresAndLightsPanel />;
       default:
         return null;
     }
@@ -186,4 +187,37 @@ function TriangleAssemblyPanel() {
   }, [dispatch]);
 
   return <h3>Triangle Aseembly</h3>;
+}
+
+function SpheresAndLightsPanel() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+    function onKeyDown(e: KeyboardEvent) {
+      e.preventDefault();
+      e.stopPropagation();
+      switch (e.key) {
+        case "4":
+          dispatch(rotateCameraSpheresAndLights(CameraRotation.Left));
+          break;
+        case "6":
+          dispatch(rotateCameraSpheresAndLights(CameraRotation.Right));
+          break;
+        case "8":
+          dispatch(rotateCameraSpheresAndLights(CameraRotation.Up));
+          break;
+        case "2":
+          dispatch(rotateCameraSpheresAndLights(CameraRotation.Down));
+          break;
+        default:
+          break;
+      }
+    }
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [dispatch]);
+
+  return null;
 }

@@ -37,6 +37,12 @@ Vector3& Vector3::add(float x_, float y_, float z_) {
     return *this;
 };
 
+Vector3& Vector3::addX(float delta) { x += delta; return *this; };
+
+Vector3& Vector3::addY(float delta) { y += delta; return *this; };
+
+Vector3& Vector3::addZ(float delta) { z += delta; return *this; };
+
 Vector3& Vector3::subtract(const Vector3& vector) {
     return subtract(vector.x, vector.y, vector.z);
 };
@@ -100,8 +106,38 @@ Vector3& Vector3::crossY() { y = x; x = -z; z = y; y = 0.0f; return *this; };
 
 Vector3& Vector3::crossedByY() { y = x; x = z; z = -y; y = 0.0f; return *this; };
 
+Vector3& Vector3::sphericalToCartesian() { return sphericalToCartesian(x, y, z, this); };
+
 Vector3& Vector3::sphericalToCartesian(float r, float theta, float phi, Vector3* out) {
     float sz = r * sin(phi);
     out->set(sz * cos(theta), sz * sin(theta), r * cos(phi));
     return *out;
+};
+
+Vector3& Vector3::sphericalToCartesianYUpConvention() {
+    return sphericalToCartesianYUpConvention(x, y, z, this);
+};
+
+Vector3& Vector3::sphericalToCartesianYUpConvention(float r, float theta, float phi, Vector3* out) {
+    sphericalToCartesian(r, theta, phi, out);
+    out->set(out->y, out->z, out->x);
+    return *out;
+};
+
+Vector3& Vector3::cartesianToSpherical() { return cartesianToSpherical(x, y, z, this); };
+
+Vector3& Vector3::cartesianToSpherical(float x, float y, float z, Vector3* out) {
+    float r = length(x, y, z);
+    float phi = acos(z / r);
+    float theta = fmodf(atan2(y, x) + M_2PI, M_2PI);
+    out->set(r, theta, phi);
+    return *out;
+};
+
+Vector3& Vector3::cartesianToSphericalYUpConvention() {
+    return cartesianToSphericalYUpConvention(x, y, z, this);
+};
+
+Vector3& Vector3::cartesianToSphericalYUpConvention(float x, float y, float z, Vector3* out) {
+    return cartesianToSpherical(z, x, y, out);
 };

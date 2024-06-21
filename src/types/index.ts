@@ -41,3 +41,10 @@ export enum Projection {
   Orthographic = 0,
   Perspective = 1,
 }
+
+export enum CameraRotation {
+  Right = 0,
+  Left = 1,
+  Up = 2,
+  Down = 3,
+}
