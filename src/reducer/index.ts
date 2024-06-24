@@ -14,7 +14,7 @@ import spheresAndLightsReducer from "./spheresAndLights";
 const testSlice = createSlice({
   name: "empty",
   initialState: {
-    preset: Preset.TriangleAssembly,
+    preset: Preset.SpheresAndLights,
     clearColor: 0xc5d3eb,
   } as TestState,
   reducers: {

@@ -4,13 +4,6 @@ Sphere::Sphere(float radius) : r(radius) { generateVertices(); };
 
 Sphere::~Sphere() { delete[] mesh.vertices; delete[] mesh.normals; }
 
-GLfloat* Sphere::getVertices() const { return mesh.vertices; }
-
-GLfloat* Sphere::getNormals() const { return mesh.normals; }
-
-GLsizeiptr Sphere::getSize() const { return mesh.size; }
-
-GLsizei Sphere::getCount() const { return mesh.count; }
 
 void Sphere::generateVertices(int nTheta, int nPhi) {
     #if ASSERT_VALID_ARGUMENTS
@@ -89,7 +82,3 @@ void Sphere::generateVertices(int nTheta, int nPhi) {
         for (int j = 0; j < 3; j++) mesh.normals[index + j] = v0[j];
     }
 }
-
-const float* Sphere::getWorldValue() { return world.value(); }
-
-void Sphere::setPosition(float x, float y, float z) { world.setPosition(x, y, z); };

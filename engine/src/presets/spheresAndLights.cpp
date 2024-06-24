@@ -9,10 +9,12 @@ void SpheresAndLights::init() {
     view.setPosition(position);
     view.lookAt(target);
 
-    spheres.push_back(new Sphere(0.5f));
-    spheres.push_back(new Sphere(0.25f));
-    spheres[0]->setPosition(0.0f, 0.0f, 0.0f);
-    spheres[1]->setPosition(0.75f, 0.0f, 0.0f);
+    geometries.push_back(new Sphere(0.5f));
+    geometries.push_back(new Sphere(0.25f));
+    geometries.push_back(new RectangularCuboid());
+    geometries[0]->setPosition(0.0f, 0.0f, 0.0f);
+    geometries[1]->setPosition(0.75f, 0.0f, 0.0f);
+    geometries[2]->setPosition(-1.0f, 0.0f, 0.0f);
 }
 
 void SpheresAndLights::set() {
@@ -53,11 +55,11 @@ void SpheresAndLights::render() {
     glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, view.value());
     glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, projection.value());
 
-    for (auto sphere : spheres) {
+    for (auto geometry : geometries) {
         GLuint VBO;
         glGenBuffers(1, &VBO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sphere->getSize(), sphere->getVertices(), GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, geometry->getSize(), geometry->getVertices(), GL_STATIC_DRAW);
 
         GLuint VAO;
         glGenVertexArrays(1, &VAO);
@@ -68,7 +70,7 @@ void SpheresAndLights::render() {
         GLuint normalBuffer;
         glGenBuffers(1, &normalBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sphere->getSize(), sphere->getNormals(), GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, geometry->getSize(), geometry->getNormals(), GL_STATIC_DRAW);
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(
             1,            // attribute. No particular reason for 1, but must match the layout in the shader.
@@ -79,9 +81,9 @@ void SpheresAndLights::render() {
             (void*)0      // array buffer offset
         );
 
-        glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, sphere->getWorldValue());
+        glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, geometry->getWorldValue());
 
-        glDrawArrays(GL_TRIANGLES, 0, sphere->getCount());
+        glDrawArrays(GL_TRIANGLES, 0, geometry->getCount());
     }
 }
 

@@ -36,5 +36,5 @@ private:
 
     Projection projection;
 
-    vector<Sphere*> spheres;
+    vector<Geometry*> geometries;
 };
