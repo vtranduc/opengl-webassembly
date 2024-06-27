@@ -12,6 +12,7 @@ void Preset::set(uint32_t code) {
 
 void Preset::set(const Name name, const bool shouldRender) {
     if (name == current) return;
+    getCurrentPreset()->cleanUp();
     current = name;
     getCurrentPreset()->set();
     if (shouldRender) render();

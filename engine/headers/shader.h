@@ -11,7 +11,8 @@ class Shader {
         Basic = 0,
         Standard = 1,
         VertexColor = 2,
-        SpheresAndLights = 3
+        SpheresAndLights = 3,
+        Extrude = 4
     };
 
     enum class Fragment : uint32_t {
@@ -20,11 +21,11 @@ class Shader {
         SpheresAndLights = 2
     };
 
-    static const int nVertex = 4;
+    static const int nVertex = 5;
 
     static const int nFragment = 3;
 
-    static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights };
+    static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights, Vertex::Extrude };
 
     static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights };
 
@@ -34,6 +35,7 @@ class Shader {
             case Shader::Vertex::Standard: return "standard.glsl";
             case Shader::Vertex::VertexColor: return "vertexColor.glsl";
             case Shader::Vertex::SpheresAndLights: return "spheresAndLights.glsl";
+            case Shader::Vertex::Extrude: return "extrude.glsl";
             default: throw "Vertex shader's filename does not exist";
         }
     }

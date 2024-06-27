@@ -167,3 +167,7 @@ extern "C" int rotateCameraSpheresAndLights(int direction) {
     default: return 0;
     }
 }
+
+extern "C" int toggleSelectionCameraSpheresAndLights() {
+    return handle.command({ Preset::Name::SpheresAndLights, { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::ToggleSelection } }});
+}

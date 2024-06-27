@@ -117,6 +117,11 @@ const exportedFunctions: wasmExportedFunctionData[] = [
     return: WasmCommunicationDataType.Number,
     params: [WasmCommunicationDataType.Number],
   },
+  {
+    name: "toggleSelectionCameraSpheresAndLights",
+    return: WasmCommunicationDataType.Number,
+    params: [],
+  },
 ];
 
 export { id, path, timeoutInSeconds, exportedFunctions };
@@ -137,6 +142,7 @@ export type Commands = {
   lookAtTriangleAssembly: (x: number, y: number, z: number) => number;
   setProjectionTypeTriangleAssembly: (type: number) => number;
   rotateCameraSpheresAndLights: (type: number) => number;
+  toggleSelectionCameraSpheresAndLights: () => number;
 };
 
 // Callbacks from the engine

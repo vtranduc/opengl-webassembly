@@ -44,7 +44,8 @@ struct SpheresAndLightsCommand {
         CameraRight = 0,
         CameraLeft = 1,
         CameraUp = 2,
-        CameraDown = 3
+        CameraDown = 3,
+        ToggleSelection = 4,
     };
 
     struct Data {

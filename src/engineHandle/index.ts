@@ -103,4 +103,8 @@ export class EngineHandle {
   public rotateCameraSpheresAndLights(type: CameraRotation) {
     return this.commands.rotateCameraSpheresAndLights(type);
   }
+
+  public toggleSelectionCameraSpheresAndLights() {
+    return this.commands.toggleSelectionCameraSpheresAndLights();
+  }
 }

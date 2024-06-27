@@ -12,7 +12,10 @@ import {
   setProjectionType,
   translate,
 } from "./reducer/triangleAssembly";
-import { rotateCamera as rotateCameraSpheresAndLights } from "./reducer/spheresAndLights";
+import {
+  rotateCamera as rotateCameraSpheresAndLights,
+  toggleSelection,
+} from "./reducer/spheresAndLights";
 
 const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
@@ -209,6 +212,9 @@ function SpheresAndLightsPanel() {
           break;
         case "2":
           dispatch(rotateCameraSpheresAndLights(CameraRotation.Down));
+          break;
+        case " ":
+          dispatch(toggleSelection());
           break;
         default:
           break;

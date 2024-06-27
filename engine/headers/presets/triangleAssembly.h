@@ -18,6 +18,8 @@ class TriangleAssembly : public PresetBase {
 
     void set() override;
 
+    void cleanUp() override;
+
     void command(const CommandData& data) override;
 
     void render() override;

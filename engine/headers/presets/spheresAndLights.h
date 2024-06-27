@@ -19,6 +19,8 @@ public:
 
     void set() override;
 
+    virtual void cleanUp() override;
+
     void command(const CommandData& data) override;
 
     void render() override;
@@ -30,11 +32,15 @@ public:
     void setCallbacks(const Callbacks& callbacks);
 
 private:
-    GLuint program;
+    GLuint program, highlightProgram;
 
     View view;
 
     Projection projection;
 
     vector<Geometry*> geometries;
+
+    int iSelected = 0;
+
+    void bindBuffersAndDraw(GLuint program, Geometry *geometry);
 };

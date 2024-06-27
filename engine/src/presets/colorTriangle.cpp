@@ -22,6 +22,8 @@ void ColorTriangle::set() {
     setDirty();
 }
 
+void ColorTriangle::cleanUp() {}
+
 void ColorTriangle::command(const CommandData& data) {
     switch(data.colorTriangle.type) {
         case ColorTriangleCommand::Type::Color:
