@@ -23,12 +23,16 @@ void SpheresAndLights::init() {
     glUniformMatrix4fv(glGetUniformLocation(highlightProgram, "projection"), 1, GL_FALSE, projection.value());
     glUniform1f(glGetUniformLocation(highlightProgram, "uDistance"), 0.05f);
     glUniform3f(glGetUniformLocation(highlightProgram, "uColor"), 1.0f, 0.0f, 1.0f);
+
+    grid = new Grid(&projection, &view);
 }
 
 void SpheresAndLights::set() {
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
     setDirty();
 }
 
@@ -71,6 +75,10 @@ void SpheresAndLights::render() {
     glCullFace(GL_BACK);
     glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, view.value());
     for (auto geometry : geometries) bindBuffersAndDraw(program, geometry);
+
+    glDisable(GL_CULL_FACE);
+    grid->draw();
+    glEnable(GL_CULL_FACE);
 
     glUseProgram(highlightProgram);
     glCullFace(GL_FRONT);

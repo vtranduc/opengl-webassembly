@@ -12,22 +12,24 @@ class Shader {
         Standard = 1,
         VertexColor = 2,
         SpheresAndLights = 3,
-        Extrude = 4
+        Extrude = 4,
+        VaryingWorldPosition = 5
     };
 
     enum class Fragment : uint32_t {
         Mono = 0,
         VertexColor = 1,
-        SpheresAndLights = 2
+        SpheresAndLights = 2,
+        Grid = 3
     };
 
-    static const int nVertex = 5;
+    static const int nVertex = 6;
 
-    static const int nFragment = 3;
+    static const int nFragment = 4;
 
-    static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights, Vertex::Extrude };
+    static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights, Vertex::Extrude, Vertex::VaryingWorldPosition };
 
-    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights };
+    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights, Fragment::Grid };
 
     static string getFileName(Vertex shader) {
         switch (shader) {
@@ -36,6 +38,7 @@ class Shader {
             case Shader::Vertex::VertexColor: return "vertexColor.glsl";
             case Shader::Vertex::SpheresAndLights: return "spheresAndLights.glsl";
             case Shader::Vertex::Extrude: return "extrude.glsl";
+            case Shader::Vertex::VaryingWorldPosition: return "varyingWorldPosition.glsl";
             default: throw "Vertex shader's filename does not exist";
         }
     }
@@ -45,6 +48,7 @@ class Shader {
             case Shader::Fragment::Mono: return "mono.glsl";
             case Shader::Fragment::VertexColor: return "vertexColor.glsl";
             case Shader::Fragment::SpheresAndLights: return "spheresAndLights.glsl";
+            case Shader::Fragment::Grid: return "grid.glsl";
             default: throw "Fragment shader's filename does not exist";
         }
     }

@@ -6,6 +6,7 @@
 #include "../utils.h"
 #include "../math.h"
 #include "presetBase.h"
+#include "../object3D/grid.h"
 
 #include <iostream>
 
@@ -43,4 +44,6 @@ private:
     int iSelected = 0;
 
     void bindBuffersAndDraw(GLuint program, Geometry *geometry);
+
+    Grid *grid;
 };
