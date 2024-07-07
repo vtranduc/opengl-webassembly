@@ -11,13 +11,6 @@ void SpheresAndLights::init() {
     view.setPosition(position);
     view.lookAt(target);
 
-    geometries.push_back(new Sphere(0.5f));
-    geometries.push_back(new Sphere(0.25f));
-    geometries.push_back(new RectangularCuboid());
-    geometries[0]->setPosition(0.0f, 0.0f, 0.0f);
-    geometries[1]->setPosition(0.75f, 0.0f, 0.0f);
-    geometries[2]->setPosition(-1.0f, 0.0f, 0.0f);
-
     highlightProgram = getShaderProgram(Shader::Vertex::Extrude, Shader::Fragment::Mono);
     glUseProgram(highlightProgram);
     glUniformMatrix4fv(glGetUniformLocation(highlightProgram, "projection"), 1, GL_FALSE, projection.value());
@@ -25,6 +18,52 @@ void SpheresAndLights::init() {
     glUniform3f(glGetUniformLocation(highlightProgram, "uColor"), 1.0f, 0.0f, 1.0f);
 
     grid = new Grid(&projection, &view);
+
+    for (int i = 0; i < 3; i++) {
+        Geometry* geometry;
+        switch (i) {
+        case 0:
+            geometry = new Sphere(0.5f);
+            geometry->setPosition(0.0f, 0.0f, 0.0f);
+            break;
+        case 1:
+            geometry = new Sphere(0.25f);
+            geometry->setPosition(0.75f, 0.0f, 0.0f);
+            break;
+        case 2:
+            geometry = new RectangularCuboid();
+            geometry->setPosition(-1.0f, 0.0f, 0.0f);
+            break;
+        default: throw "Unaccounted geometry";
+        }
+
+        GLuint VBO;
+        glGenBuffers(1, &VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, geometry->getSize(), geometry->getVertices(), GL_STATIC_DRAW);
+
+        GLuint VAO;
+        glGenVertexArrays(1, &VAO);
+        glBindVertexArray(VAO);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        GLuint normalBuffer;
+        glGenBuffers(1, &normalBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+        glBufferData(GL_ARRAY_BUFFER, geometry->getSize(), geometry->getNormals(), GL_STATIC_DRAW);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(
+            1,            // attribute. No particular reason for 1, but must match the layout in the shader.
+            3,            // size
+            GL_FLOAT,     // type
+            GL_TRUE,     // normalized?
+            0,            // stride
+            (void*)0      // array buffer offset
+        );
+
+        objects.push_back({ VBO, VAO, normalBuffer, geometry });
+    }
 }
 
 void SpheresAndLights::set() {
@@ -59,7 +98,7 @@ void SpheresAndLights::command(const CommandData& data) {
         setDirty();
         break;
     case SpheresAndLightsCommand::Type::ToggleSelection:
-        iSelected = (iSelected + 1) % geometries.size();
+        iSelected = (iSelected + 1) % objects.size();
         setDirty();
         break;
     default:
@@ -74,7 +113,8 @@ void SpheresAndLights::render() {
     glUseProgram(program);
     glCullFace(GL_BACK);
     glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, view.value());
-    for (auto geometry : geometries) bindBuffersAndDraw(program, geometry);
+
+    for (auto object : objects) drawObject(program, object);
 
     glDisable(GL_CULL_FACE);
     grid->draw();
@@ -82,40 +122,16 @@ void SpheresAndLights::render() {
 
     glUseProgram(highlightProgram);
     glCullFace(GL_FRONT);
-    Geometry *geometry = geometries[iSelected];
     glUniformMatrix4fv(glGetUniformLocation(highlightProgram, "view"), 1, GL_FALSE, view.value());
-    bindBuffersAndDraw(highlightProgram, geometry);
+    drawObject(highlightProgram, objects[iSelected]);
 }
 
-void SpheresAndLights::bindBuffersAndDraw(GLuint program, Geometry *geometry) {
-    GLuint VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, geometry->getSize(), geometry->getVertices(), GL_STATIC_DRAW);
-
-    GLuint VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    GLuint normalBuffer;
-    glGenBuffers(1, &normalBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-    glBufferData(GL_ARRAY_BUFFER, geometry->getSize(), geometry->getNormals(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(
-        1,            // attribute. No particular reason for 1, but must match the layout in the shader.
-        3,            // size
-        GL_FLOAT,     // type
-        GL_TRUE,     // normalized?
-        0,            // stride
-        (void*)0      // array buffer offset
-    );
-
-    glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, geometry->getWorldValue());
-
-    glDrawArrays(GL_TRIANGLES, 0, geometry->getCount());
+void SpheresAndLights::drawObject(GLuint program, GeometryAndBuffers object) {
+    glBindBuffer(GL_ARRAY_BUFFER, object.VBO);
+    glBindVertexArray(object.VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, object.normalBuffer);
+    glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, object.geometry->getWorldValue());
+    glDrawArrays(GL_TRIANGLES, 0, object.geometry->getCount());
 }
 
 void SpheresAndLights::setCallbacks(const Callbacks& callbacks) {}

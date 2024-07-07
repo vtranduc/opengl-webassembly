@@ -30,4 +30,6 @@ private:
     Projection *projection;
 
     View *view;
+
+    GLuint VBO, VAO;
 };

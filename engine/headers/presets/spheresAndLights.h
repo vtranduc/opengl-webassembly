@@ -38,12 +38,22 @@ private:
     View view;
 
     Projection projection;
+    
+    struct GeometryAndBuffers{
+        GLuint VBO;
 
-    vector<Geometry*> geometries;
+        GLuint VAO;
+
+        GLuint normalBuffer;
+
+        Geometry* geometry;
+    };
+
+    vector<GeometryAndBuffers> objects;
 
     int iSelected = 0;
 
-    void bindBuffersAndDraw(GLuint program, Geometry *geometry);
+    void drawObject(GLuint program, GeometryAndBuffers object);
 
     Grid *grid;
 };
