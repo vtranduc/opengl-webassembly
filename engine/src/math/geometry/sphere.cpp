@@ -2,7 +2,7 @@
 
 Sphere::Sphere(float radius) : r(radius) { generateVertices(); };
 
-Sphere::~Sphere() { delete[] mesh.vertices; delete[] mesh.normals; }
+Sphere::~Sphere() { delete[] mesh.vertices; delete[] mesh.normals; delete[] mesh.colors; }
 
 
 void Sphere::generateVertices(int nTheta, int nPhi) {
@@ -80,5 +80,13 @@ void Sphere::generateVertices(int nTheta, int nPhi) {
         int index = iVertex * 3;
         v0.set(mesh.vertices[index], mesh.vertices[index + 1], mesh.vertices[index + 2]).normalize();
         for (int j = 0; j < 3; j++) mesh.normals[index + j] = v0[j];
+    }
+
+    mesh.colors = new GLfloat[nTriangles * 9];
+
+    for (int i = 0, j = 1, k = 2; i < nTriangles * 9; i += 3, j += 3, k += 3) {
+        mesh.colors[i] = 0.0f;
+        mesh.colors[j] = 0.0f;
+        mesh.colors[k] = 1.0f;
     }
 }

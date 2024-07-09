@@ -62,7 +62,21 @@ void SpheresAndLights::init() {
             (void*)0      // array buffer offset
         );
 
-        objects.push_back({ VBO, VAO, normalBuffer, geometry });
+        GLuint colorBuffer;
+        glGenBuffers(1, &colorBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+        glBufferData(GL_ARRAY_BUFFER, geometry->getSize(), geometry->getColors(), GL_STATIC_DRAW);
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(
+            2,            // attribute. No particular reason for 1, but must match the layout in the shader.
+            3,            // size
+            GL_FLOAT,     // type
+            GL_TRUE,     // normalized?
+            0,            // stride
+            (void*)0      // array buffer offset
+        );
+
+        objects.push_back({ VBO, VAO, normalBuffer, colorBuffer, geometry });
     }
 }
 
@@ -130,6 +144,7 @@ void SpheresAndLights::drawObject(GLuint program, GeometryAndBuffers object) {
     glBindBuffer(GL_ARRAY_BUFFER, object.VBO);
     glBindVertexArray(object.VAO);
     glBindBuffer(GL_ARRAY_BUFFER, object.normalBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, object.colorBuffer);
     glUniformMatrix4fv(glGetUniformLocation(program, "world"), 1, GL_FALSE, object.geometry->getWorldValue());
     glDrawArrays(GL_TRIANGLES, 0, object.geometry->getCount());
 }

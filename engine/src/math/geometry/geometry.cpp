@@ -6,6 +6,8 @@ GLfloat* Geometry::getVertices() const { return mesh.vertices; }
 
 GLfloat* Geometry::getNormals() const { return mesh.normals; }
 
+GLfloat* Geometry::getColors() const { return mesh.colors; }
+
 GLsizeiptr Geometry::getSize() const { return mesh.size; }
 
 GLsizei Geometry::getCount() const { return mesh.count; }

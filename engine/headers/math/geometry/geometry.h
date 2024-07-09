@@ -16,6 +16,8 @@ public:
 
     GLfloat* getNormals() const;
 
+    GLfloat* getColors() const;
+
     GLsizeiptr getSize() const;
 
     GLsizei getCount() const;
@@ -30,6 +32,8 @@ protected:
         GLfloat *vertices = nullptr;
 
         GLfloat *normals = nullptr;
+
+        GLfloat *colors = nullptr;
 
         GLsizeiptr size = 0;
 

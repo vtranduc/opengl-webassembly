@@ -2,7 +2,7 @@
 
 RectangularCuboid::RectangularCuboid() { generateVertices(); };
 
-RectangularCuboid::~RectangularCuboid() { delete[] mesh.vertices; delete[] mesh.normals;}
+RectangularCuboid::~RectangularCuboid() { delete[] mesh.vertices; delete[] mesh.normals;delete[] mesh.colors;}
 
 void RectangularCuboid::generateVertices() {
     const int nTriangles = 12;
@@ -63,4 +63,6 @@ void RectangularCuboid::generateVertices() {
             mesh.normals[index + 6 + j] = v1[j];
         }
     }
+
+    mesh.colors = new float[nTriangles * 9];
 }

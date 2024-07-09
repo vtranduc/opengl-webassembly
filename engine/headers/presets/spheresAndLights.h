@@ -38,13 +38,15 @@ private:
     View view;
 
     Projection projection;
-    
+
     struct GeometryAndBuffers{
         GLuint VBO;
 
         GLuint VAO;
 
         GLuint normalBuffer;
+
+        GLuint colorBuffer;
 
         Geometry* geometry;
     };
