@@ -26,6 +26,10 @@ public:
 
     void setPosition(float x, float y, float z);
 
+    void rotateTheta(float delta);
+
+    void rotatePhi(float delta);
+
 protected:
 
     struct {

@@ -2,7 +2,7 @@
 precision highp float;
 out vec4 fragColor;
 
-in vec3 vNormal, vColor, vWorldPosition, vCameraWorldPosition;
+in vec3 vWorldNormal, vColor, vWorldPosition, vCameraWorldPosition;
 
 // TO DO: The following are constants that should be passed as uniforms
 // ====================
@@ -34,7 +34,7 @@ float computeLight(vec3 position, vec3 normal, vec3 cameraPosition, float intens
 }
 
 void main() {
-    float directionalDynamicI = computeLight(vWorldPosition, vNormal, vCameraWorldPosition, directionalI, shininess, -directional);
-    float pointDynamicI = computeLight(vWorldPosition, vNormal, vCameraWorldPosition, pointI, shininess, normalize(point- vWorldPosition));
+    float directionalDynamicI = computeLight(vWorldPosition, vWorldNormal, vCameraWorldPosition, directionalI, shininess, -directional);
+    float pointDynamicI = computeLight(vWorldPosition, vWorldNormal, vCameraWorldPosition, pointI, shininess, normalize(point- vWorldPosition));
     fragColor = vec4(vColor * (ambientI + directionalDynamicI + pointDynamicI), 1.0);
 }

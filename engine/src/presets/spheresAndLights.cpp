@@ -115,6 +115,24 @@ void SpheresAndLights::command(const CommandData& data) {
         iSelected = (iSelected + 1) % objects.size();
         setDirty();
         break;
+
+    case SpheresAndLightsCommand::Type::RotateObjectRight:
+        objects[iSelected].geometry->rotateTheta(-0.1f);
+        setDirty();
+        break;
+    case SpheresAndLightsCommand::Type::RotateObjectLeft:
+        objects[iSelected].geometry->rotateTheta(0.1f);
+        setDirty();
+        break;
+    case SpheresAndLightsCommand::Type::RotateObjectUp:
+        objects[iSelected].geometry->rotatePhi(-0.1f);
+        setDirty();
+        break;
+    case SpheresAndLightsCommand::Type::RotateObjectDown:
+        objects[iSelected].geometry->rotatePhi(0.1f);
+        setDirty();
+        break;
+
     default:
         break;
     }

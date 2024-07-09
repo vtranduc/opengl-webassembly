@@ -42,7 +42,7 @@ export enum Projection {
   Perspective = 1,
 }
 
-export enum CameraRotation {
+export enum Cardinal {
   Right = 0,
   Left = 1,
   Up = 2,

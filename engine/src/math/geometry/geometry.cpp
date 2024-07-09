@@ -17,3 +17,7 @@ const float* getWorldValue();
 const float* Geometry::getWorldValue() { return world.value(); }
 
 void Geometry::setPosition(float x, float y, float z) { world.setPosition(x, y, z); };
+
+void Geometry::rotateTheta(float delta) { world.rotateTheta(delta); };
+
+void Geometry::rotatePhi(float delta) { world.rotatePhi(delta); };

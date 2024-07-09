@@ -1,11 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { CameraRotation, SpheresAndLights } from "../types";
+import { Cardinal, SpheresAndLights } from "../types";
 
 const spheresAndLights = createSlice({
   name: "spheresAndLights",
   initialState: {} as SpheresAndLights,
   reducers: {
-    rotateCamera(state, action: PayloadAction<CameraRotation>) {},
+    rotateCamera(state, action: PayloadAction<Cardinal>) {},
+
+    rotateObject(state, action: PayloadAction<Cardinal>) {},
 
     toggleSelection(state, action: PayloadAction<void>) {},
   },
@@ -13,4 +15,5 @@ const spheresAndLights = createSlice({
 
 export default spheresAndLights.reducer;
 
-export const { rotateCamera, toggleSelection } = spheresAndLights.actions;
+export const { rotateCamera, rotateObject, toggleSelection } =
+  spheresAndLights.actions;

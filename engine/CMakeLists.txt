@@ -21,6 +21,7 @@ set(
     _setProjectionTypeTriangleAssembly
     _onTriangleAssemblyUpdated
     _rotateCameraSpheresAndLights
+    _rotateObjectSpheresAndLights
     _toggleSelectionCameraSpheresAndLights
 )
 

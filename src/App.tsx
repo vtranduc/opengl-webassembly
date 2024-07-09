@@ -4,7 +4,7 @@ import { initialize, sayHello, setClearColor, setPreset } from "./reducer";
 import { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import { hexToRgb, rgbToHex } from "./utils";
-import { CameraRotation, Preset, Projection, State } from "./types";
+import { Cardinal, Preset, Projection, State } from "./types";
 import { setColor } from "./reducer/colorTriangle";
 import {
   rotateCamera,
@@ -14,6 +14,7 @@ import {
 } from "./reducer/triangleAssembly";
 import {
   rotateCamera as rotateCameraSpheresAndLights,
+  rotateObject,
   toggleSelection,
 } from "./reducer/spheresAndLights";
 
@@ -202,16 +203,28 @@ function SpheresAndLightsPanel() {
       e.stopPropagation();
       switch (e.key) {
         case "4":
-          dispatch(rotateCameraSpheresAndLights(CameraRotation.Left));
+          dispatch(rotateCameraSpheresAndLights(Cardinal.Left));
           break;
         case "6":
-          dispatch(rotateCameraSpheresAndLights(CameraRotation.Right));
+          dispatch(rotateCameraSpheresAndLights(Cardinal.Right));
           break;
         case "8":
-          dispatch(rotateCameraSpheresAndLights(CameraRotation.Up));
+          dispatch(rotateCameraSpheresAndLights(Cardinal.Up));
           break;
         case "2":
-          dispatch(rotateCameraSpheresAndLights(CameraRotation.Down));
+          dispatch(rotateCameraSpheresAndLights(Cardinal.Down));
+          break;
+        case "ArrowRight":
+          dispatch(rotateObject(Cardinal.Right));
+          break;
+        case "ArrowLeft":
+          dispatch(rotateObject(Cardinal.Left));
+          break;
+        case "ArrowUp":
+          dispatch(rotateObject(Cardinal.Up));
+          break;
+        case "ArrowDown":
+          dispatch(rotateObject(Cardinal.Down));
           break;
         case " ":
           dispatch(toggleSelection());

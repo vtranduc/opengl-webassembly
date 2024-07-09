@@ -155,17 +155,27 @@ extern "C" int onTriangleAssemblyUpdated(
 };
 
 extern "C" int rotateCameraSpheresAndLights(int direction) {
+    SpheresAndLightsCommand::Type type;
     switch (direction) {
-    case 0: return handle.command({ Preset::Name::SpheresAndLights,
-        { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::CameraRight } } });
-    case 1: return handle.command({ Preset::Name::SpheresAndLights,
-        { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::CameraLeft } } });
-    case 2: return handle.command({ Preset::Name::SpheresAndLights,
-        { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::CameraUp } } });
-    case 3: return handle.command({ Preset::Name::SpheresAndLights,
-        { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::CameraDown } } });
+    case 0: type = SpheresAndLightsCommand::Type::CameraRight; break;
+    case 1: type = SpheresAndLightsCommand::Type::CameraLeft; break;
+    case 2: type = SpheresAndLightsCommand::Type::CameraUp; break;
+    case 3: type = SpheresAndLightsCommand::Type::CameraDown; break;
     default: return 0;
     }
+    return handle.command({ Preset::Name::SpheresAndLights, { .spheresAndLights = { .type = type } } });
+}
+
+extern "C" int rotateObjectSpheresAndLights(int direction) {
+    SpheresAndLightsCommand::Type type;
+    switch (direction) {
+    case 0: type = SpheresAndLightsCommand::Type::RotateObjectRight; break;
+    case 1: type = SpheresAndLightsCommand::Type::RotateObjectLeft; break;
+    case 2: type = SpheresAndLightsCommand::Type::RotateObjectUp; break;
+    case 3: type = SpheresAndLightsCommand::Type::RotateObjectDown; break;
+    default: return 0;
+    }
+    return handle.command({ Preset::Name::SpheresAndLights, { .spheresAndLights = { .type = type } } });
 }
 
 extern "C" int toggleSelectionCameraSpheresAndLights() {

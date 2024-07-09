@@ -1,6 +1,6 @@
 #include "../../../headers/math/geometry/sphere.h"
 
-Sphere::Sphere(float radius) : r(radius) { generateVertices(); };
+Sphere::Sphere(float radius, Vector3 surfaceColor) : r(radius), color(surfaceColor) { generateVertices(); };
 
 Sphere::~Sphere() { delete[] mesh.vertices; delete[] mesh.normals; delete[] mesh.colors; }
 
@@ -84,9 +84,9 @@ void Sphere::generateVertices(int nTheta, int nPhi) {
 
     mesh.colors = new GLfloat[nTriangles * 9];
 
-    for (int i = 0, j = 1, k = 2; i < nTriangles * 9; i += 3, j += 3, k += 3) {
-        mesh.colors[i] = 0.0f;
-        mesh.colors[j] = 0.0f;
-        mesh.colors[k] = 1.0f;
+    for (int i = 0; i < nTriangles * 9; i += 3) {
+        mesh.colors[i] = color[0];
+        mesh.colors[i + 1] = color[1];
+        mesh.colors[i + 2] = color[2];
     }
 }

@@ -46,6 +46,10 @@ struct SpheresAndLightsCommand {
         CameraUp = 2,
         CameraDown = 3,
         ToggleSelection = 4,
+        RotateObjectRight = 5,
+        RotateObjectLeft = 6,
+        RotateObjectUp = 7,
+        RotateObjectDown = 8
     };
 
     struct Data {

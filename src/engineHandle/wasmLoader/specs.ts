@@ -118,6 +118,11 @@ const exportedFunctions: wasmExportedFunctionData[] = [
     params: [WasmCommunicationDataType.Number],
   },
   {
+    name: "rotateObjectSpheresAndLights",
+    return: WasmCommunicationDataType.Number,
+    params: [WasmCommunicationDataType.Number],
+  },
+  {
     name: "toggleSelectionCameraSpheresAndLights",
     return: WasmCommunicationDataType.Number,
     params: [],
@@ -142,6 +147,7 @@ export type Commands = {
   lookAtTriangleAssembly: (x: number, y: number, z: number) => number;
   setProjectionTypeTriangleAssembly: (type: number) => number;
   rotateCameraSpheresAndLights: (type: number) => number;
+  rotateObjectSpheresAndLights: (type: number) => number;
   toggleSelectionCameraSpheresAndLights: () => number;
 };
 
