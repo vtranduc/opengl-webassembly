@@ -13,23 +13,25 @@ class Shader {
         VertexColor = 2,
         SpheresAndLights = 3,
         Extrude = 4,
-        VaryingWorldPosition = 5
+        VaryingWorldPosition = 5,
+        BasicPP = 6
     };
 
     enum class Fragment : uint32_t {
         Mono = 0,
         VertexColor = 1,
         SpheresAndLights = 2,
-        Grid = 3
+        Grid = 3,
+        BasicPP = 4
     };
 
-    static const int nVertex = 6;
+    static const int nVertex = 7;
 
-    static const int nFragment = 4;
+    static const int nFragment = 5;
 
-    static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights, Vertex::Extrude, Vertex::VaryingWorldPosition };
+    static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights, Vertex::Extrude, Vertex::VaryingWorldPosition, Vertex::BasicPP };
 
-    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights, Fragment::Grid };
+    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights, Fragment::Grid, Fragment::BasicPP };
 
     static string getFileName(Vertex shader) {
         switch (shader) {
@@ -39,6 +41,7 @@ class Shader {
             case Shader::Vertex::SpheresAndLights: return "spheresAndLights.glsl";
             case Shader::Vertex::Extrude: return "extrude.glsl";
             case Shader::Vertex::VaryingWorldPosition: return "varyingWorldPosition.glsl";
+            case Shader::Vertex::BasicPP: return "basic.pp.glsl";
             default: throw "Vertex shader's filename does not exist";
         }
     }
@@ -49,6 +52,7 @@ class Shader {
             case Shader::Fragment::VertexColor: return "vertexColor.glsl";
             case Shader::Fragment::SpheresAndLights: return "spheresAndLights.glsl";
             case Shader::Fragment::Grid: return "grid.glsl";
+            case Shader::Fragment::BasicPP: return "basic.pp.glsl";
             default: throw "Fragment shader's filename does not exist";
         }
     }

@@ -33,7 +33,7 @@ public:
     void setCallbacks(const Callbacks& callbacks);
 
 private:
-    GLuint program, highlightProgram;
+    GLuint program, highlightProgram, inversionProgram;
 
     View view;
 
@@ -50,6 +50,10 @@ private:
 
         Geometry* geometry;
     };
+
+    struct {
+        GLuint framebuffer, quadVAO, quadVBO, textureColorbuffer;
+    }framebuffers;
 
     vector<GeometryAndBuffers> objects;
 
