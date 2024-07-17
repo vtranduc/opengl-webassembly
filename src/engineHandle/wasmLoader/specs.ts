@@ -127,6 +127,11 @@ const exportedFunctions: wasmExportedFunctionData[] = [
     return: WasmCommunicationDataType.Number,
     params: [],
   },
+  {
+    name: "togglePostProcessingSpheresAndLights",
+    return: WasmCommunicationDataType.Number,
+    params: [],
+  },
 ];
 
 export { id, path, timeoutInSeconds, exportedFunctions };
@@ -149,6 +154,7 @@ export type Commands = {
   rotateCameraSpheresAndLights: (type: number) => number;
   rotateObjectSpheresAndLights: (type: number) => number;
   toggleSelectionCameraSpheresAndLights: () => number;
+  togglePostProcessingSpheresAndLights: () => number;
 };
 
 // Callbacks from the engine

@@ -49,7 +49,8 @@ struct SpheresAndLightsCommand {
         RotateObjectRight = 5,
         RotateObjectLeft = 6,
         RotateObjectUp = 7,
-        RotateObjectDown = 8
+        RotateObjectDown = 8,
+        TogglePostProcessing = 9
     };
 
     struct Data {

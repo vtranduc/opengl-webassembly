@@ -10,10 +10,16 @@ const spheresAndLights = createSlice({
     rotateObject(state, action: PayloadAction<Cardinal>) {},
 
     toggleSelection(state, action: PayloadAction<void>) {},
+
+    togglePostProcessing(state, action: PayloadAction<void>) {},
   },
 });
 
 export default spheresAndLights.reducer;
 
-export const { rotateCamera, rotateObject, toggleSelection } =
-  spheresAndLights.actions;
+export const {
+  rotateCamera,
+  rotateObject,
+  toggleSelection,
+  togglePostProcessing,
+} = spheresAndLights.actions;

@@ -15,6 +15,7 @@ import {
 import {
   rotateCamera as rotateCameraSpheresAndLights,
   rotateObject,
+  togglePostProcessing,
   toggleSelection,
 } from "./reducer/spheresAndLights";
 
@@ -228,6 +229,9 @@ function SpheresAndLightsPanel() {
           break;
         case " ":
           dispatch(toggleSelection());
+          break;
+        case "\\":
+          dispatch(togglePostProcessing());
           break;
         default:
           break;

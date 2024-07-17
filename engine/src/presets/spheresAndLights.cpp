@@ -79,7 +79,7 @@ void SpheresAndLights::init() {
         objects.push_back({ VBO, VAO, normalBuffer, colorBuffer, geometry });
     }
 
-    inversionProgram = getShaderProgram(Shader::Vertex::BasicPP, Shader::Fragment::BasicPP);
+    inversionProgram = getShaderProgram(Shader::Vertex::BasicPP, Shader::Fragment::InvertPP);
     glUseProgram(inversionProgram);
 
     float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
@@ -159,7 +159,7 @@ void SpheresAndLights::command(const CommandData& data) {
         view.rotatePhiInYUpConvention(0.1);
         setDirty();
         break;
-        
+
     case SpheresAndLightsCommand::Type::ToggleSelection:
         iSelected = (iSelected + 1) % objects.size();
         setDirty();
@@ -182,6 +182,11 @@ void SpheresAndLights::command(const CommandData& data) {
         setDirty();
         break;
 
+    case SpheresAndLightsCommand::Type::TogglePostProcessing:
+        postProcessingEnabled = !postProcessingEnabled;
+        setDirty();
+        break;
+
     default:
         break;
     }
@@ -190,9 +195,8 @@ void SpheresAndLights::command(const CommandData& data) {
 void SpheresAndLights::render() {
     PresetBase::render();
 
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffers.framebuffer);
-    glEnable(GL_DEPTH_TEST);
-
+    if (postProcessingEnabled) glBindFramebuffer(GL_FRAMEBUFFER, framebuffers.framebuffer);
+    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glUseProgram(program);
@@ -210,13 +214,17 @@ void SpheresAndLights::render() {
     drawObject(highlightProgram, objects[iSelected]);
     glCullFace(GL_BACK);
     
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glDisable(GL_DEPTH_TEST);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(inversionProgram);
-    glBindVertexArray(framebuffers.quadVAO);
-    glBindTexture(GL_TEXTURE_2D, framebuffers.textureColorbuffer);	// use the color attachment texture as the texture of the quad plane
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    if (postProcessingEnabled) {
+        glCullFace(GL_BACK);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glDisable(GL_DEPTH_TEST);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glUseProgram(inversionProgram);
+        glBindVertexArray(framebuffers.quadVAO);
+        glBindTexture(GL_TEXTURE_2D, framebuffers.textureColorbuffer);	// use the color attachment texture as the texture of the quad plane
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glEnable(GL_DEPTH_TEST);
+    }
 }
 
 void SpheresAndLights::drawObject(GLuint program, GeometryAndBuffers object) {

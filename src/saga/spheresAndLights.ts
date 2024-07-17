@@ -3,6 +3,7 @@ import { EngineHandle } from "../engineHandle";
 import {
   rotateCamera,
   rotateObject,
+  togglePostProcessing,
   toggleSelection,
 } from "../reducer/spheresAndLights";
 import { PayloadAction } from "@reduxjs/toolkit";
@@ -13,6 +14,7 @@ export function* spheresAndLightsSaga(handle: EngineHandle) {
     takeEvery(rotateCamera.type, rotateCameraSaga(handle)),
     takeEvery(rotateObject, rotateObjectSaga(handle)),
     takeEvery(toggleSelection.type, toggleSelectionSaga(handle)),
+    takeEvery(togglePostProcessing.type, togglePostProcessingSaga(handle)),
   ]);
 }
 
@@ -31,5 +33,11 @@ function rotateObjectSaga(handle: EngineHandle) {
 function toggleSelectionSaga(handle: EngineHandle) {
   return function (action: PayloadAction<void>) {
     handle.toggleSelectionCameraSpheresAndLights();
+  };
+}
+
+function togglePostProcessingSaga(handle: EngineHandle) {
+  return function (action: PayloadAction<void>) {
+    handle.togglePostProcessingSpheresAndLights();
   };
 }

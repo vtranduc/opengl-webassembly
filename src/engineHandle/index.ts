@@ -111,4 +111,8 @@ export class EngineHandle {
   public toggleSelectionCameraSpheresAndLights() {
     return this.commands.toggleSelectionCameraSpheresAndLights();
   }
+
+  public togglePostProcessingSpheresAndLights() {
+    return this.commands.togglePostProcessingSpheresAndLights();
+  }
 }

@@ -22,16 +22,17 @@ class Shader {
         VertexColor = 1,
         SpheresAndLights = 2,
         Grid = 3,
-        BasicPP = 4
+        BasicPP = 4,
+        InvertPP = 5
     };
 
     static const int nVertex = 7;
 
-    static const int nFragment = 5;
+    static const int nFragment = 6;
 
     static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights, Vertex::Extrude, Vertex::VaryingWorldPosition, Vertex::BasicPP };
 
-    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights, Fragment::Grid, Fragment::BasicPP };
+    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights, Fragment::Grid, Fragment::BasicPP, Fragment::InvertPP };
 
     static string getFileName(Vertex shader) {
         switch (shader) {
@@ -53,6 +54,7 @@ class Shader {
             case Shader::Fragment::SpheresAndLights: return "spheresAndLights.glsl";
             case Shader::Fragment::Grid: return "grid.glsl";
             case Shader::Fragment::BasicPP: return "basic.pp.glsl";
+            case Shader::Fragment::InvertPP: return "invert.pp.glsl";
             default: throw "Fragment shader's filename does not exist";
         }
     }
