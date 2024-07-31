@@ -1,0 +1,11 @@
+Model Information:
+* title:	SeeU Miniature
+* source:	https://sketchfab.com/3d-models/seeu-miniature-5f7371056ba148e0a7936014a9b05030
+* author:	tyurru02 (https://sketchfab.com/tyurru02)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "SeeU Miniature" (https://sketchfab.com/3d-models/seeu-miniature-5f7371056ba148e0a7936014a9b05030) by tyurru02 (https://sketchfab.com/tyurru02) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

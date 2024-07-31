@@ -12,6 +12,15 @@ To do this, after installation, locate\
 Then, include public folder. `ignored` specifications should look like\
 `ignored: [ignoredFiles(paths.appSrc), paths.appPublic]`
 
+### Include third party libraries
+
+In CMakeLists.txt, update the paths to external libraries for the following:
+
+#### jsonLibPath
+
+Local path to single_include needs to be updated. Source:
+https://github.com/nlohmann/json
+
 ## Adding glsl
 
 All glsl files should have .glsl extensions.
