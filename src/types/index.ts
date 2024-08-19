@@ -1,6 +1,8 @@
 export enum Preset {
   ColorTriangle = 0,
   TriangleAssembly = 1,
+  SpheresAndLights = 2,
+  ThreeBabylonConcept = 3,
 }
 
 export interface TestState {
@@ -27,13 +29,23 @@ export interface TriangleAssemblyState {
   scale: Vector3;
 }
 
+export interface SpheresAndLights {}
+
 export interface State {
   test: TestState;
   colorTriangle: ColorTriangleState;
   triangleAssembly: TriangleAssemblyState;
+  spheresAndLights: SpheresAndLights;
 }
 
 export enum Projection {
   Orthographic = 0,
   Perspective = 1,
+}
+
+export enum Cardinal {
+  Right = 0,
+  Left = 1,
+  Up = 2,
+  Down = 3,
 }

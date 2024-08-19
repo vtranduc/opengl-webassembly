@@ -20,6 +20,10 @@ set(
     _lookAtTriangleAssembly
     _setProjectionTypeTriangleAssembly
     _onTriangleAssemblyUpdated
+    _rotateCameraSpheresAndLights
+    _rotateObjectSpheresAndLights
+    _toggleSelectionCameraSpheresAndLights
+    _togglePostProcessingSpheresAndLights
 )
 
 # Include associated files

@@ -42,6 +42,8 @@ void TriangleAssembly::set() {
     setDirty();
 };
 
+void TriangleAssembly::cleanUp() {}
+
 void TriangleAssembly::command(const CommandData& data) {
     switch (data.triangleAssembly.type) {
     case TriangleAssemblyCommand::Type::Color: break;

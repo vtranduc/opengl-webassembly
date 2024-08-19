@@ -1,5 +1,6 @@
 #pragma once
 
+#include <math.h>
 #include "gl.h"
 #include "../vector/vector3.h"
 
@@ -18,6 +19,10 @@ public:
     Vector3& getPosition(Vector3* out) const;
 
     Vector3& getTarget(Vector3* out) const;
+
+    void rotateThetaInYUpConvention(float theta);
+
+    void rotatePhiInYUpConvention(float phi);
 
 private:
 

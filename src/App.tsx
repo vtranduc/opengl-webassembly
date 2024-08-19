@@ -4,7 +4,7 @@ import { initialize, sayHello, setClearColor, setPreset } from "./reducer";
 import { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import { hexToRgb, rgbToHex } from "./utils";
-import { Preset, Projection, State } from "./types";
+import { Cardinal, Preset, Projection, State } from "./types";
 import { setColor } from "./reducer/colorTriangle";
 import {
   rotateCamera,
@@ -12,10 +12,18 @@ import {
   setProjectionType,
   translate,
 } from "./reducer/triangleAssembly";
+import {
+  rotateCamera as rotateCameraSpheresAndLights,
+  rotateObject,
+  togglePostProcessing,
+  toggleSelection,
+} from "./reducer/spheresAndLights";
 
 const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
   { type: Preset.TriangleAssembly, name: "Triangle Assembly" },
+  { type: Preset.SpheresAndLights, name: "Spheres and Lights" },
+  { type: Preset.ThreeBabylonConcept, name: "ThreeJS and BabylonJS concept" },
 ];
 
 function App() {
@@ -43,6 +51,8 @@ function App() {
         return <ColorTrianglePanel />;
       case Preset.TriangleAssembly:
         return <TriangleAssemblyPanel />;
+      case Preset.SpheresAndLights:
+        return <SpheresAndLightsPanel />;
       default:
         return null;
     }
@@ -183,4 +193,55 @@ function TriangleAssemblyPanel() {
   }, [dispatch]);
 
   return <h3>Triangle Aseembly</h3>;
+}
+
+function SpheresAndLightsPanel() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+    function onKeyDown(e: KeyboardEvent) {
+      e.preventDefault();
+      e.stopPropagation();
+      switch (e.key) {
+        case "4":
+          dispatch(rotateCameraSpheresAndLights(Cardinal.Left));
+          break;
+        case "6":
+          dispatch(rotateCameraSpheresAndLights(Cardinal.Right));
+          break;
+        case "8":
+          dispatch(rotateCameraSpheresAndLights(Cardinal.Up));
+          break;
+        case "2":
+          dispatch(rotateCameraSpheresAndLights(Cardinal.Down));
+          break;
+        case "ArrowRight":
+          dispatch(rotateObject(Cardinal.Right));
+          break;
+        case "ArrowLeft":
+          dispatch(rotateObject(Cardinal.Left));
+          break;
+        case "ArrowUp":
+          dispatch(rotateObject(Cardinal.Up));
+          break;
+        case "ArrowDown":
+          dispatch(rotateObject(Cardinal.Down));
+          break;
+        case " ":
+          dispatch(toggleSelection());
+          break;
+        case "\\":
+          dispatch(togglePostProcessing());
+          break;
+        default:
+          break;
+      }
+    }
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [dispatch]);
+
+  return null;
 }

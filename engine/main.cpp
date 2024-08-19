@@ -153,3 +153,35 @@ extern "C" int onTriangleAssemblyUpdated(
     }});
     return 1;
 };
+
+extern "C" int rotateCameraSpheresAndLights(int direction) {
+    SpheresAndLightsCommand::Type type;
+    switch (direction) {
+    case 0: type = SpheresAndLightsCommand::Type::CameraRight; break;
+    case 1: type = SpheresAndLightsCommand::Type::CameraLeft; break;
+    case 2: type = SpheresAndLightsCommand::Type::CameraUp; break;
+    case 3: type = SpheresAndLightsCommand::Type::CameraDown; break;
+    default: return 0;
+    }
+    return handle.command({ Preset::Name::SpheresAndLights, { .spheresAndLights = { .type = type } } });
+}
+
+extern "C" int rotateObjectSpheresAndLights(int direction) {
+    SpheresAndLightsCommand::Type type;
+    switch (direction) {
+    case 0: type = SpheresAndLightsCommand::Type::RotateObjectRight; break;
+    case 1: type = SpheresAndLightsCommand::Type::RotateObjectLeft; break;
+    case 2: type = SpheresAndLightsCommand::Type::RotateObjectUp; break;
+    case 3: type = SpheresAndLightsCommand::Type::RotateObjectDown; break;
+    default: return 0;
+    }
+    return handle.command({ Preset::Name::SpheresAndLights, { .spheresAndLights = { .type = type } } });
+}
+
+extern "C" int toggleSelectionCameraSpheresAndLights() {
+    return handle.command({ Preset::Name::SpheresAndLights, { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::ToggleSelection } }});
+}
+
+extern "C" int togglePostProcessingSpheresAndLights() {
+     return handle.command({ Preset::Name::SpheresAndLights, { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::TogglePostProcessing } }});
+}

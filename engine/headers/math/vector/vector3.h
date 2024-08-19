@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include "../constants.h"
 
 class Vector3 {
 
@@ -21,6 +22,12 @@ public:
     Vector3& add(const Vector3& vector);
 
     Vector3& add(float x, float y, float z);
+
+    Vector3& addX(float delta);
+
+    Vector3& addY(float delta);
+
+    Vector3& addZ(float delta);
 
     Vector3& subtract(const Vector3& vector);
 
@@ -55,6 +62,22 @@ public:
     Vector3& crossY();
 
     Vector3& crossedByY();
+
+    Vector3& sphericalToCartesian();
+
+    static Vector3& sphericalToCartesian(float r, float theta, float phi, Vector3* out = new Vector3());
+
+    Vector3& sphericalToCartesianYUpConvention();
+
+    static Vector3& sphericalToCartesianYUpConvention(float r, float theta, float phi, Vector3* out = new Vector3());
+
+    Vector3& cartesianToSpherical();
+
+    static Vector3& cartesianToSpherical(float x, float y, float z, Vector3* out = new Vector3());
+
+    Vector3& cartesianToSphericalYUpConvention();
+
+    static Vector3& cartesianToSphericalYUpConvention(float x, float y, float z, Vector3* out = new Vector3());
 
     float x, y, z;
 };

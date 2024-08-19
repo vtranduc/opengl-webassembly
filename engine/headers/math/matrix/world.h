@@ -7,6 +7,8 @@ class World : public GLMatrix {
 
 public:
 
+    void setPosition(float x, float y, float z);
+
     void translateInPlace(const float* xyz);
 
     void translateInPlace(float x, float y, float z);
@@ -18,6 +20,10 @@ public:
     Vector3& getPosition(Vector3* out) const;
 
     Vector3& getScale(Vector3* out) const;
+
+    void rotateTheta(float delta);
+
+    void rotatePhi(float delta);
 
 private:
 
@@ -35,9 +41,21 @@ private:
 
         float* operator[](int i) const;
 
+        void rotateTheta(float delta);
+
+        void rotatePhi(float delta);
+
+        void update();
+
     private:
 
         float** elements;
 
+        float theta = 0.0f, phi = M_HALFPI;
+
+        bool isDirty = false;
+
+        Vector3 front, back, right, up;
+        
     }rotationMx;
 };

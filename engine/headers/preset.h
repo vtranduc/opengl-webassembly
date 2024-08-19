@@ -3,6 +3,8 @@
 #include <iostream>
 #include "presets/colorTriangle.h"
 #include "presets/triangleAssembly.h"
+#include "presets/spheresAndLights.h"
+#include "presets/threeBabylonConcept.h"
 
 using namespace std;
 
@@ -10,7 +12,9 @@ class Preset {
 public:
     enum class Name : uint32_t {
         ColorTriangle = 0,
-        TriangleAssembly = 1
+        TriangleAssembly = 1,
+        SpheresAndLights = 2,
+        ThreeBabylonConcept = 3
     }current;
 
     struct Command {
@@ -34,6 +38,8 @@ public:
             ColorTriangle::Callbacks colorTriangle;
 
             TriangleAssembly::Callbacks triangleAssembly;
+
+            SpheresAndLights::Callbacks spheresAndLights;
         }callbacks;
     };
 
@@ -43,6 +49,8 @@ private:
     struct Presets {
         ColorTriangle colorTriangle;
         TriangleAssembly triangleAssembly;
+        SpheresAndLights spheresAndLights;
+        ThreeBabylonConcept threeBabylonConcept;
     }presets;
 
     PresetBase* getCurrentPreset();

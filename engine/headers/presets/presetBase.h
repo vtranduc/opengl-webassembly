@@ -17,6 +17,8 @@ class PresetBase {
 
     virtual void set() = 0;
 
+    virtual void cleanUp() = 0;
+
     virtual void command(const CommandData& data) = 0;
 
     virtual void render();

@@ -112,6 +112,26 @@ const exportedFunctions: wasmExportedFunctionData[] = [
     return: WasmCommunicationDataType.Number,
     params: [WasmCommunicationDataType.Number],
   },
+  {
+    name: "rotateCameraSpheresAndLights",
+    return: WasmCommunicationDataType.Number,
+    params: [WasmCommunicationDataType.Number],
+  },
+  {
+    name: "rotateObjectSpheresAndLights",
+    return: WasmCommunicationDataType.Number,
+    params: [WasmCommunicationDataType.Number],
+  },
+  {
+    name: "toggleSelectionCameraSpheresAndLights",
+    return: WasmCommunicationDataType.Number,
+    params: [],
+  },
+  {
+    name: "togglePostProcessingSpheresAndLights",
+    return: WasmCommunicationDataType.Number,
+    params: [],
+  },
 ];
 
 export { id, path, timeoutInSeconds, exportedFunctions };
@@ -131,6 +151,10 @@ export type Commands = {
   positionCameraTriangleAssembly: (x: number, y: number, z: number) => number;
   lookAtTriangleAssembly: (x: number, y: number, z: number) => number;
   setProjectionTypeTriangleAssembly: (type: number) => number;
+  rotateCameraSpheresAndLights: (type: number) => number;
+  rotateObjectSpheresAndLights: (type: number) => number;
+  toggleSelectionCameraSpheresAndLights: () => number;
+  togglePostProcessingSpheresAndLights: () => number;
 };
 
 // Callbacks from the engine

@@ -7,6 +7,7 @@ import { ModuleControl } from "../engineHandle/wasmLoader/specs";
 import { colorTriangleSaga } from "./colorTriangle";
 import { Preset, State } from "../types";
 import { triangleAssemblySaga } from "./triangleAssembly";
+import { spheresAndLightsSaga } from "./spheresAndLights";
 
 export default function* saga() {
   yield take(initialize.type);
@@ -27,6 +28,7 @@ function* engineSaga() {
   yield all([
     colorTriangleSaga(handle),
     triangleAssemblySaga(handle),
+    spheresAndLightsSaga(handle),
     takeLatest(sayHello.type, sayHelloSaga(handle)),
     takeLatest(setClearColor.type, setClearColorSaga(handle)),
     takeEvery(setPreset.type, setPresetSaga(handle)),

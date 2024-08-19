@@ -39,8 +39,29 @@ struct TriangleAssemblyCommand {
     };
 };
 
+struct SpheresAndLightsCommand {
+    enum Type : uint32_t {
+        CameraRight = 0,
+        CameraLeft = 1,
+        CameraUp = 2,
+        CameraDown = 3,
+        ToggleSelection = 4,
+        RotateObjectRight = 5,
+        RotateObjectLeft = 6,
+        RotateObjectUp = 7,
+        RotateObjectDown = 8,
+        TogglePostProcessing = 9
+    };
+
+    struct Data {
+        Type type;
+    };
+};
+
 union CommandData {
     ColorTriangleCommand::Data colorTriangle;
 
     TriangleAssemblyCommand::Data triangleAssembly;
+
+    SpheresAndLightsCommand::Data spheresAndLights;
 };
