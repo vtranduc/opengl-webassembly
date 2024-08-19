@@ -4,6 +4,7 @@ void Preset::init() {
     presets.colorTriangle.init();
     presets.triangleAssembly.init();
     presets.spheresAndLights.init();
+    presets.threeBabylonConcept.init();
 }
 
 void Preset::set(uint32_t code) {
@@ -37,6 +38,7 @@ PresetBase* Preset::getPreset(Name name) {
     case Name::ColorTriangle: return &(presets.colorTriangle);
     case Name::TriangleAssembly: return &(presets.triangleAssembly);
     case Name::SpheresAndLights: return &(presets.spheresAndLights);
+    case Name::ThreeBabylonConcept: return &(presets.threeBabylonConcept);
     default: throw "Preset name is unhandled in getter";
     }
 }

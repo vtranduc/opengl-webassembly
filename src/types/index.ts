@@ -2,6 +2,7 @@ export enum Preset {
   ColorTriangle = 0,
   TriangleAssembly = 1,
   SpheresAndLights = 2,
+  ThreeBabylonConcept = 3,
 }
 
 export interface TestState {

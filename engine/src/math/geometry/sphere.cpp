@@ -1,11 +1,11 @@
 #include "../../../headers/math/geometry/sphere.h"
 
-Sphere::Sphere(float radius, Vector3 surfaceColor) : r(radius), color(surfaceColor) { generateVertices(); };
+Sphere_::Sphere_(float radius, Vector3 surfaceColor) : r(radius), color(surfaceColor) { generateVertices(); };
 
-Sphere::~Sphere() { delete[] mesh.vertices; delete[] mesh.normals; delete[] mesh.colors; }
+Sphere_::~Sphere_() { delete[] mesh.vertices; delete[] mesh.normals; delete[] mesh.colors; }
 
 
-void Sphere::generateVertices(int nTheta, int nPhi) {
+void Sphere_::generateVertices(int nTheta, int nPhi) {
     #if ASSERT_VALID_ARGUMENTS
     assert(nTheta >= 8 && nTheta <= 256 && nPhi >= 8 && nPhi <= 256);
     #endif

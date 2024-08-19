@@ -48,7 +48,7 @@ private:
 
         GLuint colorBuffer;
 
-        Geometry* geometry;
+        Geometry_* geometry;
     };
 
     struct {

@@ -1,11 +1,12 @@
 #pragma once
 
-#include "../math.h"
+#include "math.h"
 
-class Object3d {
+class Object3D {
+
 public:
 
-protected:
+    Object3D() = default;
 
     const float* getWorldValue();
 

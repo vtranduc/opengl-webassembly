@@ -23,6 +23,7 @@ const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
   { type: Preset.TriangleAssembly, name: "Triangle Assembly" },
   { type: Preset.SpheresAndLights, name: "Spheres and Lights" },
+  { type: Preset.ThreeBabylonConcept, name: "ThreeJS and BabylonJS concept" },
 ];
 
 function App() {

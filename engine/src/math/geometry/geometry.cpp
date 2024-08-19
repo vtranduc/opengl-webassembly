@@ -1,23 +1,21 @@
 #include "../../../headers/math/geometry/geometry.h"
 
-Geometry::Geometry() {}
+Geometry_::Geometry_() {}
 
-GLfloat* Geometry::getVertices() const { return mesh.vertices; }
+GLfloat* Geometry_::getVertices() const { return mesh.vertices; }
 
-GLfloat* Geometry::getNormals() const { return mesh.normals; }
+GLfloat* Geometry_::getNormals() const { return mesh.normals; }
 
-GLfloat* Geometry::getColors() const { return mesh.colors; }
+GLfloat* Geometry_::getColors() const { return mesh.colors; }
 
-GLsizeiptr Geometry::getSize() const { return mesh.size; }
+GLsizeiptr Geometry_::getSize() const { return mesh.size; }
 
-GLsizei Geometry::getCount() const { return mesh.count; }
+GLsizei Geometry_::getCount() const { return mesh.count; }
 
-const float* getWorldValue();
+const float* Geometry_::getWorldValue() { return world.value(); }
 
-const float* Geometry::getWorldValue() { return world.value(); }
+void Geometry_::setPosition(float x, float y, float z) { world.setPosition(x, y, z); };
 
-void Geometry::setPosition(float x, float y, float z) { world.setPosition(x, y, z); };
+void Geometry_::rotateTheta(float delta) { world.rotateTheta(delta); };
 
-void Geometry::rotateTheta(float delta) { world.rotateTheta(delta); };
-
-void Geometry::rotatePhi(float delta) { world.rotatePhi(delta); };
+void Geometry_::rotatePhi(float delta) { world.rotatePhi(delta); };

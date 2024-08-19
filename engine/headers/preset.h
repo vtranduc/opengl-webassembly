@@ -4,6 +4,7 @@
 #include "presets/colorTriangle.h"
 #include "presets/triangleAssembly.h"
 #include "presets/spheresAndLights.h"
+#include "presets/threeBabylonConcept.h"
 
 using namespace std;
 
@@ -12,7 +13,8 @@ public:
     enum class Name : uint32_t {
         ColorTriangle = 0,
         TriangleAssembly = 1,
-        SpheresAndLights = 2
+        SpheresAndLights = 2,
+        ThreeBabylonConcept = 3
     }current;
 
     struct Command {
@@ -48,6 +50,7 @@ private:
         ColorTriangle colorTriangle;
         TriangleAssembly triangleAssembly;
         SpheresAndLights spheresAndLights;
+        ThreeBabylonConcept threeBabylonConcept;
     }presets;
 
     PresetBase* getCurrentPreset();

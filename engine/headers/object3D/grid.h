@@ -5,7 +5,7 @@
 #include "../utils.h"
 #include "../math.h"
 
-class Grid : public Object3D {
+class Grid : public Object3d {
 
 public:
 

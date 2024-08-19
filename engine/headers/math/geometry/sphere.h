@@ -5,11 +5,11 @@
 #include <iostream>
 #include "geometry.h"
 
-class Sphere : public Geometry {
+class Sphere_ : public Geometry_ {
 public:
-    Sphere(float radius = 1.0f, Vector3 color = Vector3(0.8));
+    Sphere_(float radius = 1.0f, Vector3 color = Vector3(0.8));
 
-    ~Sphere();
+    ~Sphere_();
 
     void generateVertices(int nTheta = 64, int nPhi = 64);
 

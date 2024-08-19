@@ -6,11 +6,11 @@
 
 using namespace std;
 
-class Geometry {
+class Geometry_ {
 
 public:
 
-    Geometry();
+    Geometry_();
 
     GLfloat* getVertices() const;
 

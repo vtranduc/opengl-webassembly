@@ -6,13 +6,13 @@
 
 using namespace std;
 
-class RectangularCuboid : public Geometry {
+class RectangularCuboid_ : public Geometry_ {
 
 public:
 
-    RectangularCuboid();
+    RectangularCuboid_();
 
-    ~RectangularCuboid();
+    ~RectangularCuboid_();
 
     void generateVertices();
 

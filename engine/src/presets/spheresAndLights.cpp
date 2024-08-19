@@ -20,18 +20,18 @@ void SpheresAndLights::init() {
     grid = new Grid(&projection, &view);
 
     for (int i = 0; i < 3; i++) {
-        Geometry* geometry;
+        Geometry_* geometry;
         switch (i) {
         case 0:
-            geometry = new Sphere(0.5f);
+            geometry = new Sphere_(0.5f);
             geometry->setPosition(0.0f, 0.0f, 0.0f);
             break;
         case 1:
-            geometry = new Sphere(0.25f);
+            geometry = new Sphere_(0.25f);
             geometry->setPosition(0.75f, 0.0f, 0.0f);
             break;
         case 2:
-            geometry = new RectangularCuboid();
+            geometry = new RectangularCuboid_();
             geometry->setPosition(-1.0f, 0.0f, 0.0f);
             break;
         default: throw "Unaccounted geometry";

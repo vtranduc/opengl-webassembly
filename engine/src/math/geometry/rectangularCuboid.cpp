@@ -1,10 +1,10 @@
 #include "../../../headers/math/geometry/rectangularCuboid.h"
 
-RectangularCuboid::RectangularCuboid() { generateVertices(); };
+RectangularCuboid_::RectangularCuboid_() { generateVertices(); };
 
-RectangularCuboid::~RectangularCuboid() { delete[] mesh.vertices; delete[] mesh.normals; delete[] mesh.colors;}
+RectangularCuboid_::~RectangularCuboid_() { delete[] mesh.vertices; delete[] mesh.normals; delete[] mesh.colors;}
 
-void RectangularCuboid::generateVertices() {
+void RectangularCuboid_::generateVertices() {
     const int nTriangles = 12;
     mesh.size = nTriangles * 9 * sizeof(GLfloat);
     mesh.count = nTriangles * 3;
