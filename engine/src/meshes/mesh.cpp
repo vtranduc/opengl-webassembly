@@ -18,6 +18,8 @@ Mesh::Mesh(Geometries geometryType, Materials materialType) {
     }
 };
 
+Mesh::Mesh(Geometry* geometry_, Material* material_) : geometry(geometry_), material(material_) {}
+
 Mesh::RenderData Mesh::getRenderData() const { return { geometry->getRenderData(), material->getRenderData() }; }
 
 const vector<Material::UniformData*> Mesh::getUniforms() const { return material->getUniforms(); };

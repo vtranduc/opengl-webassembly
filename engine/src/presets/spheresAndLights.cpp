@@ -17,7 +17,7 @@ void SpheresAndLights::init() {
     glUniform1f(glGetUniformLocation(highlightProgram, "uDistance"), 0.05f);
     glUniform3f(glGetUniformLocation(highlightProgram, "uColor"), 1.0f, 0.0f, 1.0f);
 
-    grid = new Grid(&projection, &view);
+    grid = new Grid_(&projection, &view);
 
     for (int i = 0; i < 3; i++) {
         Geometry_* geometry;

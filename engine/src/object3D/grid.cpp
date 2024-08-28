@@ -1,6 +1,6 @@
 #include "../../headers/object3D/grid.h"
 
-Grid::Grid(Projection* projection_, View* view_) {
+Grid_::Grid_(Projection* projection_, View* view_) {
     projection = projection_;
     view = view_;
 
@@ -23,7 +23,7 @@ Grid::Grid(Projection* projection_, View* view_) {
     glEnableVertexAttribArray(0);
 }
 
-void Grid::draw() {
+void Grid_::draw() {
     glUseProgram(program);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindVertexArray(VAO);

@@ -7,6 +7,9 @@ void ThreeBabylonConcept::init() {
     float target[3] = { 0.0f, 0.0f, 0.0f };
     scene.getCamera().setPosition(position);
     scene.getCamera().lookAt(target);
+
+    Mesh* grid = new Grid();
+    scene.add(*grid);
 };
 
 void ThreeBabylonConcept::set() { setDirty(); };

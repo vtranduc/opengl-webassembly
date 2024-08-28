@@ -61,7 +61,7 @@ private:
 
     void drawObject(GLuint program, GeometryAndBuffers object);
 
-    Grid *grid;
+    Grid_ *grid;
 
     bool postProcessingEnabled = false;
 };

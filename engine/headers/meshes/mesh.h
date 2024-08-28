@@ -12,6 +12,8 @@ public:
 
     Mesh(Geometries geometry, Materials material);
 
+    Mesh(Geometry* geometry, Material* material = new MonoMaterial());
+
     struct RenderData {
         Geometry::RenderData geometry;
 

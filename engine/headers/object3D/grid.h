@@ -5,11 +5,11 @@
 #include "../utils.h"
 #include "../math.h"
 
-class Grid : public Object3d {
+class Grid_ : public Object3d {
 
 public:
 
-    Grid(Projection* projection, View* view);
+    Grid_(Projection* projection, View* view);
 
     void draw();
 
