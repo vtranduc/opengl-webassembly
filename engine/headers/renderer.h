@@ -4,6 +4,7 @@
 #include "math/matrix/view.h"
 #include "camera.h"
 #include "mesh.h"
+#include "light.h"
 #include <iostream>
 
 using namespace std;
@@ -31,7 +32,17 @@ public:
         GLsizei count;
     };
 
+    struct LightBufferData {
+        struct Point {};
+
+        struct Directional {};
+    };
+
     MeshBufferData processMesh(Mesh& mesh);
+
+    LightBufferData::Point processLight(PointLight& light);
+
+    LightBufferData::Directional processLight(DirectionalLight& light);
 
     void renderMesh(const MeshBufferData& data);
 

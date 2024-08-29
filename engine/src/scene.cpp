@@ -9,4 +9,8 @@ void Scene::render() {
 
 void Scene::add(Mesh& mesh) { meshBuffers.push_back(renderer->processMesh(mesh)); };
 
+void Scene::add(PointLight& light) { lightBuffers.points.push_back(renderer->processLight(light)); };
+
+void Scene::add(DirectionalLight& light) { lightBuffers.directionals.push_back(renderer->processLight(light)); };
+
 Camera& Scene::getCamera() { return camera; };

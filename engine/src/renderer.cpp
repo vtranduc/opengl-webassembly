@@ -20,6 +20,14 @@ Renderer::MeshBufferData Renderer::processMesh(Mesh& mesh) {
     return data;
 }
 
+Renderer::LightBufferData::Point Renderer::processLight(PointLight& light) {
+    return Renderer::LightBufferData::Point{};
+}
+
+Renderer::LightBufferData::Directional Renderer::processLight(DirectionalLight& light) {
+    return Renderer::LightBufferData::Directional{};
+}
+
 void Renderer::renderMesh(const MeshBufferData& data) {
     glUseProgram(data.program);
     glBindBuffer(GL_ARRAY_BUFFER, data.vertexBuffer);

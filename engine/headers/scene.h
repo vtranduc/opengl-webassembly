@@ -5,6 +5,7 @@
 #include "light.h"
 #include "object3D.h"
 #include "mesh.h"
+#include "light.h"
 #include "renderer.h"
 #include "camera.h"
 #include <vector>
@@ -22,6 +23,10 @@ public:
 
     void add(Mesh& mesh);
 
+    void add(PointLight& mesh);
+
+    void add(DirectionalLight& mesh);
+
     Camera& getCamera();
 
 private:
@@ -31,4 +36,10 @@ private:
     Renderer* renderer = nullptr;
 
     vector<Renderer::MeshBufferData> meshBuffers;
+
+    struct lightBuffers {
+        vector<Renderer::LightBufferData::Point> points;
+
+        vector<Renderer::LightBufferData::Directional> directionals;
+    }lightBuffers;
 };

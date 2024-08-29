@@ -10,6 +10,11 @@ void ThreeBabylonConcept::init() {
 
     Mesh* grid = new Grid();
     scene.add(*grid);
+
+    PointLight* pointLight = new PointLight();
+    DirectionalLight* directionalLight = new DirectionalLight();
+    scene.add(*pointLight);
+    scene.add(*directionalLight);
 };
 
 void ThreeBabylonConcept::set() { setDirty(); };
