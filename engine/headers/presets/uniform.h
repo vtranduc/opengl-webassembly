@@ -58,10 +58,22 @@ struct SpheresAndLightsCommand {
     };
 };
 
+struct ThreeBabylonConceptCommand {
+    enum Type : uint32_t {
+        TogglePostProcessing = 0
+    };
+
+    struct Data {
+        Type type;
+    };
+};
+
 union CommandData {
     ColorTriangleCommand::Data colorTriangle;
 
     TriangleAssemblyCommand::Data triangleAssembly;
 
     SpheresAndLightsCommand::Data spheresAndLights;
+
+    ThreeBabylonConceptCommand::Data threeBabylonConcept;
 };

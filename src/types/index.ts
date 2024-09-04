@@ -31,11 +31,14 @@ export interface TriangleAssemblyState {
 
 export interface SpheresAndLights {}
 
+export interface ThreeBabylonConcept {}
+
 export interface State {
   test: TestState;
   colorTriangle: ColorTriangleState;
   triangleAssembly: TriangleAssemblyState;
   spheresAndLights: SpheresAndLights;
+  threeBabylonConcept: ThreeBabylonConcept;
 }
 
 export enum Projection {

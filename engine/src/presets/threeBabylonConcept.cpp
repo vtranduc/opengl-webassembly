@@ -21,7 +21,14 @@ void ThreeBabylonConcept::set() { setDirty(); };
 
 void ThreeBabylonConcept::cleanUp() {};
 
-void ThreeBabylonConcept::command(const CommandData& data) {};
+void ThreeBabylonConcept::command(const CommandData& data) {
+    switch (data.threeBabylonConcept.type) {
+    case ThreeBabylonConceptCommand::Type::TogglePostProcessing:
+        // Post processing switch here
+        break;
+    default: break;
+    }
+};
 
 void ThreeBabylonConcept::render() {
     PresetBase::render();

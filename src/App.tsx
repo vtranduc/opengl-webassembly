@@ -18,6 +18,7 @@ import {
   togglePostProcessing,
   toggleSelection,
 } from "./reducer/spheresAndLights";
+import { togglePostProcessing as togglePostProcessingThreeBabylonConcept } from "./reducer/threeBabylonConcept";
 
 const presets: { type: Preset; name: string }[] = [
   { type: Preset.ColorTriangle, name: "Color Triangle" },
@@ -53,6 +54,8 @@ function App() {
         return <TriangleAssemblyPanel />;
       case Preset.SpheresAndLights:
         return <SpheresAndLightsPanel />;
+      case Preset.ThreeBabylonConcept:
+        return <ThreeBabylonConcept />;
       default:
         return null;
     }
@@ -238,6 +241,33 @@ function SpheresAndLightsPanel() {
           break;
       }
     }
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [dispatch]);
+
+  return null;
+}
+
+function ThreeBabylonConcept() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+
+    function onKeyDown(e: KeyboardEvent) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      switch (e.key) {
+        case " ":
+          dispatch(togglePostProcessingThreeBabylonConcept());
+          break;
+        default:
+          break;
+      }
+    }
+
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };

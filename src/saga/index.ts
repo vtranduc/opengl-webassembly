@@ -8,6 +8,7 @@ import { colorTriangleSaga } from "./colorTriangle";
 import { Preset, State } from "../types";
 import { triangleAssemblySaga } from "./triangleAssembly";
 import { spheresAndLightsSaga } from "./spheresAndLights";
+import { threeBabylonConceptSaga } from "./threeBabylonConcept";
 
 export default function* saga() {
   yield take(initialize.type);
@@ -29,6 +30,7 @@ function* engineSaga() {
     colorTriangleSaga(handle),
     triangleAssemblySaga(handle),
     spheresAndLightsSaga(handle),
+    threeBabylonConceptSaga(handle),
     takeLatest(sayHello.type, sayHelloSaga(handle)),
     takeLatest(setClearColor.type, setClearColorSaga(handle)),
     takeEvery(setPreset.type, setPresetSaga(handle)),

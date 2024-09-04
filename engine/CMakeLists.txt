@@ -24,6 +24,7 @@ set(
     _rotateObjectSpheresAndLights
     _toggleSelectionCameraSpheresAndLights
     _togglePostProcessingSpheresAndLights
+    _togglePostProcessingThreeBabylonConcept
 )
 
 # Include associated files

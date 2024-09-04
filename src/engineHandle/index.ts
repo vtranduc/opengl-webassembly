@@ -115,4 +115,8 @@ export class EngineHandle {
   public togglePostProcessingSpheresAndLights() {
     return this.commands.togglePostProcessingSpheresAndLights();
   }
+
+  public togglePostProcessingThreeBabylonConcept() {
+    return this.commands.togglePostProcessingThreeBabylonConcept();
+  }
 }

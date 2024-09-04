@@ -185,3 +185,7 @@ extern "C" int toggleSelectionCameraSpheresAndLights() {
 extern "C" int togglePostProcessingSpheresAndLights() {
      return handle.command({ Preset::Name::SpheresAndLights, { .spheresAndLights = { .type = SpheresAndLightsCommand::Type::TogglePostProcessing } }});
 }
+
+extern "C" int togglePostProcessingThreeBabylonConcept() {
+    return handle.command({ Preset::Name::ThreeBabylonConcept, { .threeBabylonConcept = { .type = ThreeBabylonConceptCommand::Type::TogglePostProcessing } }});
+}
