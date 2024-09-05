@@ -13,4 +13,6 @@ void Scene::add(PointLight& light) { lightBuffers.points.push_back(renderer->pro
 
 void Scene::add(DirectionalLight& light) { lightBuffers.directionals.push_back(renderer->processLight(light)); };
 
+void Scene::add(PostEffect& postEffect) { postEffectBuffers.push_back(renderer->processPostEffect(postEffect)); };
+
 Camera& Scene::getCamera() { return camera; };

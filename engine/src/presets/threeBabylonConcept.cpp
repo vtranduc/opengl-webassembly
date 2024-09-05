@@ -15,6 +15,9 @@ void ThreeBabylonConcept::init() {
     DirectionalLight* directionalLight = new DirectionalLight();
     scene.add(*pointLight);
     scene.add(*directionalLight);
+
+    PostEffect* invertPostEffect = new Invert();
+    scene.add(*invertPostEffect);
 };
 
 void ThreeBabylonConcept::set() { setDirty(); };

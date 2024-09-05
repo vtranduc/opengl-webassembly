@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "mesh.h"
 #include "light.h"
+#include "postEffect.h"
 #include <iostream>
 
 using namespace std;
@@ -38,11 +39,17 @@ public:
         struct Directional {};
     };
 
+    struct PostEffectBufferData {
+        GLuint program;
+    };
+
     MeshBufferData processMesh(Mesh& mesh);
 
     LightBufferData::Point processLight(PointLight& light);
 
     LightBufferData::Directional processLight(DirectionalLight& light);
+
+    PostEffectBufferData processPostEffect(PostEffect& postEffect);
 
     void renderMesh(const MeshBufferData& data);
 

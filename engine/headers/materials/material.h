@@ -25,7 +25,7 @@ public:
         }shader;
 
         vector<ExternalUniforms> requiredExternalUniforms;
-    }renderData;
+    };
 
     Material() = delete;
 
@@ -52,6 +52,8 @@ protected:
     void addUniform(UniformData* data);
 
 private:
+
+    RenderData renderData;
 
     vector<UniformData*> uniforms;
 };

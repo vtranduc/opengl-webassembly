@@ -10,6 +10,7 @@
 #include "../renderer.h"
 #include "../scene.h"
 #include "../mesh.h"
+#include "../postEffect.h"
 #include <iostream>
 
 using namespace std;

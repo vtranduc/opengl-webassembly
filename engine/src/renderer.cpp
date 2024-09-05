@@ -28,6 +28,13 @@ Renderer::LightBufferData::Directional Renderer::processLight(DirectionalLight& 
     return Renderer::LightBufferData::Directional{};
 }
 
+Renderer::PostEffectBufferData Renderer::processPostEffect(PostEffect& postEffect) {
+    PostEffectBufferData data;
+    auto postEffectData = postEffect.getRenderData();
+    data.program = getShaderProgram(postEffectData.shader.vertex, postEffectData.shader.fragment);
+    return data;
+};
+
 void Renderer::renderMesh(const MeshBufferData& data) {
     glUseProgram(data.program);
     glBindBuffer(GL_ARRAY_BUFFER, data.vertexBuffer);

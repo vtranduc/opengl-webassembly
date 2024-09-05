@@ -6,6 +6,7 @@
 #include "object3D.h"
 #include "mesh.h"
 #include "light.h"
+#include "postEffect.h"
 #include "renderer.h"
 #include "camera.h"
 #include <vector>
@@ -23,9 +24,11 @@ public:
 
     void add(Mesh& mesh);
 
-    void add(PointLight& mesh);
+    void add(PointLight& light);
 
-    void add(DirectionalLight& mesh);
+    void add(DirectionalLight& light);
+
+    void add(PostEffect& postEffect);
 
     Camera& getCamera();
 
@@ -42,4 +45,6 @@ private:
 
         vector<Renderer::LightBufferData::Directional> directionals;
     }lightBuffers;
+
+    vector<Renderer::PostEffectBufferData> postEffectBuffers;
 };
