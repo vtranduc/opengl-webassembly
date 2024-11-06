@@ -27,7 +27,9 @@ void ThreeBabylonConcept::cleanUp() {};
 void ThreeBabylonConcept::command(const CommandData& data) {
     switch (data.threeBabylonConcept.type) {
     case ThreeBabylonConceptCommand::Type::TogglePostProcessing:
-        // Post processing switch here
+        postEffectEnabled = !postEffectEnabled;
+        scene.enbalePostEffect(postEffectEnabled ? 0 : -1);
+        setDirty();
         break;
     default: break;
     }

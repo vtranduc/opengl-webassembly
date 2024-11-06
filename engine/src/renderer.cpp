@@ -32,6 +32,52 @@ Renderer::PostEffectBufferData Renderer::processPostEffect(PostEffect& postEffec
     PostEffectBufferData data;
     auto postEffectData = postEffect.getRenderData();
     data.program = getShaderProgram(postEffectData.shader.vertex, postEffectData.shader.fragment);
+
+    float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+        // positions   // texCoords
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        -1.0f, -1.0f,  0.0f, 0.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+
+        -1.0f,  1.0f,  0.0f, 1.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+         1.0f,  1.0f,  1.0f, 1.0f
+    };
+
+    glGenVertexArrays(1, &data.quadVAO);
+    glGenBuffers(1, &data.quadVBO);
+    glBindVertexArray(data.quadVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, data.quadVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
+    glGenFramebuffers(1, &data.frame);
+    glBindFramebuffer(GL_FRAMEBUFFER, data.frame);    
+
+    glGenTextures(1, &data.textureColor);
+    glBindTexture(GL_TEXTURE_2D, data.textureColor);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, windowSize.width, windowSize.height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // attach it to currently bound framebuffer object
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, data.textureColor, 0); 
+
+    // Render buffer object
+    unsigned int rbo;
+    glGenRenderbuffers(1, &rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, rbo); 
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, windowSize.width, windowSize.height);  
+
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) throw "Frame buffer failed\n";
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
     return data;
 };
 
@@ -74,6 +120,43 @@ void Renderer::renderMesh(const MeshBufferData& data) {
 };
 
 void Renderer::clear() { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); }
+
+
+
+
+
+void Renderer::preprocessPostEffect(const PostEffectBufferData& data) {
+    glBindFramebuffer(GL_FRAMEBUFFER, data.frame);
+}
+
+void Renderer::processPostEffect(const PostEffectBufferData& data) {
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glDisable(GL_DEPTH_TEST);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glUseProgram(data.program);
+    glBindVertexArray(data.quadVAO);
+    glBindTexture(GL_TEXTURE_2D, data.textureColor);	// use the color attachment texture as the texture of the quad plane
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glEnable(GL_DEPTH_TEST);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Renderer::processBuffer(GLuint* buffer, GLsizeiptr size, const GLfloat* data) {
     glGenBuffers(1, buffer);

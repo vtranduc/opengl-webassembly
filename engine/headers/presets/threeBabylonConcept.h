@@ -33,4 +33,6 @@ public:
 private:
 
     Scene scene;
+
+    bool postEffectEnabled = false;
 };

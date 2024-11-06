@@ -32,11 +32,15 @@ public:
 
     Camera& getCamera();
 
+    void enbalePostEffect(int index = 0);
+
 private:
 
     Camera camera;
 
     Renderer* renderer = nullptr;
+
+    int postEffectIndex = -1;
 
     vector<Renderer::MeshBufferData> meshBuffers;
 

@@ -40,7 +40,7 @@ public:
     };
 
     struct PostEffectBufferData {
-        GLuint program;
+        GLuint program, frame, quadVAO, quadVBO, textureColor;
     };
 
     MeshBufferData processMesh(Mesh& mesh);
@@ -53,11 +53,21 @@ public:
 
     void renderMesh(const MeshBufferData& data);
 
+    void preprocessPostEffect(const PostEffectBufferData& data);
+
+    void processPostEffect(const PostEffectBufferData& data);
+
     void clear();
 
 private:
 
     Camera* camera = nullptr;
+
+    struct {
+        int width = 800;
+        
+        int height = 800;
+    }windowSize;
 
     void processBuffer(GLuint* VBO, GLsizeiptr size, const GLfloat* data);
 
