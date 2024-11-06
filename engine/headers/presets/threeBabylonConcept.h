@@ -34,5 +34,5 @@ private:
 
     Scene scene;
 
-    bool postEffectEnabled = false;
+    int postEffectIndex = -1;
 };

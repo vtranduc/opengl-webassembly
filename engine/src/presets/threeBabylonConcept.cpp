@@ -18,6 +18,9 @@ void ThreeBabylonConcept::init() {
 
     PostEffect* invertPostEffect = new Invert();
     scene.add(*invertPostEffect);
+
+    PostEffect* monochromePostEffect = new Monochrome();
+    scene.add(*monochromePostEffect);
 };
 
 void ThreeBabylonConcept::set() { setDirty(); };
@@ -27,8 +30,8 @@ void ThreeBabylonConcept::cleanUp() {};
 void ThreeBabylonConcept::command(const CommandData& data) {
     switch (data.threeBabylonConcept.type) {
     case ThreeBabylonConceptCommand::Type::TogglePostProcessing:
-        postEffectEnabled = !postEffectEnabled;
-        scene.enbalePostEffect(postEffectEnabled ? 0 : -1);
+        if (++postEffectIndex >= 2) postEffectIndex = -1;
+        scene.enbalePostEffect(postEffectIndex);
         setDirty();
         break;
     default: break;
