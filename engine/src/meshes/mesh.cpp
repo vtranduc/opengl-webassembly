@@ -13,6 +13,9 @@ Mesh::Mesh(Geometries geometryType, Materials materialType) {
     case Materials::Mono:
         material = new MonoMaterial();
         break;
+    case Materials::SphereMirror:
+        material = new SphereMirror();
+        break;
     default:
         break;
     }

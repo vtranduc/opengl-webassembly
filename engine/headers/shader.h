@@ -14,7 +14,8 @@ class Shader {
         SpheresAndLights = 3,
         Extrude = 4,
         VaryingWorldPosition = 5,
-        BasicPP = 6
+        BasicPP = 6,
+        SphereMirror = 7
     };
 
     enum class Fragment : uint32_t {
@@ -24,16 +25,17 @@ class Shader {
         Grid = 3,
         BasicPP = 4,
         InvertPP = 5,
-        MonochromePP = 6
+        MonochromePP = 6,
+        SphereMirror = 7
     };
 
-    static const int nVertex = 7;
+    static const int nVertex = 8;
 
-    static const int nFragment = 7;
+    static const int nFragment = 8;
 
-    static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights, Vertex::Extrude, Vertex::VaryingWorldPosition, Vertex::BasicPP };
+    static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights, Vertex::Extrude, Vertex::VaryingWorldPosition, Vertex::BasicPP, Vertex::SphereMirror };
 
-    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights, Fragment::Grid, Fragment::BasicPP, Fragment::InvertPP, Fragment::MonochromePP };
+    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights, Fragment::Grid, Fragment::BasicPP, Fragment::InvertPP, Fragment::MonochromePP, Fragment::SphereMirror };
 
     static string getFileName(Vertex shader) {
         switch (shader) {
@@ -44,6 +46,7 @@ class Shader {
             case Shader::Vertex::Extrude: return "extrude.glsl";
             case Shader::Vertex::VaryingWorldPosition: return "varyingWorldPosition.glsl";
             case Shader::Vertex::BasicPP: return "basic.pp.glsl";
+            case Shader::Vertex::SphereMirror: return "sphereMirror.glsl";
             default: throw "Vertex shader's filename does not exist";
         }
     }
@@ -57,6 +60,7 @@ class Shader {
             case Shader::Fragment::BasicPP: return "basic.pp.glsl";
             case Shader::Fragment::InvertPP: return "invert.pp.glsl";
             case Shader::Fragment::MonochromePP: return "monochrome.pp.glsl";
+            case Shader::Fragment::SphereMirror: return "sphereMirror.glsl";
             default: throw "Fragment shader's filename does not exist";
         }
     }
