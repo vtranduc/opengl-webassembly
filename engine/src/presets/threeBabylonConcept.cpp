@@ -21,6 +21,9 @@ void ThreeBabylonConcept::init() {
 
     PostEffect* monochromePostEffect = new Monochrome();
     scene.add(*monochromePostEffect);
+
+    PostEffect* blurPostEffect = new Blur();
+    scene.add(*blurPostEffect);
 };
 
 void ThreeBabylonConcept::set() { setDirty(); };
@@ -30,7 +33,7 @@ void ThreeBabylonConcept::cleanUp() {};
 void ThreeBabylonConcept::command(const CommandData& data) {
     switch (data.threeBabylonConcept.type) {
     case ThreeBabylonConceptCommand::Type::TogglePostProcessing:
-        if (++postEffectIndex >= 2) postEffectIndex = -1;
+        if (++postEffectIndex > 2) postEffectIndex = -1;
         scene.enbalePostEffect(postEffectIndex);
         setDirty();
         break;

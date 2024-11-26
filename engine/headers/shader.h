@@ -26,16 +26,17 @@ class Shader {
         BasicPP = 4,
         InvertPP = 5,
         MonochromePP = 6,
-        SphereMirror = 7
+        SphereMirror = 7,
+        BlurPP = 8
     };
 
     static const int nVertex = 8;
 
-    static const int nFragment = 8;
+    static const int nFragment = 9;
 
     static constexpr Vertex vertexList[nVertex] = { Vertex::Basic, Vertex::Standard, Vertex::VertexColor, Vertex::SpheresAndLights, Vertex::Extrude, Vertex::VaryingWorldPosition, Vertex::BasicPP, Vertex::SphereMirror };
 
-    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights, Fragment::Grid, Fragment::BasicPP, Fragment::InvertPP, Fragment::MonochromePP, Fragment::SphereMirror };
+    static constexpr Fragment fragmentList[nFragment] = { Fragment::Mono, Fragment::VertexColor, Fragment::SpheresAndLights, Fragment::Grid, Fragment::BasicPP, Fragment::InvertPP, Fragment::MonochromePP, Fragment::SphereMirror, Fragment::BlurPP };
 
     static string getFileName(Vertex shader) {
         switch (shader) {
@@ -61,6 +62,7 @@ class Shader {
             case Shader::Fragment::InvertPP: return "invert.pp.glsl";
             case Shader::Fragment::MonochromePP: return "monochrome.pp.glsl";
             case Shader::Fragment::SphereMirror: return "sphereMirror.glsl";
+            case Shader::Fragment::BlurPP: return "blur.pp.glsl";
             default: throw "Fragment shader's filename does not exist";
         }
     }

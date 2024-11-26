@@ -3,3 +3,4 @@
 #include "postEffects/postEffect.h"
 #include "postEffects/invert.h"
 #include "postEffects/monochrome.h"
+#include "postEffects/blur.h"
