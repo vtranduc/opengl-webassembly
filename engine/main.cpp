@@ -1,9 +1,12 @@
 #include <iostream>
 #include <emscripten.h>
+#include "headers/externalLibs.h"
 #include "headers/webglHandle.h"
 #include "headers/preset.h"
 #include "headers/presets/uniform.h"
 #include "headers/utils/callback.h"
+
+// Test run command: g++ gltfLoader.cpp -o out; ./out; rm out
 
 using namespace std;
 
