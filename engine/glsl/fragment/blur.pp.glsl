@@ -10,13 +10,16 @@ in vec2 vUv;
 const int nRings = 16;
 const int nPointsPerRing = 4;
 const float effectDistance = 0.05;
+const float outermostWeight = 0.2;
 
 const float distanceInterval = effectDistance / float(nRings - 1);
 const float angleInterval = 6.28318530718 / float(nPointsPerRing);
 const float angleShiftInterval = angleInterval / float(nRings - 1);
+const float weightSlope = (outermostWeight - 1.0) / effectDistance;
 
 void main() {
     vec3 acc = texture(screenTexture, vUv).xyz;
+    float accWeight = 1.0;
     for (int i = 1; i < nRings; i++) {
         float r = float(i) * distanceInterval;
         vec3 ringAcc = vec3(0.0);
@@ -29,7 +32,9 @@ void main() {
             nValidSamplingPoints++;
             ringAcc += texture(screenTexture, uv).xyz;
         }
-        acc += ringAcc / float(nValidSamplingPoints);
+        float weight = weightSlope * r + 1.0;
+        accWeight += weight;
+        acc += weight * ringAcc / float(nValidSamplingPoints);
     }
-    fragColor = vec4(acc / float(nRings), 1.0);
+    fragColor = vec4(acc / accWeight, 1.0);
 }
