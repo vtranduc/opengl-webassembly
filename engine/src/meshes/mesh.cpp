@@ -16,6 +16,9 @@ Mesh::Mesh(Geometries geometryType, Materials materialType) {
     case Materials::SphereMirror:
         material = new SphereMirror();
         break;
+    case Materials::Cel:
+        material = new Cel();
+        break;
     default:
         break;
     }

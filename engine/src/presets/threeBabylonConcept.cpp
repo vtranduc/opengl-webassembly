@@ -1,7 +1,7 @@
 #include "../../headers/presets/threeBabylonConcept.h"
 
 void ThreeBabylonConcept::init() {
-    Mesh* sphere = new Mesh(Geometries::Sphere,  Materials::SphereMirror);
+    Mesh* sphere = new Mesh(Geometries::Sphere,  Materials::Cel);
     scene.add(*sphere);
     float position[3] = { -1.0f, 1.0f, 1.0f };
     float target[3] = { 0.0f, 0.0f, 0.0f };
